@@ -12,7 +12,7 @@ The user should be able to accomplish the following:
  
 The app should implement some kind of rudimentary SRS algorithm to optimize study sessions for time and recall.
 
-## Possible Additional Functionality
+## Possible Features
  - "Quick Add" feature for rapidly adding new cards to any deck
  - Embedded images in flash cards
  - Embedded audio files in flash cards
