@@ -127,7 +127,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="cD8-gt-6Qt" kind="relationship" relationship="rootViewController" id="b9H-Lx-joy"/>
+                        <segue destination="cD8-gt-6Qt" kind="relationship" relationship="rootViewController" destinationCreationSelector="createStudyDeckListViewControllerWithCoder:" id="b9H-Lx-joy"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SB6-52-MnC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -146,7 +146,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="yop-Sx-QsT" kind="relationship" relationship="rootViewController" id="Pbw-Jo-xzq"/>
+                        <segue destination="yop-Sx-QsT" kind="relationship" relationship="rootViewController" destinationCreationSelector="createContentPackListViewControllerWithCoder:" id="Pbw-Jo-xzq"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZeE-SG-zU2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

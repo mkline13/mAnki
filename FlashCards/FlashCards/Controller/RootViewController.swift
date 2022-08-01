@@ -8,12 +8,22 @@
 import UIKit
 
 class RootViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    // MARK: Dependencies
+    private let flashCardService: FlashCardService
+    
+    // MARK: IBSegueActions
+    @IBSegueAction func createStudyDeckListViewController (coder: NSCoder) -> StudyDeckListViewController? {
+        return StudyDeckListViewController(coder: coder, flashCardService: self.flashCardService)
     }
-
-
+    
+    @IBSegueAction func createContentPackListViewController (coder: NSCoder) -> ContentPackListViewController? {
+        ContentPackListViewController(coder: coder, flashCardService: self.flashCardService)
+    }
+    
+    // MARK: Initializers
+    required init? (coder: NSCoder) {
+        // Inject Dependencies
+        flashCardService = CoreDataFlashCardService()
+        super.init(coder: coder)
+    }
 }
-

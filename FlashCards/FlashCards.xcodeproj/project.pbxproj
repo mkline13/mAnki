@@ -19,6 +19,8 @@
 		9631CE732898811700F5DAA2 /* FlashCardsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE722898811700F5DAA2 /* FlashCardsUITestsLaunchTests.swift */; };
 		9631CE83289883D900F5DAA2 /* StudyDeckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE82289883D900F5DAA2 /* StudyDeckListViewController.swift */; };
 		9631CE852898841900F5DAA2 /* ContentPackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE842898841900F5DAA2 /* ContentPackListViewController.swift */; };
+		9631CE8828988FA500F5DAA2 /* FlashCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE8728988FA500F5DAA2 /* FlashCardService.swift */; };
+		9631CE8A2898900400F5DAA2 /* CoreDataFlashCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE892898900400F5DAA2 /* CoreDataFlashCardService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		9631CE722898811700F5DAA2 /* FlashCardsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9631CE82289883D900F5DAA2 /* StudyDeckListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyDeckListViewController.swift; sourceTree = "<group>"; };
 		9631CE842898841900F5DAA2 /* ContentPackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackListViewController.swift; sourceTree = "<group>"; };
+		9631CE8728988FA500F5DAA2 /* FlashCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardService.swift; sourceTree = "<group>"; };
+		9631CE892898900400F5DAA2 /* CoreDataFlashCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFlashCardService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 		9631CE4B2898811500F5DAA2 /* FlashCards */ = {
 			isa = PBXGroup;
 			children = (
+				9631CE8628988F9600F5DAA2 /* Service */,
 				9631CE802898812D00F5DAA2 /* Controller */,
 				9631CE812898813700F5DAA2 /* Resources */,
 				9631CE5D2898811700F5DAA2 /* Info.plist */,
@@ -150,6 +155,15 @@
 				9631CE5A2898811700F5DAA2 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		9631CE8628988F9600F5DAA2 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				9631CE8728988FA500F5DAA2 /* FlashCardService.swift */,
+				9631CE892898900400F5DAA2 /* CoreDataFlashCardService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +302,9 @@
 				9631CE4D2898811500F5DAA2 /* AppDelegate.swift in Sources */,
 				9631CE572898811500F5DAA2 /* FlashCards.xcdatamodeld in Sources */,
 				9631CE83289883D900F5DAA2 /* StudyDeckListViewController.swift in Sources */,
+				9631CE8A2898900400F5DAA2 /* CoreDataFlashCardService.swift in Sources */,
 				9631CE4F2898811500F5DAA2 /* SceneDelegate.swift in Sources */,
+				9631CE8828988FA500F5DAA2 /* FlashCardService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
