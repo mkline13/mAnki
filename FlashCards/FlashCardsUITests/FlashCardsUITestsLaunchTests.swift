@@ -1,13 +1,13 @@
 //
-//  CS399_FinalProjectUITestsLaunchTests.swift
-//  CS399_FinalProjectUITests
+//  FlashCardsUITestsLaunchTests.swift
+//  FlashCardsUITests
 //
-//  Created by Work on 7/27/22.
+//  Created by Work on 8/1/22.
 //
 
 import XCTest
 
-class CS399_FinalProjectUITestsLaunchTests: XCTestCase {
+class FlashCardsUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

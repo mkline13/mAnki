@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  CS399_FinalProject
+//  FlashCards
 //
-//  Created by Work on 7/27/22.
+//  Created by Work on 8/1/22.
 //
 
 import UIKit

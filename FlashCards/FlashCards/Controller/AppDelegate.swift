@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  CS399_FinalProject
+//  FlashCards
 //
-//  Created by Work on 7/27/22.
+//  Created by Work on 8/1/22.
 //
 
 import UIKit
@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "CS399_FinalProject")
+        let container = NSPersistentContainer(name: "FlashCards")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

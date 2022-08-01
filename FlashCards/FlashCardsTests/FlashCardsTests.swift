@@ -1,14 +1,14 @@
 //
-//  CS399_FinalProjectTests.swift
-//  CS399_FinalProjectTests
+//  FlashCardsTests.swift
+//  FlashCardsTests
 //
-//  Created by Work on 7/27/22.
+//  Created by Work on 8/1/22.
 //
 
 import XCTest
-@testable import CS399_FinalProject
+@testable import FlashCards
 
-class CS399_FinalProjectTests: XCTestCase {
+class FlashCardsTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

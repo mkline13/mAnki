@@ -1,13 +1,13 @@
 //
-//  CS399_FinalProjectUITests.swift
-//  CS399_FinalProjectUITests
+//  FlashCardsUITests.swift
+//  FlashCardsUITests
 //
-//  Created by Work on 7/27/22.
+//  Created by Work on 8/1/22.
 //
 
 import XCTest
 
-class CS399_FinalProjectUITests: XCTestCase {
+class FlashCardsUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
