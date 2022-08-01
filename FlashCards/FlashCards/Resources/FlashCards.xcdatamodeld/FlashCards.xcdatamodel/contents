@@ -1,4 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Card" representedClassName="Card" syncable="YES">
+        <attribute name="backContent" optional="YES" attributeType="String"/>
+        <attribute name="frontContent" optional="YES" attributeType="String"/>
+        <relationship name="contentPack" maxCount="1" deletionRule="Nullify" destinationEntity="ContentPack" inverseName="cards" inverseEntity="ContentPack"/>
+        <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Deck" inverseName="cards" inverseEntity="Deck"/>
+        <relationship name="studyRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StudyRecord" inverseName="card" inverseEntity="StudyRecord"/>
+    </entity>
+    <entity name="ContentPack" representedClassName="ContentPack" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="packDescription" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="associatedDecks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Deck" inverseName="associatedContentPacks" inverseEntity="Deck"/>
+        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="contentPack" inverseEntity="Card"/>
+    </entity>
+    <entity name="Deck" representedClassName="Deck" syncable="YES">
+        <attribute name="deckDescription" optional="YES" attributeType="String"/>
+        <attribute name="newCardsPerDay" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reviewCardsLimit" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="associatedContentPacks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ContentPack" inverseName="associatedDecks" inverseEntity="ContentPack"/>
+        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="deck" inverseEntity="Card"/>
+    </entity>
+    <entity name="StudyRecord" representedClassName="StudyRecord" syncable="YES">
+        <attribute name="nextInterval" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="previousInterval" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="studyStatus" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="card" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="studyRecords" inverseEntity="Card"/>
+    </entity>
+    <elements>
+        <element name="ContentPack" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="Card" positionX="-54" positionY="-9" width="128" height="104"/>
+        <element name="Deck" positionX="-36" positionY="9" width="128" height="119"/>
+        <element name="StudyRecord" positionX="0" positionY="45" width="128" height="104"/>
+    </elements>
 </model>

@@ -21,6 +21,14 @@
 		9631CE852898841900F5DAA2 /* ContentPackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE842898841900F5DAA2 /* ContentPackListViewController.swift */; };
 		9631CE8828988FA500F5DAA2 /* FlashCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE8728988FA500F5DAA2 /* FlashCardService.swift */; };
 		9631CE8A2898900400F5DAA2 /* CoreDataFlashCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE892898900400F5DAA2 /* CoreDataFlashCardService.swift */; };
+		9631CE9428989A7B00F5DAA2 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE8C28989A7B00F5DAA2 /* Card.swift */; };
+		9631CE9528989A7B00F5DAA2 /* Card+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE8D28989A7B00F5DAA2 /* Card+CoreDataProperties.swift */; };
+		9631CE9628989A7B00F5DAA2 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE8E28989A7B00F5DAA2 /* Deck.swift */; };
+		9631CE9728989A7B00F5DAA2 /* Deck+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE8F28989A7B00F5DAA2 /* Deck+CoreDataProperties.swift */; };
+		9631CE9828989A7B00F5DAA2 /* ContentPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE9028989A7B00F5DAA2 /* ContentPack.swift */; };
+		9631CE9928989A7B00F5DAA2 /* ContentPack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE9128989A7B00F5DAA2 /* ContentPack+CoreDataProperties.swift */; };
+		9631CE9E28989DC700F5DAA2 /* StudyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE9C28989DC700F5DAA2 /* StudyRecord.swift */; };
+		9631CE9F28989DC700F5DAA2 /* StudyRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CE9D28989DC700F5DAA2 /* StudyRecord+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +67,14 @@
 		9631CE842898841900F5DAA2 /* ContentPackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackListViewController.swift; sourceTree = "<group>"; };
 		9631CE8728988FA500F5DAA2 /* FlashCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardService.swift; sourceTree = "<group>"; };
 		9631CE892898900400F5DAA2 /* CoreDataFlashCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFlashCardService.swift; sourceTree = "<group>"; };
+		9631CE8C28989A7B00F5DAA2 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		9631CE8D28989A7B00F5DAA2 /* Card+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9631CE8E28989A7B00F5DAA2 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		9631CE8F28989A7B00F5DAA2 /* Deck+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Deck+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9631CE9028989A7B00F5DAA2 /* ContentPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPack.swift; sourceTree = "<group>"; };
+		9631CE9128989A7B00F5DAA2 /* ContentPack+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentPack+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9631CE9C28989DC700F5DAA2 /* StudyRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StudyRecord.swift; path = ../../StudyRecord.swift; sourceTree = "<group>"; };
+		9631CE9D28989DC700F5DAA2 /* StudyRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StudyRecord+CoreDataProperties.swift"; path = "../../StudyRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +125,7 @@
 		9631CE4B2898811500F5DAA2 /* FlashCards */ = {
 			isa = PBXGroup;
 			children = (
+				9631CE8B28989A5E00F5DAA2 /* Model */,
 				9631CE8628988F9600F5DAA2 /* Service */,
 				9631CE802898812D00F5DAA2 /* Controller */,
 				9631CE812898813700F5DAA2 /* Resources */,
@@ -164,6 +181,21 @@
 				9631CE892898900400F5DAA2 /* CoreDataFlashCardService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		9631CE8B28989A5E00F5DAA2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9631CE8C28989A7B00F5DAA2 /* Card.swift */,
+				9631CE8D28989A7B00F5DAA2 /* Card+CoreDataProperties.swift */,
+				9631CE8E28989A7B00F5DAA2 /* Deck.swift */,
+				9631CE8F28989A7B00F5DAA2 /* Deck+CoreDataProperties.swift */,
+				9631CE9028989A7B00F5DAA2 /* ContentPack.swift */,
+				9631CE9128989A7B00F5DAA2 /* ContentPack+CoreDataProperties.swift */,
+				9631CE9C28989DC700F5DAA2 /* StudyRecord.swift */,
+				9631CE9D28989DC700F5DAA2 /* StudyRecord+CoreDataProperties.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,13 +329,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9631CE9428989A7B00F5DAA2 /* Card.swift in Sources */,
+				9631CE9528989A7B00F5DAA2 /* Card+CoreDataProperties.swift in Sources */,
+				9631CE9628989A7B00F5DAA2 /* Deck.swift in Sources */,
 				9631CE512898811500F5DAA2 /* RootViewController.swift in Sources */,
+				9631CE9828989A7B00F5DAA2 /* ContentPack.swift in Sources */,
+				9631CE9E28989DC700F5DAA2 /* StudyRecord.swift in Sources */,
 				9631CE852898841900F5DAA2 /* ContentPackListViewController.swift in Sources */,
 				9631CE4D2898811500F5DAA2 /* AppDelegate.swift in Sources */,
 				9631CE572898811500F5DAA2 /* FlashCards.xcdatamodeld in Sources */,
 				9631CE83289883D900F5DAA2 /* StudyDeckListViewController.swift in Sources */,
 				9631CE8A2898900400F5DAA2 /* CoreDataFlashCardService.swift in Sources */,
 				9631CE4F2898811500F5DAA2 /* SceneDelegate.swift in Sources */,
+				9631CE9F28989DC700F5DAA2 /* StudyRecord+CoreDataProperties.swift in Sources */,
+				9631CE9728989A7B00F5DAA2 /* Deck+CoreDataProperties.swift in Sources */,
+				9631CE9928989A7B00F5DAA2 /* ContentPack+CoreDataProperties.swift in Sources */,
 				9631CE8828988FA500F5DAA2 /* FlashCardService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
