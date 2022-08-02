@@ -34,6 +34,11 @@
 		9631CEA92898AE7100F5DAA2 /* ModelConvenienceInitializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEA82898AE7100F5DAA2 /* ModelConvenienceInitializerTests.swift */; };
 		9631CEAC2898B27500F5DAA2 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEAB2898B27500F5DAA2 /* DependencyContainer.swift */; };
 		9631CEAE2898B87900F5DAA2 /* CoreDataFlashCardServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEAD2898B87900F5DAA2 /* CoreDataFlashCardServiceTests.swift */; };
+		9631CEB02898CDB900F5DAA2 /* NewContentPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEAF2898CDB900F5DAA2 /* NewContentPackViewController.swift */; };
+		9631CEB32898CF7700F5DAA2 /* TextEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEB22898CF7700F5DAA2 /* TextEntryCell.swift */; };
+		9631CEB62898E38600F5DAA2 /* TextEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9631CEB52898E38600F5DAA2 /* TextEntryCell.xib */; };
+		9631CEB82898E9E000F5DAA2 /* MultilineTextEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9631CEB72898E9E000F5DAA2 /* MultilineTextEntryCell.xib */; };
+		9631CEBA2898EAFB00F5DAA2 /* MultilineTextEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEB92898EAFB00F5DAA2 /* MultilineTextEntryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +90,11 @@
 		9631CEA82898AE7100F5DAA2 /* ModelConvenienceInitializerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelConvenienceInitializerTests.swift; sourceTree = "<group>"; };
 		9631CEAB2898B27500F5DAA2 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		9631CEAD2898B87900F5DAA2 /* CoreDataFlashCardServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFlashCardServiceTests.swift; sourceTree = "<group>"; };
+		9631CEAF2898CDB900F5DAA2 /* NewContentPackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentPackViewController.swift; sourceTree = "<group>"; };
+		9631CEB22898CF7700F5DAA2 /* TextEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntryCell.swift; sourceTree = "<group>"; };
+		9631CEB52898E38600F5DAA2 /* TextEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextEntryCell.xib; sourceTree = "<group>"; };
+		9631CEB72898E9E000F5DAA2 /* MultilineTextEntryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultilineTextEntryCell.xib; sourceTree = "<group>"; };
+		9631CEB92898EAFB00F5DAA2 /* MultilineTextEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultilineTextEntryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +145,8 @@
 		9631CE4B2898811500F5DAA2 /* FlashCards */ = {
 			isa = PBXGroup;
 			children = (
+				9631CEB42898E33300F5DAA2 /* Interface */,
+				9631CEB12898CF6400F5DAA2 /* View */,
 				9631CEAA2898B25D00F5DAA2 /* DependencyInjection */,
 				9631CE8B28989A5E00F5DAA2 /* Model */,
 				9631CE8628988F9600F5DAA2 /* Service */,
@@ -171,6 +183,7 @@
 				9631CE502898811500F5DAA2 /* RootViewController.swift */,
 				9631CE82289883D900F5DAA2 /* StudyDeckListViewController.swift */,
 				9631CE842898841900F5DAA2 /* ContentPackListViewController.swift */,
+				9631CEAF2898CDB900F5DAA2 /* NewContentPackViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -179,9 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				9631CE552898811500F5DAA2 /* FlashCards.xcdatamodeld */,
-				9631CE522898811500F5DAA2 /* Main.storyboard */,
 				9631CE582898811700F5DAA2 /* Assets.xcassets */,
-				9631CE5A2898811700F5DAA2 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -235,6 +246,26 @@
 				9631CEAB2898B27500F5DAA2 /* DependencyContainer.swift */,
 			);
 			path = DependencyInjection;
+			sourceTree = "<group>";
+		};
+		9631CEB12898CF6400F5DAA2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9631CEB22898CF7700F5DAA2 /* TextEntryCell.swift */,
+				9631CEB92898EAFB00F5DAA2 /* MultilineTextEntryCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9631CEB42898E33300F5DAA2 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				9631CE5A2898811700F5DAA2 /* LaunchScreen.storyboard */,
+				9631CE522898811500F5DAA2 /* Main.storyboard */,
+				9631CEB52898E38600F5DAA2 /* TextEntryCell.xib */,
+				9631CEB72898E9E000F5DAA2 /* MultilineTextEntryCell.xib */,
+			);
+			path = Interface;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,8 +372,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9631CEB62898E38600F5DAA2 /* TextEntryCell.xib in Resources */,
 				9631CE5C2898811700F5DAA2 /* LaunchScreen.storyboard in Resources */,
 				9631CE592898811700F5DAA2 /* Assets.xcassets in Resources */,
+				9631CEB82898E9E000F5DAA2 /* MultilineTextEntryCell.xib in Resources */,
 				9631CE542898811500F5DAA2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,14 +402,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9631CE9428989A7B00F5DAA2 /* Card.swift in Sources */,
+				9631CEB32898CF7700F5DAA2 /* TextEntryCell.swift in Sources */,
 				9631CE9528989A7B00F5DAA2 /* Card+CoreDataProperties.swift in Sources */,
 				9631CE9628989A7B00F5DAA2 /* Deck.swift in Sources */,
 				9631CEA12898A6B800F5DAA2 /* StudyStatus.swift in Sources */,
+				9631CEBA2898EAFB00F5DAA2 /* MultilineTextEntryCell.swift in Sources */,
 				9631CE512898811500F5DAA2 /* RootViewController.swift in Sources */,
 				9631CE9828989A7B00F5DAA2 /* ContentPack.swift in Sources */,
 				9631CE9E28989DC700F5DAA2 /* StudyRecord.swift in Sources */,
 				9631CE852898841900F5DAA2 /* ContentPackListViewController.swift in Sources */,
 				9631CE4D2898811500F5DAA2 /* AppDelegate.swift in Sources */,
+				9631CEB02898CDB900F5DAA2 /* NewContentPackViewController.swift in Sources */,
 				9631CE572898811500F5DAA2 /* FlashCards.xcdatamodeld in Sources */,
 				9631CE83289883D900F5DAA2 /* StudyDeckListViewController.swift in Sources */,
 				9631CE8A2898900400F5DAA2 /* CoreDataFlashCardService.swift in Sources */,

@@ -19,7 +19,7 @@ extension Card {
     @NSManaged public var frontContent: String
     @NSManaged public var backContent: String
     @NSManaged public var contentPack: ContentPack
-    @NSManaged public var deck: Deck
+    @NSManaged public var deck: Deck?
     @NSManaged public var studyRecords: NSSet
 
 }

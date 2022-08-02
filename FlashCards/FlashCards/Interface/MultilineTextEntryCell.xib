@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="MultilineTextEntryCell" customModule="FlashCards" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="325" height="95"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" text="MultilineTextEntryCell" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgb-uf-7uI">
+                    <rect key="frame" x="16" y="0.0" width="293" height="95"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="95" id="YVQ-5k-pu7"/>
+                    </constraints>
+                    <color key="textColor" systemColor="placeholderTextColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <connections>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="5tp-Ux-ijI"/>
+                    </connections>
+                </textView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="trailingMargin" secondItem="zgb-uf-7uI" secondAttribute="trailing" id="7bd-bh-eaV"/>
+                <constraint firstItem="zgb-uf-7uI" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="8hA-qu-yxN"/>
+                <constraint firstAttribute="bottomMargin" secondItem="zgb-uf-7uI" secondAttribute="bottom" id="l6z-FJ-NMu"/>
+                <constraint firstItem="zgb-uf-7uI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="wGS-Gw-Hc0"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="inputField" destination="zgb-uf-7uI" id="YII-aw-phd"/>
+            </connections>
+            <point key="canvasLocation" x="-12.318840579710146" y="-81.361607142857139"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

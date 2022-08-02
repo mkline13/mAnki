@@ -118,8 +118,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Content Packs" id="QOF-v5-CIX">
-                        <barButtonItem key="rightBarButtonItem" title="Create Pack" image="plus" catalog="system" id="psj-Yv-ow9"/>
+                        <barButtonItem key="rightBarButtonItem" title="Create Pack" image="plus" catalog="system" id="psj-Yv-ow9">
+                            <connections>
+                                <segue destination="kkz-QC-Zsi" kind="show" id="13B-t6-Juh"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="KWY-34-Cpb" id="2WL-84-d6d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="981-WM-YhO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -162,6 +169,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZeE-SG-zU2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1939.1304347826087" y="608.70535714285711"/>
+        </scene>
+        <!--New Pack-->
+        <scene sceneID="SYb-MT-bSJ">
+            <objects>
+                <viewController id="kkz-QC-Zsi" customClass="NewContentPackViewController" customModule="FlashCards" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gdd-ol-CRK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="s7f-Gb-c0x">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="kkz-QC-Zsi" id="1Oo-Wu-nib"/>
+                                    <outlet property="delegate" destination="kkz-QC-Zsi" id="WJX-sF-Wr1"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZDm-zC-077"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="s7f-Gb-c0x" secondAttribute="trailing" id="G2F-QF-Ag8"/>
+                            <constraint firstAttribute="bottom" secondItem="s7f-Gb-c0x" secondAttribute="bottom" id="Iag-o8-ar5"/>
+                            <constraint firstItem="s7f-Gb-c0x" firstAttribute="top" secondItem="ZDm-zC-077" secondAttribute="top" id="WzY-0L-7L7"/>
+                            <constraint firstItem="s7f-Gb-c0x" firstAttribute="leading" secondItem="gdd-ol-CRK" secondAttribute="leading" id="kQD-L4-b9r"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Pack" id="jAS-4L-Iy5">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="uLh-3m-svD"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="xx8-Vg-VMH"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="s7f-Gb-c0x" id="dQN-mR-aVZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n09-Cm-jxo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3703" y="609"/>
         </scene>
     </scenes>
     <resources>

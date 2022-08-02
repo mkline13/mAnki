@@ -16,7 +16,7 @@ class ModelConvenienceInitializerTests: XCTestCase {
         let container = PersistentContainerHelper.shared.createPersistentContainer()
         let date = Date.now
         
-        // MARK: run tests
+        // MARK: run code to be tested
         let contentPack = ContentPack(title: "testPackTitle", packDescription: "testPackDescription", author: "testAuthor", context: container.viewContext)
         let deck = Deck(title: "testDeckTitle", deckDescription: "testDeckDescription", newCardsPerDay: 10, reviewCardsLimit: 12, context: container.viewContext)
         let card = Card(frontContent: "front", backContent: "back", contentPack: contentPack, deck: deck, context: container.viewContext)
@@ -39,7 +39,8 @@ class ModelConvenienceInitializerTests: XCTestCase {
         XCTAssertEqual(card.frontContent, "front", "Unexpected frontContent")
         XCTAssertEqual(card.backContent, "back", "Unexpected backContent")
         XCTAssertEqual(card.contentPack.objectID, contentPack.objectID, "Unexpected contentPack")
-        XCTAssertEqual(card.deck.objectID, deck.objectID, "Unexpected deck")
+        
+        XCTAssertEqual(card.deck?.objectID, deck.objectID, "Unexpected deck")
         XCTAssert(card.managedObjectContext == container.viewContext, "Unexpected managedObjectContext")
         
         // MARK: test StudyRecord convenience init
