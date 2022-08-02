@@ -12,10 +12,11 @@ import CoreData
 
 class ModelConvenienceInitializerTests: XCTestCase {
     func testConvenienceInitializers() throws {
+        // MARK: set up dependencies
         let container = PersistentContainerHelper.shared.createPersistentContainer()
-        
         let date = Date.now
         
+        // MARK: run tests
         let contentPack = ContentPack(title: "testPackTitle", packDescription: "testPackDescription", author: "testAuthor", context: container.viewContext)
         let deck = Deck(title: "testDeckTitle", deckDescription: "testDeckDescription", newCardsPerDay: 10, reviewCardsLimit: 12, context: container.viewContext)
         let card = Card(frontContent: "front", backContent: "back", contentPack: contentPack, deck: deck, context: container.viewContext)
