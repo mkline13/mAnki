@@ -11,7 +11,7 @@ import CoreData
 
 @objc(ContentPack)
 public class ContentPack: NSManagedObject {
-    convenience init(title: String, description: String, author: String, context: NSManagedObjectContext) {
+    convenience init(title: String, packDescription description: String, author: String, context: NSManagedObjectContext) {
         self.init(context: context)
         
         self.title = title

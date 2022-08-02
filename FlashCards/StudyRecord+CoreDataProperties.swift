@@ -16,11 +16,11 @@ extension StudyRecord {
         return NSFetchRequest<StudyRecord>(entityName: "StudyRecord")
     }
 
-    @NSManaged public var timestamp: Date?
-    @NSManaged public var studyStatus: Int64
+    @NSManaged public var timestamp: Date
+    @NSManaged public var studyStatus: String
     @NSManaged public var previousInterval: Int64
     @NSManaged public var nextInterval: Int64
-    @NSManaged public var card: Card?
+    @NSManaged public var card: Card
 
 }
 

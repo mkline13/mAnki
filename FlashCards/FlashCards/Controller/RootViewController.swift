@@ -23,7 +23,7 @@ class RootViewController: UIViewController {
     // MARK: Initializers
     required init? (coder: NSCoder) {
         // Inject Dependencies
-        flashCardService = CoreDataFlashCardService()
+        flashCardService = DependencyContainer.shared.flashCardService
         super.init(coder: coder)
     }
 }
