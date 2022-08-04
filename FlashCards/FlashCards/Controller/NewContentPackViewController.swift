@@ -9,6 +9,20 @@ import UIKit
 
 
 class NewContentPackViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FormFieldCellDelegate {
+    // MARK: Dependencies
+    private let flashCardService: FlashCardService
+    
+    // MARK: Initializers
+    required init? (coder: NSCoder, flashCardService cardService: FlashCardService) {
+        // Inject Dependencies
+        flashCardService = cardService
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: Properties
     private var canSave: Bool {
         return formValues[.title] != ""
@@ -25,7 +39,9 @@ class NewContentPackViewController: UIViewController, UITableViewDataSource, UIT
             return
         }
         
-        print(formValues)
+        let _ = flashCardService.newContentPack(withTitle: formValues[.title]!, packDescription: formValues[.packDescription]!, author: formValues[.author]!)
+        
+        performSegue(withIdentifier: "UnwindToContentPackList", sender: self)
     }
     
     

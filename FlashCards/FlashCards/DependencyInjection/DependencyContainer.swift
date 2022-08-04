@@ -11,10 +11,13 @@ import CoreData
 class DependencyContainer {
     private init() {
         let bundle = Bundle(for: Card.self)
-        let    modelURL = bundle.url(forResource: "FlashCards", withExtension: "momd")!
+        let modelURL = bundle.url(forResource: "FlashCards", withExtension: "momd")!
         managedObjectModel = NSManagedObjectModel(contentsOf: modelURL)!
-
-        persistentContainer = NSPersistentContainer(name: "Model", managedObjectModel: managedObjectModel)
+        
+        persistentContainer = NSPersistentContainer(name: "FlashCards", managedObjectModel: managedObjectModel)
+        persistentContainer.loadPersistentStores { storeDescription, err in 
+            print("Loaded persistent stores")
+        }
         
         flashCardService = CoreDataFlashCardService(container: persistentContainer)
     }

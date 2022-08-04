@@ -40,6 +40,7 @@
 		9631CEB82898E9E000F5DAA2 /* MultilineTextEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9631CEB72898E9E000F5DAA2 /* MultilineTextEntryCell.xib */; };
 		9631CEBA2898EAFB00F5DAA2 /* MultilineTextEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEB92898EAFB00F5DAA2 /* MultilineTextEntryCell.swift */; };
 		964B7345289B34A900620EA6 /* FormFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B7344289B34A900620EA6 /* FormFieldCell.swift */; };
+		964B7347289C422D00620EA6 /* ContentPackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B7346289C422D00620EA6 /* ContentPackCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		9631CEB72898E9E000F5DAA2 /* MultilineTextEntryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultilineTextEntryCell.xib; sourceTree = "<group>"; };
 		9631CEB92898EAFB00F5DAA2 /* MultilineTextEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultilineTextEntryCell.swift; sourceTree = "<group>"; };
 		964B7344289B34A900620EA6 /* FormFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldCell.swift; sourceTree = "<group>"; };
+		964B7346289C422D00620EA6 /* ContentPackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +258,7 @@
 				9631CEB22898CF7700F5DAA2 /* TextEntryCell.swift */,
 				9631CEB92898EAFB00F5DAA2 /* MultilineTextEntryCell.swift */,
 				964B7344289B34A900620EA6 /* FormFieldCell.swift */,
+				964B7346289C422D00620EA6 /* ContentPackCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				9631CE4F2898811500F5DAA2 /* SceneDelegate.swift in Sources */,
 				9631CE9F28989DC700F5DAA2 /* StudyRecord+CoreDataProperties.swift in Sources */,
 				9631CE9728989A7B00F5DAA2 /* Deck+CoreDataProperties.swift in Sources */,
+				964B7347289C422D00620EA6 /* ContentPackCell.swift in Sources */,
 				9631CE9928989A7B00F5DAA2 /* ContentPack+CoreDataProperties.swift in Sources */,
 				9631CEAC2898B27500F5DAA2 /* DependencyContainer.swift in Sources */,
 				9631CE8828988FA500F5DAA2 /* FlashCardService.swift in Sources */,

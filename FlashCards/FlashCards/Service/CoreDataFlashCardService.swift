@@ -30,6 +30,23 @@ class CoreDataFlashCardService: FlashCardService {
         return card
     }
     
+    func contentPackResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<ContentPack>? {
+        let fetchRequest:NSFetchRequest<ContentPack> = ContentPack.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \ContentPack.title, ascending: true)]
+        return  createResultsController(for: delegate, fetchRequest: fetchRequest)
+    }
+    
+    private func createResultsController<T>(for delegate: NSFetchedResultsControllerDelegate, fetchRequest: NSFetchRequest<T>) -> NSFetchedResultsController<T>? where T: NSFetchRequestResult {
+        let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        resultsController.delegate = delegate
+        
+        guard let _ = try? resultsController.performFetch() else {
+            return nil
+        }
+        
+        return resultsController
+    }
+    
     // MARK: Helpers
     private func saveViewContext() {
         do {
