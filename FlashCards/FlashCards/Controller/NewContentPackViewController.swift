@@ -11,16 +11,21 @@ import UIKit
 class NewContentPackViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FormFieldCellDelegate {
     // MARK: Properties
     private var canSave: Bool {
-        true
+        return formValues[.title] != ""
     }
     
     private var formValues: [Row: String] = [:]
     
     // MARK: IB
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var saveButton: UIBarButtonItem!
     
     @IBAction private func save(_ sender: UIBarButtonItem) {
+        guard canSave else {
+            return
+        }
         
+        print(formValues)
     }
     
     
@@ -39,7 +44,6 @@ class NewContentPackViewController: UIViewController, UITableViewDataSource, UIT
         tableView.dataSource = self
         tableView.delegate = self
     }
-    
     
     
     // MARK: TableView
@@ -81,6 +85,11 @@ class NewContentPackViewController: UIViewController, UITableViewDataSource, UIT
     // MARK: FormFieldCellDelegate
     func formFieldCell(_ cell: FormFieldCell, valueDidChange newValue: String, fieldIndex index: Int) {
         let row = Row.allCases[index]
-        formValues[row] = newValue
+        let formattedValue = newValue.trimmingCharacters(in: .whitespaces)
+        formValues[row] = formattedValue
+        
+        if row == .title {
+            saveButton.isEnabled = !formattedValue.isEmpty
+        }
     }
 }

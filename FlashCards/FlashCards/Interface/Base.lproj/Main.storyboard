@@ -190,9 +190,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="New Pack" id="jAS-4L-Iy5">
                         <barButtonItem key="backBarButtonItem" title="Back" id="uLh-3m-svD"/>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="xx8-Vg-VMH"/>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Save" id="xx8-Vg-VMH">
+                            <connections>
+                                <action selector="save:" destination="kkz-QC-Zsi" id="bZx-6V-osd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="saveButton" destination="xx8-Vg-VMH" id="my4-4l-f3l"/>
                         <outlet property="tableView" destination="s7f-Gb-c0x" id="dQN-mR-aVZ"/>
                     </connections>
                 </viewController>
