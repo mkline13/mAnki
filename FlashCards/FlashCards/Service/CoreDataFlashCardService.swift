@@ -30,6 +30,16 @@ class CoreDataFlashCardService: FlashCardService {
         return card
     }
     
+    func delete(_ contentPack: ContentPack) {
+        persistentContainer.viewContext.delete(contentPack)
+        saveViewContext()
+    }
+    
+    func delete(_ card: Card) {
+        persistentContainer.viewContext.delete(card)
+        saveViewContext()
+    }
+    
     func contentPackResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<ContentPack>? {
         let fetchRequest:NSFetchRequest<ContentPack> = ContentPack.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \ContentPack.title, ascending: true)]

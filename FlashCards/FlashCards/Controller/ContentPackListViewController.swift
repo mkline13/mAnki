@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class ContentPackListViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFetchedResultsControllerDelegate {
     // MARK: Dependencies
     private let flashCardService: FlashCardService
     
@@ -39,6 +39,12 @@ class ContentPackListViewController: UIViewController, NSFetchedResultsControlle
     }
     
     // MARK: TableView
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    
+    // MARK: NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
         let contentPack = try! resultsController.managedObjectContext.existingObject(with: managedObjectID) as! ContentPack
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContentPackCell", for: indexPath) as! ContentPackCell
@@ -47,7 +53,11 @@ class ContentPackListViewController: UIViewController, NSFetchedResultsControlle
         return cell
     }
     
-    // MARK: NSFetchedResultsControllerDelegate
+    private func handleEdit(for tableView: UITableView, editingStyle: UITableViewCell.EditingStyle, indexPath: IndexPath) {
+        let contentPack = resultsController.object(at: indexPath)
+        flashCardService.delete(contentPack)
+    }
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
 
@@ -58,7 +68,7 @@ class ContentPackListViewController: UIViewController, NSFetchedResultsControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource = UITableViewDiffableDataSource<Int, NSManagedObjectID>(tableView: tableView, cellProvider: provideCell)
+        dataSource = EditingTableViewDiffableDataSource<Int, NSManagedObjectID>(tableView: tableView, cellProvider: provideCell, editHandler: handleEdit)
         resultsController = flashCardService.contentPackResultsController(with: self)
     }
 }
