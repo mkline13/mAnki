@@ -8,20 +8,39 @@
 import UIKit
 
 
-class NewContentPackViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class NewContentPackViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FormFieldCellDelegate {
     // MARK: Properties
+    private var canSave: Bool {
+        true
+    }
+    
+    private var formValues: [Row: String] = [:]
+    
+    // MARK: IB
     @IBOutlet private weak var tableView: UITableView!
+    
+    @IBAction private func save(_ sender: UIBarButtonItem) {
+        
+    }
+    
     
     // MARK: ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Prepare to receive form values
+        for row in Row.allCases {
+            formValues[row] = ""
+        }
+        
         // Configure TableView
-        tableView.register(UINib(nibName: TextEntryCell.cellIdentifier, bundle: nil), forCellReuseIdentifier: TextEntryCell.cellIdentifier)
-        tableView.register(UINib(nibName: MultilineTextEntryCell.cellIdentifier, bundle: nil), forCellReuseIdentifier: MultilineTextEntryCell.cellIdentifier)
+        tableView.register(UINib(nibName: TextEntryCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: TextEntryCell.reuseIdentifier)
+        tableView.register(UINib(nibName: MultilineTextEntryCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: MultilineTextEntryCell.reuseIdentifier)
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+    
     
     // MARK: TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,41 +48,39 @@ class NewContentPackViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell
-        let offscreen = self.view.bounds.size.width
-        let inset: CGFloat = 15
+        let row = Row.allCases[indexPath.row]
         
-        switch Row.allCases[indexPath.row] as Row {
-        case .spacer:
-            let spacerCell = UITableViewCell()
-            cell = spacerCell
-            NSLayoutConstraint.activate([cell.heightAnchor.constraint(equalToConstant: 10.0)])
-            cell.separatorInset = UIEdgeInsets(top: 0, left: offscreen, bottom: 0, right: 0)
-        case .title:
-            let textEntryCell = tableView.dequeueReusableCell(withIdentifier: TextEntryCell.cellIdentifier, for: indexPath) as! TextEntryCell
-            textEntryCell.configure(fieldIdentifier: "title")
-            cell = textEntryCell
-            cell.separatorInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-        case .author:
-            let textEntryCell = tableView.dequeueReusableCell(withIdentifier: TextEntryCell.cellIdentifier, for: indexPath) as! TextEntryCell
-            textEntryCell.configure(fieldIdentifier: "author")
-            cell = textEntryCell
-            cell.separatorInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-        case .description:
-            let multilineTextEntryCell = tableView.dequeueReusableCell(withIdentifier: MultilineTextEntryCell.cellIdentifier, for: indexPath) as! MultilineTextEntryCell
-            multilineTextEntryCell.configure(fieldIdentifier: "description")
-            cell = multilineTextEntryCell
-            NSLayoutConstraint.activate([cell.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0.0)])
-            cell.separatorInset = UIEdgeInsets(top: 0, left: offscreen, bottom: 0, right: 0)
-        }
+        let formFieldCell = tableView.dequeueReusableCell(withIdentifier: row.type.reuseIdentifier, for: indexPath) as! FormFieldCell
+        formFieldCell.configure(fieldIndex: row.rawValue, labelText: row.label, delegate: self)
 
-        return cell
+        return formFieldCell as! UITableViewCell
     }
-        
-    enum Row: CaseIterable {
-        case spacer
+    
+    enum Row: Int, CaseIterable {
         case title
         case author
-        case description
+        case packDescription
+        
+        var label: String {
+            switch self {
+            case .title: return "Title"
+            case .author: return "Author"
+            case .packDescription: return "Description"
+            }
+        }
+        
+        var type: FormFieldCell.Type {
+            switch self {
+            case .title: return TextEntryCell.self
+            case .author: return TextEntryCell.self
+            case .packDescription: return MultilineTextEntryCell.self
+            }
+        }
+    }
+    
+    // MARK: FormFieldCellDelegate
+    func formFieldCell(_ cell: FormFieldCell, valueDidChange newValue: String, fieldIndex index: Int) {
+        let row = Row.allCases[index]
+        formValues[row] = newValue
     }
 }

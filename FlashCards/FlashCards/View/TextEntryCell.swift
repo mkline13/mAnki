@@ -8,23 +8,26 @@
 import UIKit
 
 
-class TextEntryCell: UITableViewCell {
-    static let cellIdentifier = "TextEntryCell"
-    
+class TextEntryCell: UITableViewCell, FormFieldCell, UITextFieldDelegate {
     // MARK: Properties
-    var fieldIdentifier: String!
-    @IBOutlet private weak var inputField: UITextField!
+    static let reuseIdentifier: String = "TextEntryCell"
+    private var fieldIndex: Int!
+    var delegate: FormFieldCellDelegate!
     
-    // MARK: UI
-    func configure(fieldIdentifier identifier: String, placeholderText placeholder: String? = nil) {
+    // MARK: IB
+    @IBOutlet private weak var label: UILabel!
+    @IBOutlet private weak var input: UITextField!
+    
+    @IBAction private func valueDidChange(_ sender: UITextField) {
+        delegate.formFieldCell(self, valueDidChange: input.text ?? "", fieldIndex: self.fieldIndex)
+    }
+    
+    // MARK: FormFieldCell
+    func configure(fieldIndex index: Int, labelText: String, delegate: FormFieldCellDelegate) {
         self.selectionStyle = .none
         
-        self.fieldIdentifier = identifier
-        if let placeholder = placeholder {
-            self.inputField.placeholder = placeholder
-        }
-        else {
-            self.inputField.placeholder = identifier
-        }
+        self.fieldIndex = index
+        self.label.text = labelText
+        self.delegate = delegate
     }
 }

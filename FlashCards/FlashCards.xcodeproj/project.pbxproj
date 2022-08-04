@@ -39,6 +39,7 @@
 		9631CEB62898E38600F5DAA2 /* TextEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9631CEB52898E38600F5DAA2 /* TextEntryCell.xib */; };
 		9631CEB82898E9E000F5DAA2 /* MultilineTextEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9631CEB72898E9E000F5DAA2 /* MultilineTextEntryCell.xib */; };
 		9631CEBA2898EAFB00F5DAA2 /* MultilineTextEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEB92898EAFB00F5DAA2 /* MultilineTextEntryCell.swift */; };
+		964B7345289B34A900620EA6 /* FormFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B7344289B34A900620EA6 /* FormFieldCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		9631CEB52898E38600F5DAA2 /* TextEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextEntryCell.xib; sourceTree = "<group>"; };
 		9631CEB72898E9E000F5DAA2 /* MultilineTextEntryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultilineTextEntryCell.xib; sourceTree = "<group>"; };
 		9631CEB92898EAFB00F5DAA2 /* MultilineTextEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultilineTextEntryCell.swift; sourceTree = "<group>"; };
+		964B7344289B34A900620EA6 /* FormFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +255,7 @@
 			children = (
 				9631CEB22898CF7700F5DAA2 /* TextEntryCell.swift */,
 				9631CEB92898EAFB00F5DAA2 /* MultilineTextEntryCell.swift */,
+				964B7344289B34A900620EA6 /* FormFieldCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 			files = (
 				9631CE9428989A7B00F5DAA2 /* Card.swift in Sources */,
 				9631CEB32898CF7700F5DAA2 /* TextEntryCell.swift in Sources */,
+				964B7345289B34A900620EA6 /* FormFieldCell.swift in Sources */,
 				9631CE9528989A7B00F5DAA2 /* Card+CoreDataProperties.swift in Sources */,
 				9631CE9628989A7B00F5DAA2 /* Deck.swift in Sources */,
 				9631CEA12898A6B800F5DAA2 /* StudyStatus.swift in Sources */,
