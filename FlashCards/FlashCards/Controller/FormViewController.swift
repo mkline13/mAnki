@@ -9,9 +9,11 @@ import UIKit
 
 
 class FormViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FormCellDelegate {
-    required init?(coder: NSCoder, formFields: [FormField], unwindIdentifier unwindID: String) {
+    required init?(coder: NSCoder, formTitle title: String, formFields: [FormField], unwindIdentifier unwindID: String, saveHandler saveFunc: @escaping () -> Void) {
+        formTitle = title
         fields = formFields
         unwindIdentifier = unwindID
+        saveHandler = saveFunc
         
         super.init(coder: coder)
     }
@@ -31,8 +33,11 @@ class FormViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return true
     }
     
-    private let unwindIdentifier: String
+    private let formTitle: String
     private let fields: [FormField]
+    private let unwindIdentifier: String
+    private let saveHandler: () -> Void
+    
     
     // MARK: IB
     @IBOutlet private weak var tableView: UITableView!
@@ -40,10 +45,12 @@ class FormViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBAction private func save(_ sender: UIBarButtonItem) {
         guard canSave else {
-            return
+            fatalError("Save button should not be enabled if saving is not possible")
         }
         
-        performSegue(withIdentifier: "UnwindToContentPackList", sender: self)
+        saveHandler()
+        
+        performSegue(withIdentifier: self.unwindIdentifier, sender: self)
     }
     
     // MARK: ViewController
@@ -52,6 +59,17 @@ class FormViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         tableView.dataSource = self
         tableView.delegate = self
+        navigationItem.title = formTitle
+        updateSaveButton()
+    }
+    
+    func updateSaveButton() {
+        if canSave {
+            saveButton.isEnabled = true
+        }
+        else {
+            saveButton.isEnabled = false
+        }
     }
     
     
@@ -88,7 +106,8 @@ class FormViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     // MARK: FormCellDelegate
-    func formCell(_ sender: FormCell, valueDidChange newValue: String, for fieldId: Int) {
-        print(fields[fieldId], newValue)
+    func formCell(_ sender: FormCell, fieldDidChange field: FormField) {
+        print(field.label, field.value)
+        updateSaveButton()
     }
 }

@@ -24,6 +24,13 @@ class CoreDataFlashCardService: FlashCardService {
         return pack
     }
     
+    func updateContentPack(contentPack pack: ContentPack, title: String, packDescription: String, author: String) {
+        pack.title = title
+        pack.packDescription = packDescription
+        pack.author = author
+        saveViewContext()
+    }
+    
     func newCard(in pack: ContentPack, frontContent front: String = "", backContent back: String = "", deck: Deck? = nil) -> Card? {
         let card = Card(frontContent: front, backContent: back, contentPack: pack, deck: deck, context: persistentContainer.viewContext)
         saveViewContext()

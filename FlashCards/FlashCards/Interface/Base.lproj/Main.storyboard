@@ -116,7 +116,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="label" destination="tZr-RU-fkh" id="5EP-gW-D2p"/>
-                                            <segue destination="Fg7-Zu-5vy" kind="show" id="3Nj-2a-e2U"/>
+                                            <segue destination="Fg7-Zu-5vy" kind="show" destinationCreationSelector="createFormViewControllerForEditorWithCoder:" id="3Nj-2a-e2U"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -244,15 +244,15 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FormTitleCell" id="BQk-Ah-fWD" customClass="FormCellSingleLine" customModule="FlashCards" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BQk-Ah-fWD" id="YY3-vq-7nK">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="53.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="FormTitleCell" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zpD-sn-9FD">
-                                                    <rect key="frame" x="20" y="11" width="374" height="31.5"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                    <rect key="frame" x="20" y="11" width="374" height="26"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
                                                         <action selector="valueDidChange:" destination="BQk-Ah-fWD" eventType="editingChanged" id="4Kf-cY-TPV"/>
@@ -271,47 +271,57 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FormRegularCell" id="ukS-P7-aXg" customClass="FormCellSingleLine" customModule="FlashCards" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="98" width="414" height="44.5"/>
+                                        <rect key="frame" x="0.0" y="92.5" width="414" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ukS-P7-aXg" id="mHP-r7-zJ9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="41"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="FormRegularCell" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0iR-FO-VdE">
-                                                    <rect key="frame" x="20" y="11" width="374" height="22.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0iR-FO-VdE">
+                                                    <rect key="frame" x="135.5" y="11" width="258.5" height="19"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
                                                         <action selector="valueDidChange:" destination="ukS-P7-aXg" eventType="editingChanged" id="yMY-oM-qEF"/>
                                                     </connections>
                                                 </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FormRegularCell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKs-y6-sZp">
+                                                    <rect key="frame" x="20" y="11" width="107.5" height="19"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="0iR-FO-VdE" firstAttribute="leading" secondItem="mHP-r7-zJ9" secondAttribute="leadingMargin" id="Yya-L4-DEX"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="QKs-y6-sZp" secondAttribute="bottom" id="0IC-xv-ull"/>
+                                                <constraint firstItem="QKs-y6-sZp" firstAttribute="leading" secondItem="mHP-r7-zJ9" secondAttribute="leadingMargin" id="6cF-5H-uYJ"/>
+                                                <constraint firstItem="QKs-y6-sZp" firstAttribute="top" secondItem="mHP-r7-zJ9" secondAttribute="topMargin" id="Hgi-sc-e2e"/>
+                                                <constraint firstItem="0iR-FO-VdE" firstAttribute="leading" secondItem="QKs-y6-sZp" secondAttribute="trailing" constant="8" id="iDV-09-BD2"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="0iR-FO-VdE" secondAttribute="trailing" id="pnJ-my-jpU"/>
                                                 <constraint firstItem="0iR-FO-VdE" firstAttribute="top" secondItem="mHP-r7-zJ9" secondAttribute="topMargin" id="sxg-uz-365"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="0iR-FO-VdE" secondAttribute="bottom" id="xnu-v4-cZc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="label" destination="QKs-y6-sZp" id="qUi-ra-BfD"/>
                                             <outlet property="textField" destination="0iR-FO-VdE" id="hkY-h8-vvX"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FormMultilineCell" rowHeight="116" id="ePd-UE-Xwe" customClass="FormCellMultiline" customModule="FlashCards" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="142.5" width="414" height="116"/>
+                                        <rect key="frame" x="0.0" y="133.5" width="414" height="116"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ePd-UE-Xwe" id="tIy-0y-tlZ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FormMultilineCell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5Z-cb-Zzn">
-                                                    <rect key="frame" x="20" y="11" width="374" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="20" y="11" width="374" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zCF-1b-F2K">
-                                                    <rect key="frame" x="20" y="40" width="374" height="65"/>
+                                                    <rect key="frame" x="20" y="36" width="374" height="69"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -337,15 +347,16 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FormSpacerCell" id="QDu-vu-rDH" customClass="FormCellSpacer" customModule="FlashCards" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="258.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="249.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QDu-vu-rDH" id="wjp-aZ-1YX">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FormDisclosureCell" id="k2n-Ek-1IA" customClass="FormCellDisclosure" customModule="FlashCards" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="302" width="414" height="43"/>
+                                        <rect key="frame" x="0.0" y="293" width="414" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k2n-Ek-1IA" id="fjA-N3-I1e">
                                             <rect key="frame" x="0.0" y="0.0" width="385.5" height="43"/>

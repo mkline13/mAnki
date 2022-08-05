@@ -20,10 +20,9 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Dependencies
+    // MARK: - Properties
     private let flashCardService: FlashCardService
     
-    // MARK: Properties
     private var dataSource: UITableViewDiffableDataSource<Int, NSManagedObjectID>!
     private var resultsController: NSFetchedResultsController<ContentPack>!
     
@@ -32,6 +31,38 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
     
     @IBSegueAction private func createNewContentPackViewController(coder: NSCoder) -> NewContentPackViewController? {
         return NewContentPackViewController(coder: coder, flashCardService: flashCardService)
+    }
+    
+    @IBSegueAction private func createFormViewControllerEditExisting(coder: NSCoder) -> FormViewController? {
+        guard let selectedIndexPath = tableView.indexPathForSelectedRow else {
+            fatalError("No index path for selected row")
+        }
+        
+        let selectedContentPack = resultsController.object(at: selectedIndexPath)
+        
+        tableView.deselectRow(at: selectedIndexPath, animated: true)
+        
+        let titleField = FormField(label: "Title", type: .title, initialValue: selectedContentPack.title, required: true)
+        let authorField = FormField(label: "Author:", type: .regular, initialValue: selectedContentPack.author, required: false)
+        let descriptionField = FormField(label: "Description:", type: .multiline, initialValue: selectedContentPack.packDescription, required: false)
+        
+        let fields: [FormField] = [
+            FormField(label: "", type: .spacer, initialValue: ""),
+            titleField,
+            authorField,
+            descriptionField,
+            FormField(label: "", type: .spacer, initialValue: ""),
+            FormField(label: "Browse Cards...", type: .disclosure)
+        ]
+        
+        let formViewController = FormViewController(coder: coder, formTitle: "Edit Pack", formFields: fields, unwindIdentifier: "UnwindToContentPackList") {
+            self.flashCardService.updateContentPack(contentPack: selectedContentPack,
+                                               title: titleField.value,
+                                               packDescription: descriptionField.value,
+                                               author: authorField.value)
+        }
+        
+        return formViewController
     }
     
     @IBAction func unwindToContentPackListViewController(_ unwindSegue: UIStoryboardSegue) {

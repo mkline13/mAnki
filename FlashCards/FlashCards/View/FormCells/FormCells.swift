@@ -11,6 +11,7 @@ import UIKit
 class FormCellSingleLine: UITableViewCell, FormCell {
     // MARK: IB
     @IBOutlet private weak var textField: UITextField!
+    @IBOutlet private weak var label: UILabel?
     
     @IBAction private func valueDidChange(_ sender: UITextField) {
         self.formField.value = textField.text?.trimmingCharacters(in: .whitespaces) ?? ""
@@ -22,7 +23,13 @@ class FormCellSingleLine: UITableViewCell, FormCell {
         self.formField = field
         self.delegate = delegate
         
-        textField.placeholder = field.label
+        if let label = label {
+            label.text = field.label
+        }
+        else {
+            textField.placeholder = field.label
+        }
+        
         textField.text = field.value
     }
     

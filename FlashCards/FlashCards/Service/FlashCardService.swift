@@ -14,6 +14,7 @@ protocol FlashCardService {
     
     // MARK: Service
     func newContentPack(withTitle title: String, packDescription description: String, author: String) -> ContentPack?
+    func updateContentPack(contentPack pack: ContentPack, title: String, packDescription: String, author: String)
     func newCard(in: ContentPack, frontContent front: String, backContent back: String, deck: Deck?) -> Card?
     func delete(_ contentPack: ContentPack)
     func delete(_ card: Card)
