@@ -42,7 +42,10 @@
 		964B7345289B34A900620EA6 /* FormFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B7344289B34A900620EA6 /* FormFieldCell.swift */; };
 		964B7347289C422D00620EA6 /* ContentPackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B7346289C422D00620EA6 /* ContentPackCell.swift */; };
 		96BE32B1289C4E2A00A04D53 /* EditingTableViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32B0289C4E2A00A04D53 /* EditingTableViewDiffableDataSource.swift */; };
-		96BE32B3289C9A4500A04D53 /* EditContentPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32B2289C9A4500A04D53 /* EditContentPackViewController.swift */; };
+		96BE32B3289C9A4500A04D53 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32B2289C9A4500A04D53 /* FormViewController.swift */; };
+		96BE32B6289CA46300A04D53 /* FormCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32B5289CA46300A04D53 /* FormCells.swift */; };
+		96BE32B8289CA48A00A04D53 /* FormCellProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32B7289CA48A00A04D53 /* FormCellProtocols.swift */; };
+		96BE32BA289CB48F00A04D53 /* FormField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32B9289CB48F00A04D53 /* FormField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,7 +105,10 @@
 		964B7344289B34A900620EA6 /* FormFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldCell.swift; sourceTree = "<group>"; };
 		964B7346289C422D00620EA6 /* ContentPackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackCell.swift; sourceTree = "<group>"; };
 		96BE32B0289C4E2A00A04D53 /* EditingTableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewDiffableDataSource.swift; sourceTree = "<group>"; };
-		96BE32B2289C9A4500A04D53 /* EditContentPackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContentPackViewController.swift; sourceTree = "<group>"; };
+		96BE32B2289C9A4500A04D53 /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		96BE32B5289CA46300A04D53 /* FormCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCells.swift; sourceTree = "<group>"; };
+		96BE32B7289CA48A00A04D53 /* FormCellProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellProtocols.swift; sourceTree = "<group>"; };
+		96BE32B9289CB48F00A04D53 /* FormField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,8 +198,9 @@
 				9631CE82289883D900F5DAA2 /* StudyDeckListViewController.swift */,
 				9631CE842898841900F5DAA2 /* ContentPackListViewController.swift */,
 				9631CEAF2898CDB900F5DAA2 /* NewContentPackViewController.swift */,
-				96BE32B2289C9A4500A04D53 /* EditContentPackViewController.swift */,
+				96BE32B2289C9A4500A04D53 /* FormViewController.swift */,
 				96BE32B0289C4E2A00A04D53 /* EditingTableViewDiffableDataSource.swift */,
+				96BE32B9289CB48F00A04D53 /* FormField.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -261,6 +268,7 @@
 		9631CEB12898CF6400F5DAA2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				96BE32B4289CA45200A04D53 /* FormCells */,
 				9631CEB22898CF7700F5DAA2 /* TextEntryCell.swift */,
 				9631CEB92898EAFB00F5DAA2 /* MultilineTextEntryCell.swift */,
 				964B7344289B34A900620EA6 /* FormFieldCell.swift */,
@@ -278,6 +286,15 @@
 				9631CEB72898E9E000F5DAA2 /* MultilineTextEntryCell.xib */,
 			);
 			path = Interface;
+			sourceTree = "<group>";
+		};
+		96BE32B4289CA45200A04D53 /* FormCells */ = {
+			isa = PBXGroup;
+			children = (
+				96BE32B5289CA46300A04D53 /* FormCells.swift */,
+				96BE32B7289CA48A00A04D53 /* FormCellProtocols.swift */,
+			);
+			path = FormCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -413,10 +430,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96BE32B8289CA48A00A04D53 /* FormCellProtocols.swift in Sources */,
 				9631CE9428989A7B00F5DAA2 /* Card.swift in Sources */,
 				9631CEB32898CF7700F5DAA2 /* TextEntryCell.swift in Sources */,
 				964B7345289B34A900620EA6 /* FormFieldCell.swift in Sources */,
 				9631CE9528989A7B00F5DAA2 /* Card+CoreDataProperties.swift in Sources */,
+				96BE32B6289CA46300A04D53 /* FormCells.swift in Sources */,
 				9631CE9628989A7B00F5DAA2 /* Deck.swift in Sources */,
 				9631CEA12898A6B800F5DAA2 /* StudyStatus.swift in Sources */,
 				9631CEBA2898EAFB00F5DAA2 /* MultilineTextEntryCell.swift in Sources */,
@@ -425,6 +444,7 @@
 				9631CE9E28989DC700F5DAA2 /* StudyRecord.swift in Sources */,
 				96BE32B1289C4E2A00A04D53 /* EditingTableViewDiffableDataSource.swift in Sources */,
 				9631CE852898841900F5DAA2 /* ContentPackListViewController.swift in Sources */,
+				96BE32BA289CB48F00A04D53 /* FormField.swift in Sources */,
 				9631CE4D2898811500F5DAA2 /* AppDelegate.swift in Sources */,
 				9631CEB02898CDB900F5DAA2 /* NewContentPackViewController.swift in Sources */,
 				9631CE572898811500F5DAA2 /* FlashCards.xcdatamodeld in Sources */,
@@ -433,7 +453,7 @@
 				9631CE4F2898811500F5DAA2 /* SceneDelegate.swift in Sources */,
 				9631CE9F28989DC700F5DAA2 /* StudyRecord+CoreDataProperties.swift in Sources */,
 				9631CE9728989A7B00F5DAA2 /* Deck+CoreDataProperties.swift in Sources */,
-				96BE32B3289C9A4500A04D53 /* EditContentPackViewController.swift in Sources */,
+				96BE32B3289C9A4500A04D53 /* FormViewController.swift in Sources */,
 				964B7347289C422D00620EA6 /* ContentPackCell.swift in Sources */,
 				9631CE9928989A7B00F5DAA2 /* ContentPack+CoreDataProperties.swift in Sources */,
 				9631CEAC2898B27500F5DAA2 /* DependencyContainer.swift in Sources */,

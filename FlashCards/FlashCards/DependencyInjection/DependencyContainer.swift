@@ -16,7 +16,9 @@ class DependencyContainer {
         
         persistentContainer = NSPersistentContainer(name: "FlashCards", managedObjectModel: managedObjectModel)
         persistentContainer.loadPersistentStores { storeDescription, err in 
-            print("Loaded persistent stores")
+            if let err = err {
+                fatalError(err.localizedDescription)
+            }
         }
         
         flashCardService = CoreDataFlashCardService(container: persistentContainer)
