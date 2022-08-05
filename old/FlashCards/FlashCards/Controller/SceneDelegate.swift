@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  FlashCards
 //
-//  Created by Work on 8/5/22.
+//  Created by Work on 8/1/22.
 //
 
 import UIKit
@@ -16,36 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        let window = UIWindow(windowScene: windowScene)
-        let tabBarController = UITabBarController()
-        let decksNavigation = UINavigationController()
-        let packsNavigation = UINavigationController()
-        
-        // Inject dependencies
-        let dependencyContainer = DependencyContainer.shared
-        dependencyContainer.flashCardService.loadTestData()
-        
-        
-        let deckListViewController = DeckListViewController(flashCardService: dependencyContainer.flashCardService)
-        let contentPackListViewController = ContentPackListViewController(flashCardService: dependencyContainer.flashCardService)
-        
-        // Set up view hierarchy
-        tabBarController.setViewControllers([decksNavigation, packsNavigation], animated: true)
-        decksNavigation.setViewControllers([deckListViewController], animated: true)
-        packsNavigation.setViewControllers([contentPackListViewController], animated: true)
-        
-        // Make tab bar items visible
-        decksNavigation.tabBarItem = deckListViewController.tabBarItem
-        packsNavigation.tabBarItem = contentPackListViewController.tabBarItem
-        decksNavigation.loadViewIfNeeded()
-        packsNavigation.loadViewIfNeeded()
-        
-        window.rootViewController = tabBarController
-        
-        window.makeKeyAndVisible()
-        self.window = window
+        guard let _ = (scene as? UIWindowScene) else { return }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
