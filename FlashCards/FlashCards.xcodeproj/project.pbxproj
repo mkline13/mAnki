@@ -42,6 +42,7 @@
 		964B7345289B34A900620EA6 /* FormFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B7344289B34A900620EA6 /* FormFieldCell.swift */; };
 		964B7347289C422D00620EA6 /* ContentPackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B7346289C422D00620EA6 /* ContentPackCell.swift */; };
 		96BE32B1289C4E2A00A04D53 /* EditingTableViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32B0289C4E2A00A04D53 /* EditingTableViewDiffableDataSource.swift */; };
+		96BE32B3289C9A4500A04D53 /* EditContentPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32B2289C9A4500A04D53 /* EditContentPackViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		964B7344289B34A900620EA6 /* FormFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldCell.swift; sourceTree = "<group>"; };
 		964B7346289C422D00620EA6 /* ContentPackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackCell.swift; sourceTree = "<group>"; };
 		96BE32B0289C4E2A00A04D53 /* EditingTableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewDiffableDataSource.swift; sourceTree = "<group>"; };
+		96BE32B2289C9A4500A04D53 /* EditContentPackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContentPackViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 				9631CE82289883D900F5DAA2 /* StudyDeckListViewController.swift */,
 				9631CE842898841900F5DAA2 /* ContentPackListViewController.swift */,
 				9631CEAF2898CDB900F5DAA2 /* NewContentPackViewController.swift */,
+				96BE32B2289C9A4500A04D53 /* EditContentPackViewController.swift */,
 				96BE32B0289C4E2A00A04D53 /* EditingTableViewDiffableDataSource.swift */,
 			);
 			path = Controller;
@@ -430,6 +433,7 @@
 				9631CE4F2898811500F5DAA2 /* SceneDelegate.swift in Sources */,
 				9631CE9F28989DC700F5DAA2 /* StudyRecord+CoreDataProperties.swift in Sources */,
 				9631CE9728989A7B00F5DAA2 /* Deck+CoreDataProperties.swift in Sources */,
+				96BE32B3289C9A4500A04D53 /* EditContentPackViewController.swift in Sources */,
 				964B7347289C422D00620EA6 /* ContentPackCell.swift in Sources */,
 				9631CE9928989A7B00F5DAA2 /* ContentPack+CoreDataProperties.swift in Sources */,
 				9631CEAC2898B27500F5DAA2 /* DependencyContainer.swift in Sources */,
