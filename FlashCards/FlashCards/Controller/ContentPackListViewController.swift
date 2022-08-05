@@ -29,11 +29,26 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
     // MARK: - IB
     @IBOutlet private weak var tableView: UITableView!
     
-    @IBSegueAction private func createNewContentPackViewController(coder: NSCoder) -> NewContentPackViewController? {
-        return NewContentPackViewController(coder: coder, flashCardService: flashCardService)
+    @IBSegueAction private func createFormViewControllerNewContentPack(coder: NSCoder) -> FormViewController? {
+        let titleField = FormField(label: "Title", type: .title, required: true)
+        let authorField = FormField(label: "Author:", type: .regular)
+        let descriptionField = FormField(label: "Description:", type: .multiline)
+        
+        let fields: [FormField] = [
+            FormField(label: "", type: .spacer, initialValue: ""),
+            titleField,
+            authorField,
+            descriptionField
+        ]
+        
+        let formViewController = FormViewController(coder: coder, formTitle: "New Pack", formFields: fields, unwindIdentifier: "UnwindToContentPackList") {
+            _ = self.flashCardService.newContentPack(withTitle: titleField.value, packDescription: descriptionField.value, author: authorField.value)
+        }
+        
+        return formViewController
     }
     
-    @IBSegueAction private func createFormViewControllerEditExisting(coder: NSCoder) -> FormViewController? {
+    @IBSegueAction private func createFormViewControllerEditExistingContentPack(coder: NSCoder) -> FormViewController? {
         guard let selectedIndexPath = tableView.indexPathForSelectedRow else {
             fatalError("No index path for selected row")
         }

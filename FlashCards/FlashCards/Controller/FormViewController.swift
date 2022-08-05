@@ -47,9 +47,7 @@ class FormViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard canSave else {
             fatalError("Save button should not be enabled if saving is not possible")
         }
-        
         saveHandler()
-        
         performSegue(withIdentifier: self.unwindIdentifier, sender: self)
     }
     
@@ -60,7 +58,6 @@ class FormViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.dataSource = self
         tableView.delegate = self
         navigationItem.title = formTitle
-        updateSaveButton()
     }
     
     func updateSaveButton() {

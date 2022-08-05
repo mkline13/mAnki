@@ -34,7 +34,6 @@
 		9631CEA92898AE7100F5DAA2 /* ModelConvenienceInitializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEA82898AE7100F5DAA2 /* ModelConvenienceInitializerTests.swift */; };
 		9631CEAC2898B27500F5DAA2 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEAB2898B27500F5DAA2 /* DependencyContainer.swift */; };
 		9631CEAE2898B87900F5DAA2 /* CoreDataFlashCardServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEAD2898B87900F5DAA2 /* CoreDataFlashCardServiceTests.swift */; };
-		9631CEB02898CDB900F5DAA2 /* NewContentPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEAF2898CDB900F5DAA2 /* NewContentPackViewController.swift */; };
 		9631CEB32898CF7700F5DAA2 /* TextEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631CEB22898CF7700F5DAA2 /* TextEntryCell.swift */; };
 		9631CEB62898E38600F5DAA2 /* TextEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9631CEB52898E38600F5DAA2 /* TextEntryCell.xib */; };
 		9631CEB82898E9E000F5DAA2 /* MultilineTextEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9631CEB72898E9E000F5DAA2 /* MultilineTextEntryCell.xib */; };
@@ -97,7 +96,6 @@
 		9631CEA82898AE7100F5DAA2 /* ModelConvenienceInitializerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelConvenienceInitializerTests.swift; sourceTree = "<group>"; };
 		9631CEAB2898B27500F5DAA2 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		9631CEAD2898B87900F5DAA2 /* CoreDataFlashCardServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFlashCardServiceTests.swift; sourceTree = "<group>"; };
-		9631CEAF2898CDB900F5DAA2 /* NewContentPackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContentPackViewController.swift; sourceTree = "<group>"; };
 		9631CEB22898CF7700F5DAA2 /* TextEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntryCell.swift; sourceTree = "<group>"; };
 		9631CEB52898E38600F5DAA2 /* TextEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextEntryCell.xib; sourceTree = "<group>"; };
 		9631CEB72898E9E000F5DAA2 /* MultilineTextEntryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultilineTextEntryCell.xib; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 				9631CE502898811500F5DAA2 /* RootViewController.swift */,
 				9631CE82289883D900F5DAA2 /* StudyDeckListViewController.swift */,
 				9631CE842898841900F5DAA2 /* ContentPackListViewController.swift */,
-				9631CEAF2898CDB900F5DAA2 /* NewContentPackViewController.swift */,
 				96BE32B2289C9A4500A04D53 /* FormViewController.swift */,
 				96BE32B0289C4E2A00A04D53 /* EditingTableViewDiffableDataSource.swift */,
 				96BE32B9289CB48F00A04D53 /* FormField.swift */,
@@ -446,7 +443,6 @@
 				9631CE852898841900F5DAA2 /* ContentPackListViewController.swift in Sources */,
 				96BE32BA289CB48F00A04D53 /* FormField.swift in Sources */,
 				9631CE4D2898811500F5DAA2 /* AppDelegate.swift in Sources */,
-				9631CEB02898CDB900F5DAA2 /* NewContentPackViewController.swift in Sources */,
 				9631CE572898811500F5DAA2 /* FlashCards.xcdatamodeld in Sources */,
 				9631CE83289883D900F5DAA2 /* StudyDeckListViewController.swift in Sources */,
 				9631CE8A2898900400F5DAA2 /* CoreDataFlashCardService.swift in Sources */,
