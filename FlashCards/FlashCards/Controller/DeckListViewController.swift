@@ -23,15 +23,15 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         
         // Get data for new VC
         let deck = resultsController.object(at: indexPath)
-        let vc = DeckEditorViewController()
-        vc.deck = deck
-
-        show(vc, sender: self)
+        let vc = DeckEditorViewController(flashCardService: flashCardService, deck: deck)
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
-        let deck = try! resultsController.managedObjectContext.existingObject(with: managedObjectID) as! Deck
+//        print(try? resultsController.managedObjectContext.count(for: NSFetchRequest<NSFetchRequestResult>))
+        let deck = resultsController.managedObjectContext.existingObject(with: managedObjectID) as! Deck
         let cell = tableView.dequeueReusableCell(withIdentifier: DeckListTableCell.reuseIdentifier, for: indexPath) as! DeckListTableCell
         
         cell.configure(for: deck)
@@ -46,7 +46,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
 
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     // MARK: - View
@@ -88,7 +88,8 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     
     // MARK: Actions
     @objc private func addDeck(_ sender: UIBarButtonItem) {
-        print("ADD DECK")
+        let vc = DeckEditorViewController(flashCardService: flashCardService, deck: nil)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: Properties
@@ -99,6 +100,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     
     private var table: UITableView!
 }
+
 
 
 class DeckListTableCell: UITableViewCell {

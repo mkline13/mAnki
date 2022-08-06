@@ -34,6 +34,10 @@
 		96BE3382289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3381289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift */; };
 		96BE3387289DA07D00A04D53 /* PersistentContainerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE336C289D81CC00A04D53 /* PersistentContainerHelper.swift */; };
 		96BE3389289DA58500A04D53 /* DeckEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3388289DA58500A04D53 /* DeckEditorViewController.swift */; };
+		96BE338D289DADFA00A04D53 /* SingleLineTextEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE338C289DADFA00A04D53 /* SingleLineTextEntryCell.swift */; };
+		96BE3394289DC13D00A04D53 /* SpacerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3393289DC13D00A04D53 /* SpacerCell.swift */; };
+		96BE3396289DCED000A04D53 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3395289DCED000A04D53 /* Form.swift */; };
+		96BE3398289DD68300A04D53 /* IncDecCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3397289DD68300A04D53 /* IncDecCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +89,10 @@
 		96BE337E289D82C300A04D53 /* StudyRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StudyRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		96BE3381289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewDiffableDataSource.swift; sourceTree = "<group>"; };
 		96BE3388289DA58500A04D53 /* DeckEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckEditorViewController.swift; sourceTree = "<group>"; };
+		96BE338C289DADFA00A04D53 /* SingleLineTextEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineTextEntryCell.swift; sourceTree = "<group>"; };
+		96BE3393289DC13D00A04D53 /* SpacerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerCell.swift; sourceTree = "<group>"; };
+		96BE3395289DCED000A04D53 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
+		96BE3397289DD68300A04D53 /* IncDecCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncDecCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +143,8 @@
 		96BE32F0289D6BD900A04D53 /* FlashCards */ = {
 			isa = PBXGroup;
 			children = (
+				96BE3392289DBCE700A04D53 /* Forms */,
+				96BE338A289DADDD00A04D53 /* Views */,
 				96BE336B289D81CC00A04D53 /* Helper */,
 				96BE3375289D827200A04D53 /* DependencyInjection */,
 				96BE3377289D827200A04D53 /* Service */,
@@ -235,6 +245,24 @@
 				96BE3379289D827200A04D53 /* CoreDataFlashCardService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		96BE338A289DADDD00A04D53 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		96BE3392289DBCE700A04D53 /* Forms */ = {
+			isa = PBXGroup;
+			children = (
+				96BE338C289DADFA00A04D53 /* SingleLineTextEntryCell.swift */,
+				96BE3393289DC13D00A04D53 /* SpacerCell.swift */,
+				96BE3395289DCED000A04D53 /* Form.swift */,
+				96BE3397289DD68300A04D53 /* IncDecCell.swift */,
+			);
+			path = Forms;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -376,12 +404,16 @@
 				96BE337F289D82C300A04D53 /* StudyRecord.swift in Sources */,
 				96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */,
 				96BE336A289D81B400A04D53 /* ContentPack+CoreDataProperties.swift in Sources */,
+				96BE3398289DD68300A04D53 /* IncDecCell.swift in Sources */,
 				96BE3327289D6DC100A04D53 /* DeckListViewController.swift in Sources */,
 				96BE337B289D827200A04D53 /* FlashCardService.swift in Sources */,
 				96BE337A289D827200A04D53 /* DependencyContainer.swift in Sources */,
 				96BE3364289D81B400A04D53 /* StudyStatus.swift in Sources */,
 				96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */,
+				96BE3396289DCED000A04D53 /* Form.swift in Sources */,
 				96BE3389289DA58500A04D53 /* DeckEditorViewController.swift in Sources */,
+				96BE3394289DC13D00A04D53 /* SpacerCell.swift in Sources */,
+				96BE338D289DADFA00A04D53 /* SingleLineTextEntryCell.swift in Sources */,
 				96BE3369289D81B400A04D53 /* Deck+CoreDataProperties.swift in Sources */,
 				96BE3368289D81B400A04D53 /* Card.swift in Sources */,
 				96BE3366289D81B400A04D53 /* ContentPack.swift in Sources */,
