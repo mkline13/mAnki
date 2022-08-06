@@ -31,7 +31,11 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
 //        print(try? resultsController.managedObjectContext.count(for: NSFetchRequest<NSFetchRequestResult>))
-        let deck = resultsController.managedObjectContext.existingObject(with: managedObjectID) as! Deck
+        guard let deckResult = try? resultsController.managedObjectContext.existingObject(with: managedObjectID) else {
+            return
+        }
+        
+        let deck = deckResult as! Deck
         let cell = tableView.dequeueReusableCell(withIdentifier: DeckListTableCell.reuseIdentifier, for: indexPath) as! DeckListTableCell
         
         cell.configure(for: deck)
@@ -46,7 +50,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
 
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     // MARK: - View
