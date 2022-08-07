@@ -30,9 +30,9 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
-//        print(try? resultsController.managedObjectContext.count(for: NSFetchRequest<NSFetchRequestResult>))
+        flashCardService.printDecks(msg: "@ provideCell: \(indexPath.row)")
         guard let deckResult = try? resultsController.managedObjectContext.existingObject(with: managedObjectID) else {
-            return
+            return nil
         }
         
         let deck = deckResult as! Deck
@@ -50,7 +50,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
 
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     // MARK: - View

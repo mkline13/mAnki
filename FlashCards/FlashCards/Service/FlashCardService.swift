@@ -34,4 +34,6 @@ protocol FlashCardService {
     
     // MARK: Helpers
     func loadTestData()
+    func printDecks()
+    func printDecks(msg: String)
 }

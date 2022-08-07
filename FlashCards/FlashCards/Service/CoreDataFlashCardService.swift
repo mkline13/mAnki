@@ -110,6 +110,26 @@ class CoreDataFlashCardService: FlashCardService {
         }
     }
     
+    func printDecks() {
+        printDecks(msg: "")
+    }
+    
+    func printDecks(msg: String) {
+        let fetchRequest: NSFetchRequest<Deck> = Deck.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Deck.title, ascending: true)]
+        
+        guard let results = try? persistentContainer.viewContext.fetch(fetchRequest) else {
+            print("Could not print decks: results was nil")
+            return
+        }
+        
+        print("Decks: \(msg)")
+        for (index, deck) in results.enumerated() {
+            print("  - \(index): \(deck.title)")
+        }
+        
+    }
+    
     func loadTestData() {
         // Create pack, deck, and cards
         let contentPackFetchRequest: NSFetchRequest<ContentPack> = ContentPack.fetchRequest()

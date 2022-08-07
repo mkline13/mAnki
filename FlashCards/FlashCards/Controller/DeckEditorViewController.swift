@@ -156,7 +156,9 @@ struct DeckEditorResultsHandler {
     let flashCardService: FlashCardService
     
     func newDeck () {
+        flashCardService.printDecks()
         _ = flashCardService.newDeck(title: title, description: deckDescription, newCardsPerDay: newCardsPerDay, reviewCardsPerDay: reviewCardsPerDay)
+        flashCardService.printDecks()
     }
     
     func update (deck: Deck) {
