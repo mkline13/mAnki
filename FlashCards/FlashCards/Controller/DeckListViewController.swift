@@ -30,11 +30,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
-        flashCardService.printDecks("@ provideCell: indexPath.row=\(indexPath.row)")
-        guard let deckResult = try? resultsController.managedObjectContext.existingObject(with: managedObjectID) else {
-            return nil
-        }
-        
+        let deckResult = try! resultsController.managedObjectContext.existingObject(with: managedObjectID)
         let deck = deckResult as! Deck
         let cell = tableView.dequeueReusableCell(withIdentifier: DeckListTableCell.reuseIdentifier, for: indexPath) as! DeckListTableCell
         
@@ -49,8 +45,9 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
-
-        dataSource.apply(snapshot, animatingDifferences: false)
+        
+        // animatingDifferences must be set to 'true' to prevent a crash on Mason's computer
+        self.dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     // MARK: - View
@@ -58,12 +55,22 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         super.viewDidLoad()
         
         // TableView
-        table.delegate = self
-        table.register(DeckListTableCell.self, forCellReuseIdentifier: DeckListTableCell.reuseIdentifier)
+        tableView.delegate = self
+        tableView.register(DeckListTableCell.self, forCellReuseIdentifier: DeckListTableCell.reuseIdentifier)
 
-        dataSource = EditingTableViewDiffableDataSource<Int, NSManagedObjectID>(tableView: table, cellProvider: provideCell, editHandler: handleEdit)
+        dataSource = EditingTableViewDiffableDataSource<Int, NSManagedObjectID>(tableView: tableView, cellProvider: provideCell, editHandler: handleEdit)
         resultsController = flashCardService.deckResultsController(with: self)
     }
+    
+    // this code gets rid of the runtime warning that appears on Mason's computer
+//    override func viewDidAppear(_ animated: Bool) {
+//        resultsController.delegate = self
+//        try! resultsController.performFetch()
+//    }
+//
+//    override func viewDidDisappear(_ animated: Bool) {
+//        resultsController.delegate = nil
+//    }
     
     override func loadView() {
         title = "Study Decks"
@@ -71,15 +78,15 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         view.backgroundColor = UIColor.systemBackground
         
         // TableView
-        table = UITableView(frame: .zero, style: .plain)
-        table.translatesAutoresizingMaskIntoConstraints = false
+        tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(table)
+        view.addSubview(tableView)
         view.addConstraints([
-            table.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            table.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            table.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            table.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
         
         // Tab bar
@@ -102,7 +109,9 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     private var dataSource: UITableViewDiffableDataSource<Int, NSManagedObjectID>!
     private var resultsController: NSFetchedResultsController<Deck>!
     
-    private var table: UITableView!
+    private var tableView: UITableView!
+    
+    private var isVisible: Bool = false
 }
 
 

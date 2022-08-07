@@ -50,7 +50,10 @@ class CoreDataFlashCardService: FlashCardService {
     }
     
     private func createResultsController<T>(for delegate: NSFetchedResultsControllerDelegate, fetchRequest: NSFetchRequest<T>) -> NSFetchedResultsController<T>? where T: NSFetchRequestResult {
-        let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                           managedObjectContext: persistentContainer.viewContext,
+                                                           sectionNameKeyPath: nil,
+                                                           cacheName: "cache")
         resultsController.delegate = delegate
         
         guard let _ = try? resultsController.performFetch() else {

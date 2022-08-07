@@ -147,18 +147,23 @@ class DeckEditorViewController: UIViewController, UITableViewDataSource, UITable
     private var results: DeckEditorResultsHandler!
 }
 
-struct DeckEditorResultsHandler {
+class DeckEditorResultsHandler {
     var title: String
     var deckDescription: String
     var newCardsPerDay: Int64
     var reviewCardsPerDay: Int64
-    
     let flashCardService: FlashCardService
     
+    init (title: String, deckDescription: String, newCardsPerDay: Int64, reviewCardsPerDay: Int64, flashCardService: FlashCardService) {
+        self.title = title
+        self.deckDescription = deckDescription
+        self.newCardsPerDay = newCardsPerDay
+        self.reviewCardsPerDay = reviewCardsPerDay
+        self.flashCardService = flashCardService
+    }
+    
     func newDeck () {
-        flashCardService.printDecks("Before flashCardService.newDeck for \(title)")
-        _ = flashCardService.newDeck(title: title, description: deckDescription, newCardsPerDay: newCardsPerDay, reviewCardsPerDay: reviewCardsPerDay)
-        flashCardService.printDecks("After flashCardService.newDeck for \(title)")
+        let _ = flashCardService.newDeck(title: title, description: deckDescription, newCardsPerDay: newCardsPerDay, reviewCardsPerDay: reviewCardsPerDay)
     }
     
     func update (deck: Deck) {
