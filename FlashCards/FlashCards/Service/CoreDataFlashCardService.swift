@@ -111,10 +111,10 @@ class CoreDataFlashCardService: FlashCardService {
     }
     
     func printDecks() {
-        printDecks(msg: "")
+        printDecks("")
     }
     
-    func printDecks(msg: String) {
+    func printDecks(_ msg: String) {
         let fetchRequest: NSFetchRequest<Deck> = Deck.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Deck.title, ascending: true)]
         

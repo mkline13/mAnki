@@ -30,7 +30,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
-        flashCardService.printDecks(msg: "@ provideCell: \(indexPath.row)")
+        flashCardService.printDecks("@ provideCell: indexPath.row=\(indexPath.row)")
         guard let deckResult = try? resultsController.managedObjectContext.existingObject(with: managedObjectID) else {
             return nil
         }
