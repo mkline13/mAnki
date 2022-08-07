@@ -25,7 +25,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         let deck = resultsController.object(at: indexPath)
         let vc = DeckEditorViewController(flashCardService: flashCardService, deck: deck)
         
-        navigationController?.pushViewController(vc, animated: true)
+        show(vc, sender: self)
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
@@ -100,7 +100,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     // MARK: Actions
     @objc private func addDeck(_ sender: UIBarButtonItem) {
         let vc = DeckEditorViewController(flashCardService: flashCardService, deck: nil)
-        navigationController?.pushViewController(vc, animated: true)
+        show(vc, sender: self)
     }
     
     // MARK: Properties

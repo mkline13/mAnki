@@ -28,6 +28,8 @@ class DeckEditorViewController: UIViewController, UITableViewDataSource, UITable
                                                reviewCardsPerDay: 10,
                                                flashCardService: flashCardService)
         }
+        
+        hidesBottomBarWhenPushed = true
     }
     
     // MARK: FormFieldDelegate
@@ -134,7 +136,12 @@ class DeckEditorViewController: UIViewController, UITableViewDataSource, UITable
             results.newDeck()
         }
         
-        navigationController?.popViewController(animated: true)
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
+        }
+        else {
+            dismiss(animated: true)
+        }
     }
     
     // MARK: Properties

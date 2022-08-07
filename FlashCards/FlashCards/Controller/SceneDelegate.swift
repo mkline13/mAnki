@@ -27,7 +27,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let dependencyContainer = DependencyContainer.shared
         dependencyContainer.flashCardService.loadTestData()
         
-        
         let deckListViewController = DeckListViewController(flashCardService: dependencyContainer.flashCardService)
         let contentPackListViewController = ContentPackListViewController(flashCardService: dependencyContainer.flashCardService)
         
