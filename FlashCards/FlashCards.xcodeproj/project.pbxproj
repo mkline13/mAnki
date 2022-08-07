@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		966B041828A0544300DD484E /* ContentPackEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B041728A0544300DD484E /* ContentPackEditorViewController.swift */; };
 		96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F1289D6BD900A04D53 /* AppDelegate.swift */; };
 		96BE32F4289D6BD900A04D53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */; };
 		96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32FA289D6BD900A04D53 /* FlashCards.xcdatamodeld */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		966B041728A0544300DD484E /* ContentPackEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPackEditorViewController.swift; sourceTree = "<group>"; };
 		96BE32EE289D6BD900A04D53 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BE32F1289D6BD900A04D53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */,
 				96BE3326289D6DC100A04D53 /* DeckListViewController.swift */,
 				96BE3388289DA58500A04D53 /* DeckEditorViewController.swift */,
+				966B041728A0544300DD484E /* ContentPackEditorViewController.swift */,
 				96BE3328289D6DE200A04D53 /* ContentPackListViewController.swift */,
 				96BE3381289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift */,
 			);
@@ -400,6 +403,7 @@
 				96BE3380289D82C300A04D53 /* StudyRecord+CoreDataProperties.swift in Sources */,
 				96BE3365289D81B400A04D53 /* Card+CoreDataProperties.swift in Sources */,
 				96BE3382289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift in Sources */,
+				966B041828A0544300DD484E /* ContentPackEditorViewController.swift in Sources */,
 				96BE337C289D827200A04D53 /* CoreDataFlashCardService.swift in Sources */,
 				96BE337F289D82C300A04D53 /* StudyRecord.swift in Sources */,
 				96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */,

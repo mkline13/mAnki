@@ -23,9 +23,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         
         // Get data for new VC
         let deck = resultsController.object(at: indexPath)
-        let vc = DeckEditorViewController(flashCardService: flashCardService, deck: deck)
-        
-        show(vc, sender: self)
+        editDeck(deck)
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
@@ -90,8 +88,8 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         ])
         
         // Tab bar
-        tabBarItem.image = UIImage(systemName: "studentdesk")
-        tabBarItem.selectedImage = tabBarItem.image
+        tabBarItem.image = UIImage(systemName: "book")
+        tabBarItem.selectedImage = UIImage(systemName: "book.fill")
         
         // Nav bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDeck(_:)))
@@ -100,6 +98,11 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     // MARK: Actions
     @objc private func addDeck(_ sender: UIBarButtonItem) {
         let vc = DeckEditorViewController(flashCardService: flashCardService, deck: nil)
+        show(vc, sender: self)
+    }
+    
+    private func editDeck(_ deck: Deck) {
+        let vc = DeckEditorViewController(flashCardService: flashCardService, deck: deck)
         show(vc, sender: self)
     }
     
