@@ -44,7 +44,6 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
         
-        // animatingDifferences must be set to 'true' to prevent a crash on Mason's computer
         self.dataSource.apply(snapshot, animatingDifferences: true)
     }
     
@@ -60,13 +59,14 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         resultsController = flashCardService.deckResultsController(with: self)
     }
     
-    // this code gets rid of the runtime warning that appears on Mason's computer
 //    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
 //        resultsController.delegate = self
 //        try! resultsController.performFetch()
 //    }
 //
-//    override func viewDidDisappear(_ animated: Bool) {
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
 //        resultsController.delegate = nil
 //    }
     
