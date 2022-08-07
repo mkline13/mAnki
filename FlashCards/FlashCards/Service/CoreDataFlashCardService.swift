@@ -76,7 +76,7 @@ class CoreDataFlashCardService: FlashCardService {
         deck.title = title
         deck.deckDescription = ddesc
         deck.newCardsPerDay = ncpd
-        deck.newCardsPerDay = rcpd
+        deck.reviewCardsLimit = rcpd
         saveViewContext()
     }
     

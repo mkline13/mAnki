@@ -65,19 +65,19 @@ class DeckEditorViewController: UIViewController, UITableViewDataSource, UITable
         case .title:
             let titleCell = tableView.dequeueReusableCell(withIdentifier: SingleLineTextEntryCell.reuseIdentifier, for: indexPath) as! SingleLineTextEntryCell
             titleCell.configure(label: "Title", key: field.rawValue, value: results.title, delegate: self)
-            titleCell.textField.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+            titleCell.font = UIFont.systemFont(ofSize: 17, weight: .bold)
             cell = titleCell
         case .deckDescription:
             let descriptionCell = tableView.dequeueReusableCell(withIdentifier: SingleLineTextEntryCell.reuseIdentifier, for: indexPath) as! SingleLineTextEntryCell
             descriptionCell.configure(label: "Description", key: field.rawValue, value: results.deckDescription, delegate: self)
             cell = descriptionCell
         case .newCardsPerDay:
-            let ncpdCell = tableView.dequeueReusableCell(withIdentifier: IncDecCell.reuseIdentifier, for: indexPath) as! IncDecCell
-            ncpdCell.configure(label: "New cards/day", key: field.rawValue, value: results.newCardsPerDay, delegate: self)
+            let ncpdCell = tableView.dequeueReusableCell(withIdentifier: StepperCell.reuseIdentifier, for: indexPath) as! StepperCell
+            ncpdCell.configure(label: "New cards per day:", key: field.rawValue, value: results.newCardsPerDay, delegate: self)
             cell = ncpdCell
         case .reviewCardsPerDay:
-            let rcpdCell = tableView.dequeueReusableCell(withIdentifier: IncDecCell.reuseIdentifier, for: indexPath) as! IncDecCell
-            rcpdCell.configure(label: "Review cards/day", key: field.rawValue, value: results.reviewCardsPerDay, delegate: self)
+            let rcpdCell = tableView.dequeueReusableCell(withIdentifier: StepperCell.reuseIdentifier, for: indexPath) as! StepperCell
+            rcpdCell.configure(label: "Review cards per day:", key: field.rawValue, value: results.reviewCardsPerDay, delegate: self)
             cell = rcpdCell
         }
         
@@ -91,7 +91,7 @@ class DeckEditorViewController: UIViewController, UITableViewDataSource, UITable
         table.delegate = self
         table.dataSource = self
         table.register(SingleLineTextEntryCell.self, forCellReuseIdentifier: SingleLineTextEntryCell.reuseIdentifier)
-        table.register(IncDecCell.self, forCellReuseIdentifier: IncDecCell.reuseIdentifier)
+        table.register(StepperCell.self, forCellReuseIdentifier: StepperCell.reuseIdentifier)
         table.register(SpacerCell.self, forCellReuseIdentifier: SpacerCell.reuseIdentifier)
         
         if deck == nil {
@@ -177,7 +177,7 @@ class DeckEditorResultsHandler {
 
 
 enum DeckEditorField: Int, CaseIterable {
-    case title
+    case title = 0
     case deckDescription
     case newCardsPerDay
     case reviewCardsPerDay

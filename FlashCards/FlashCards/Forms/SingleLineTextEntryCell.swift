@@ -55,5 +55,14 @@ class SingleLineTextEntryCell: UITableViewCell, FormField {
     private var key: Int!
     private var delegate: FormFieldDelegate!
     
-    var textField: UITextField!
+    private var textField: UITextField!
+    
+    var font: UIFont? {
+        get {
+            textField.font
+        }
+        set (newValue) {
+            textField.font = newValue
+        }
+    }
 }
