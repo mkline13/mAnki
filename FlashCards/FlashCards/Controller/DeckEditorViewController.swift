@@ -24,8 +24,8 @@ class DeckEditorViewController: UIViewController, UITableViewDataSource, UITable
             // Default Values
             results = DeckEditorResultsHandler(title: "",
                                                deckDescription: "",
-                                               newCardsPerDay: 10,
-                                               reviewCardsPerDay: 10,
+                                               newCardsPerDay: 25,
+                                               reviewCardsPerDay: 100,
                                                flashCardService: flashCardService)
         }
         
@@ -100,7 +100,7 @@ class DeckEditorViewController: UIViewController, UITableViewDataSource, UITable
             title = "New Deck"
         }
         else {
-            title = "Edit Deck"
+            title = "Deck Settings"
         }
     }
     

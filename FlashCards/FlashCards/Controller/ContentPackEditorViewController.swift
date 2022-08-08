@@ -90,7 +90,7 @@ class ContentPackEditorViewController: UIViewController, UITableViewDataSource, 
             title = "New Content Pack"
         }
         else {
-            title = "Edit Content Pack"
+            title = "Content Pack Settings"
         }
     }
     

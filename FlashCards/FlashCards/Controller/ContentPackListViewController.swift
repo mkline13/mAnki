@@ -23,7 +23,7 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
         
         // Get data for new VC
         let contentPack = resultsController.object(at: indexPath)
-        editContentPack(contentPack)
+        browseCards(contentPack)
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
@@ -91,8 +91,8 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
         show(vc, sender: self)
     }
     
-    private func editContentPack(_ pack: ContentPack) {
-        let vc = ContentPackEditorViewController(flashCardService: flashCardService, contentPack: pack)
+    private func browseCards(_ pack: ContentPack) {
+        let vc = CardBrowserViewController(for: pack, flashCardService: flashCardService)
         show(vc, sender: self)
     }
     

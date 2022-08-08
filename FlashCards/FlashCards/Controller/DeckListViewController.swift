@@ -101,7 +101,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     }
     
     private func studyDeck(_ deck: Deck) {
-        let vc = StudySessionSetupViewController(for: deck, flashCardService: flashCardService)
+        let vc = StudySessionLauncherViewController(for: deck, flashCardService: flashCardService)
         show(vc, sender: self)
     }
     
@@ -112,8 +112,6 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     private var resultsController: NSFetchedResultsController<Deck>!
     
     private var tableView: UITableView!
-    
-    private var isVisible: Bool = false
 }
 
 

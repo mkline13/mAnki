@@ -8,7 +8,7 @@
 import UIKit
 
 
-class StudySessionSetupViewController: UIViewController {
+class StudySessionLauncherViewController: UIViewController {
     init (for deck: Deck, flashCardService: FlashCardService) {
         super.init(nibName: nil, bundle: nil)
         self.deck = deck
@@ -72,6 +72,14 @@ class StudySessionSetupViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit Deck", style: .plain, target: self, action: #selector(editButton(_:)))
     }
     
+    // MARK: Table
+    enum Row: CaseIterable {
+        case titleLabel
+        case descriptionLabel
+        case newCardsRemaining
+        case reviewCardsRemaining
+    }
+    
     // MARK: Actions
     @objc private func editButton(_ sender: UIBarButtonItem) {
         let vc = DeckEditorViewController(flashCardService: flashCardService, deck: deck)
@@ -83,7 +91,6 @@ class StudySessionSetupViewController: UIViewController {
     }
     
     // MARK: Properties
-    
     private var tableView: UITableView!
     private var goButton: UIButton!
     
