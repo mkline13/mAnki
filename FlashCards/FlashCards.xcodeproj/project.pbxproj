@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		966B041828A0544300DD484E /* ContentPackEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B041728A0544300DD484E /* ContentPackEditorViewController.swift */; };
+		966B041A28A07A4200DD484E /* StudySessionSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B041928A07A4200DD484E /* StudySessionSetupViewController.swift */; };
 		96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F1289D6BD900A04D53 /* AppDelegate.swift */; };
 		96BE32F4289D6BD900A04D53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */; };
 		96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32FA289D6BD900A04D53 /* FlashCards.xcdatamodeld */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		966B041728A0544300DD484E /* ContentPackEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPackEditorViewController.swift; sourceTree = "<group>"; };
+		966B041928A07A4200DD484E /* StudySessionSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionSetupViewController.swift; sourceTree = "<group>"; };
 		96BE32EE289D6BD900A04D53 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BE32F1289D6BD900A04D53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				966B041728A0544300DD484E /* ContentPackEditorViewController.swift */,
 				96BE3328289D6DE200A04D53 /* ContentPackListViewController.swift */,
 				96BE3381289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift */,
+				966B041928A07A4200DD484E /* StudySessionSetupViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				96BE337B289D827200A04D53 /* FlashCardService.swift in Sources */,
 				96BE337A289D827200A04D53 /* DependencyContainer.swift in Sources */,
 				96BE3364289D81B400A04D53 /* StudyStatus.swift in Sources */,
+				966B041A28A07A4200DD484E /* StudySessionSetupViewController.swift in Sources */,
 				96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */,
 				96BE3396289DCED000A04D53 /* Form.swift in Sources */,
 				96BE3389289DA58500A04D53 /* DeckEditorViewController.swift in Sources */,

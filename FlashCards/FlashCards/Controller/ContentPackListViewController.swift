@@ -28,8 +28,7 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
     
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
-        let contentPackResult = try! resultsController.managedObjectContext.existingObject(with: managedObjectID)
-        let contentPack = contentPackResult as! ContentPack
+        let contentPack = resultsController.managedObjectContext.object(with: managedObjectID) as! ContentPack
         let cell = tableView.dequeueReusableCell(withIdentifier: ContentPackListTableCell.reuseIdentifier, for: indexPath) as! ContentPackListTableCell
         
         cell.configure(for: contentPack)

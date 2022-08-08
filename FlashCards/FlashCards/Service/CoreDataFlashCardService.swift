@@ -20,18 +20,42 @@ class CoreDataFlashCardService: FlashCardService {
     // MARK: - CREATE
     func newContentPack(title: String, description packDescription: String, author: String) -> ContentPack? {
         let pack = ContentPack(title: title, packDescription: packDescription, author: author, context: persistentContainer.viewContext)
+        
+        do {
+            try persistentContainer.viewContext.obtainPermanentIDs(for: [pack])
+        }
+        catch {
+            print("Could not obtain permanent ID for pack: '\(pack.title)'")
+        }
+        
         saveViewContext()
         return pack
     }
     
     func newCard(in pack: ContentPack, frontContent front: String, backContent back: String, deck: Deck? = nil) -> Card? {
         let card = Card(frontContent: front, backContent: back, contentPack: pack, deck: deck, context: persistentContainer.viewContext)
+        
+        do {
+            try persistentContainer.viewContext.obtainPermanentIDs(for: [card])
+        }
+        catch {
+            print("Could not obtain permanent ID for card: '\(card.frontContent)'")
+        }
+        
         saveViewContext()
         return card
     }
     
     func newDeck(title: String, description ddesc: String = "", newCardsPerDay ncpd: Int64, reviewCardsPerDay rcpd: Int64) -> Deck? {
         let deck = Deck(title: title, deckDescription: ddesc, newCardsPerDay: ncpd, reviewCardsLimit: rcpd, context: persistentContainer.viewContext)
+        
+        do {
+            try persistentContainer.viewContext.obtainPermanentIDs(for: [deck])
+        }
+        catch {
+            print("Could not obtain permanent ID for pack: '\(deck.title)'")
+        }
+        
         saveViewContext()
         return deck
     }

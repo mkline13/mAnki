@@ -23,13 +23,12 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         
         // Get data for new VC
         let deck = resultsController.object(at: indexPath)
-        editDeck(deck)
+        studyDeck(deck)
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
-        let deckResult = try! resultsController.managedObjectContext.existingObject(with: managedObjectID)
-        let deck = deckResult as! Deck
+        let deck = resultsController.managedObjectContext.object(with: managedObjectID) as! Deck
         let cell = tableView.dequeueReusableCell(withIdentifier: DeckListTableCell.reuseIdentifier, for: indexPath) as! DeckListTableCell
         
         cell.configure(for: deck)
@@ -101,8 +100,8 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         show(vc, sender: self)
     }
     
-    private func editDeck(_ deck: Deck) {
-        let vc = DeckEditorViewController(flashCardService: flashCardService, deck: deck)
+    private func studyDeck(_ deck: Deck) {
+        let vc = StudySessionSetupViewController(for: deck, flashCardService: flashCardService)
         show(vc, sender: self)
     }
     
