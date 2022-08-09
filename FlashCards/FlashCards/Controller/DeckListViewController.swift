@@ -15,6 +15,54 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         flashCardService = fcs
     }
     
+    // MARK: - View
+    override func loadView() {
+        title = "Study Decks"
+        view = UIView(frame: .zero)
+        view.backgroundColor = UIColor.systemBackground
+        
+        // TableView
+        tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(tableView)
+        view.addConstraints([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+        
+        // Tab bar
+        tabBarItem.image = UIImage(systemName: "book")
+        tabBarItem.selectedImage = UIImage(systemName: "book.fill")
+        
+        // Nav bar
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDeck(_:)))
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // TableView
+        tableView.delegate = self
+        tableView.register(DeckListTableCell.self, forCellReuseIdentifier: DeckListTableCell.reuseIdentifier)
+
+        dataSource = EditingTableViewDiffableDataSource<Int, NSManagedObjectID>(tableView: tableView, cellProvider: provideCell, editHandler: handleEdit)
+        resultsController = flashCardService.deckResultsController(with: self)
+    }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        resultsController.delegate = self
+//        try! resultsController.performFetch()
+//    }
+//
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        resultsController.delegate = nil
+//    }
+    
     // MARK: UITableViewDelegate
     // Handle Row Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -44,54 +92,6 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
         
         self.dataSource.apply(snapshot, animatingDifferences: true)
-    }
-    
-    // MARK: - View
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // TableView
-        tableView.delegate = self
-        tableView.register(DeckListTableCell.self, forCellReuseIdentifier: DeckListTableCell.reuseIdentifier)
-
-        dataSource = EditingTableViewDiffableDataSource<Int, NSManagedObjectID>(tableView: tableView, cellProvider: provideCell, editHandler: handleEdit)
-        resultsController = flashCardService.deckResultsController(with: self)
-    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        resultsController.delegate = self
-//        try! resultsController.performFetch()
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        resultsController.delegate = nil
-//    }
-    
-    override func loadView() {
-        title = "Study Decks"
-        view = UIView(frame: .zero)
-        view.backgroundColor = UIColor.systemBackground
-        
-        // TableView
-        tableView = UITableView(frame: .zero, style: .plain)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(tableView)
-        view.addConstraints([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
-        
-        // Tab bar
-        tabBarItem.image = UIImage(systemName: "book")
-        tabBarItem.selectedImage = UIImage(systemName: "book.fill")
-        
-        // Nav bar
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDeck(_:)))
     }
     
     // MARK: Actions

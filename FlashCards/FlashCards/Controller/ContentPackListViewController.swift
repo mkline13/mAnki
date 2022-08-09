@@ -60,7 +60,7 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
     }
     
     override func loadView() {
-        title = "Content Packs"
+        title = "Card Collections"
 
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground

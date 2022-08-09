@@ -73,11 +73,39 @@ class CoreDataFlashCardService: FlashCardService {
         return  createResultsController(for: delegate, fetchRequest: fetchRequest)
     }
     
+    func cardResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<Card>? {
+        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Card.deck, ascending: true),
+            NSSortDescriptor(keyPath: \Card.frontContent, ascending: true),
+        ]
+        return createResultsController(for: delegate, fetchRequest: fetchRequest)
+    }
+    
+    func cardResultsController(with delegate: NSFetchedResultsControllerDelegate, for deck: Deck) -> NSFetchedResultsController<Card>? {
+        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Card.frontContent, ascending: true),
+        ]
+        
+        fetchRequest.predicate = NSPredicate(format: "deck == %@", deck)
+        return createResultsController(for: delegate, fetchRequest: fetchRequest)
+    }
+    
+    func cardResultsController(with delegate: NSFetchedResultsControllerDelegate, for pack: ContentPack) -> NSFetchedResultsController<Card>? {
+        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Card.frontContent, ascending: true),
+        ]
+        fetchRequest.predicate = NSPredicate(format: "contentPack == %@", pack)
+        return createResultsController(for: delegate, fetchRequest: fetchRequest)
+    }
+    
     private func createResultsController<T>(for delegate: NSFetchedResultsControllerDelegate, fetchRequest: NSFetchRequest<T>) -> NSFetchedResultsController<T>? where T: NSFetchRequestResult {
         let resultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                            managedObjectContext: persistentContainer.viewContext,
                                                            sectionNameKeyPath: nil,
-                                                           cacheName: "cache")
+                                                           cacheName: nil)
         resultsController.delegate = delegate
         
         guard let _ = try? resultsController.performFetch() else {
