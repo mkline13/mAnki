@@ -138,6 +138,16 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
         }
     }
     
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Handle UI
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        // Get data for new VC
+        let card = resultsController.object(at: indexPath)
+        editCard(card)
+    }
+    
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
         let card = resultsController.managedObjectContext.object(with: managedObjectID) as! Card
@@ -175,7 +185,17 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
     }
     
     @objc private func newCardButton(_ sender: UIBarButtonItem) {
-        print("NEW CARD")
+        guard let contentPack = contentPack else {
+            fatalError("New card creation must only happen from the ContentPack card browser")
+        }
+        
+        let vc = CardEditorViewController(in: contentPack, flashCardService: flashCardService)
+        show(vc, sender: self)
+    }
+    
+    private func editCard(_ card: Card) {
+        let vc = CardEditorViewController(for: card, flashCardService: flashCardService)
+        show(vc, sender: self)
     }
     
     // MARK: - Properties
