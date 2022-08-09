@@ -19,14 +19,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
+        
+        let dependencyContainer = DependencyContainer.shared
+        
+        #if LOAD_TEST_DATA
+        // If needed, loads some test entities into CoreData
+        print("LOAD_TEST_DATA enabled")
+        print("Loading test data if needed...")
+        dependencyContainer.flashCardService.loadTestData()
+        #endif
+        
+        #if LOAD_TEST_JIG
+        // A convenient way to test out the functionality of view controllers before incorporating them into the project
+        print("LOAD_TEST_JIG enabled")
+        print("Loading test jig instead of normal project...")
+        let testJigViewController = UIViewController()
+        testJigViewController.view = UIView(frame: .zero)
+        testJigViewController.view.backgroundColor = UIColor.red
+        window.rootViewController = testJigViewController
+        
+        #else
+        // Normal functionality
         let tabBarController = UITabBarController()
         let decksNavigation = UINavigationController()
         let packsNavigation = UINavigationController()
         
         // Inject dependencies
-        let dependencyContainer = DependencyContainer.shared
-        dependencyContainer.flashCardService.loadTestData()
-        
         let deckListViewController = DeckListViewController(flashCardService: dependencyContainer.flashCardService)
         let contentPackListViewController = ContentPackListViewController(flashCardService: dependencyContainer.flashCardService)
         
@@ -42,6 +60,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         packsNavigation.loadViewIfNeeded()
         
         window.rootViewController = tabBarController
+        #endif
         
         window.makeKeyAndVisible()
         self.window = window
@@ -77,7 +96,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
-
 }
 
