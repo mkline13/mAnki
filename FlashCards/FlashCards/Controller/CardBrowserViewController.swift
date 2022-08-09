@@ -45,7 +45,7 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             if subtitleText.count != deck.title.count {
                 subtitleText += "..."
             }
-            navigationItem.titleView = createTitleView(title: "Cards", subtitle: "\(subtitleText)")
+            navigationItem.titleView = createTitleView(title: "Cards", subtitle: "Deck: \(subtitleText)")
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
         else if let contentPack = contentPack {
@@ -53,7 +53,7 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             if subtitleText.count != contentPack.title.count {
                 subtitleText += "..."
             }
-            navigationItem.titleView = createTitleView(title: "Cards", subtitle: "\(subtitleText)")
+            navigationItem.titleView = createTitleView(title: "Cards", subtitle: "Collection: \(subtitleText)")
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
         else {
@@ -66,10 +66,11 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
         let toolbar = UIToolbar(frame: CGRect.infinite)  // CGRect.infinite fixes a weird autoresizing constraint bug
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let newCardButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(newCardButton(_:)))
-
-        toolbar.items = [flexibleSpace, newCardButton]
+        if deck == nil {
+            let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+            let newCardButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(newCardButton(_:)))
+            toolbar.items = [flexibleSpace, newCardButton]
+        }
         
         view.addSubview(tableView)
         view.addSubview(toolbar)

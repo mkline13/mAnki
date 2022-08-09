@@ -87,10 +87,10 @@ class ContentPackEditorViewController: UIViewController, UITableViewDataSource, 
         table.register(SingleLineTextEntryCell.self, forCellReuseIdentifier: SingleLineTextEntryCell.reuseIdentifier)
         
         if contentPack == nil {
-            title = "New Content Pack"
+            title = "New Collection"
         }
         else {
-            title = "Content Pack Settings"
+            title = "Collection Settings"
         }
     }
     

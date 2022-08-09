@@ -16,8 +16,8 @@ class CardBrowserCell: UITableViewCell {
         
         label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 3
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 1
         
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         
@@ -35,7 +35,11 @@ class CardBrowserCell: UITableViewCell {
     }
     
     func configure(for card: Card) {
-        label.text = card.frontContent
+        updateLabel(card.frontContent, card.backContent)
+    }
+    
+    func updateLabel(_ front: String, _ back: String) {
+        label.text = "'\(front)'   |   '\(back)'"
     }
     
     // MARK: Properties

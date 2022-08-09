@@ -69,7 +69,7 @@ class StudySessionLauncherViewController: UIViewController {
             buttonPanel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit Deck", style: .plain, target: self, action: #selector(editButton(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(editButton(_:)))
     }
     
     // MARK: Table
