@@ -190,22 +190,42 @@ class FrontViewController: CardViewController {
     override func loadView() {
         view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.red
+//        view.backgroundColor = UIColor.red
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
-                
+        
+        let frontLabel = UIView(frame: .zero)
+        spacer.translatesAutoresizingMaskIntoConstraints = false
+        
         contentLabel = UILabel(frame: .zero)
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.textAlignment = .center
         contentLabel.numberOfLines = 0
         contentLabel.lineBreakMode = .byWordWrapping
         contentLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         contentLabel.text = "Front: No card loaded"
         
+        let tapToFlipLabel = UILabel(frame: .zero)
+        tapToFlipLabel.translatesAutoresizingMaskIntoConstraints = false
+        tapToFlipLabel.font = tapToFlipLabel.font.withSize(12)
+        tapToFlipLabel.textColor = tapToFlipLabel.textColor.withAlphaComponent(0.4)
+        tapToFlipLabel.text = "(tap)"
+        
+        view.addSubview(spacer)
         view.addSubview(contentLabel)
+        view.addSubview(tapToFlipLabel)
         view.addConstraints([
-            contentLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            contentLabel.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-            contentLabel.widthAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.widthAnchor)
+            spacer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            spacer.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
+            spacer.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.20),
+            
+            contentLabel.topAnchor.constraint(equalTo: spacer.bottomAnchor),
+            contentLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            contentLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            
+            tapToFlipLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 16),
+            tapToFlipLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tapToFlipLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -2),
         ])
     }
     
@@ -215,7 +235,12 @@ class FrontViewController: CardViewController {
     }
     
     override var side: CardSide {
-        .front
+        get {
+            .front
+        }
+        set (newValue) {
+            //
+        }
     }
     
 }
@@ -226,7 +251,7 @@ class BackViewController: CardViewController {
     override func loadView() {
         view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.blue
+//        view.backgroundColor = UIColor.blue
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         
