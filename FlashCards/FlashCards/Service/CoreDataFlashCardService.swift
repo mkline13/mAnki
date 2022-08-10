@@ -60,6 +60,12 @@ class CoreDataFlashCardService: FlashCardService {
         return deck
     }
     
+    func createStudyRecord(for card: Card, status: StudyStatus) -> StudyRecord? {
+        let studyRecord = StudyRecord(timestamp: Date.now, studyStatus: status, previousInterval: 0, nextInterval: 0, card: card, context: persistentContainer.viewContext)
+        saveViewContext()
+        return studyRecord
+    }
+    
     // MARK: - READ
     func contentPackResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<ContentPack>? {
         let fetchRequest: NSFetchRequest<ContentPack> = ContentPack.fetchRequest()
@@ -213,6 +219,20 @@ class CoreDataFlashCardService: FlashCardService {
             print("  - \(index): \(deck.title)")
         }
         
+    }
+    
+    func printStudyRecords() {
+        let fetchRequest: NSFetchRequest<StudyRecord> = StudyRecord.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \StudyRecord.timestamp, ascending: true)]
+        
+        guard let results = try? persistentContainer.viewContext.fetch(fetchRequest) else {
+            print("Could not print study records: results was nil")
+            return
+        }
+        
+        for record in results {
+            print("\(record.timestamp), '\(record.card.frontContent.prefix(10))', \(record.studyStatus)")
+        }
     }
     
     func loadTestData() {

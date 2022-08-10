@@ -8,15 +8,11 @@
 import UIKit
 
 
-class StudySessionViewController: UIViewController, CardViewControllerDelegate {
-    init(for deck: Deck, FlashCardService: FlashCardService) {
+class StudySessionViewController: UIViewController {
+    init (for deck: Deck, flashCardService: FlashCardService) {
         super.init(nibName: nil, bundle: nil)
         self.deck = deck
-        
-        self.flashCardService = FlashCardService
-        
-        frontViewController = FrontViewController(with: self)
-        backViewController = BackViewController(with: self)
+        self.flashCardService = flashCardService
     }
     
     required init?(coder: NSCoder) {
@@ -30,172 +26,12 @@ class StudySessionViewController: UIViewController, CardViewControllerDelegate {
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
         
-        guard deck.cards.count > 0 else {
-            fatalError("Could not load card, no cards in deck")
-        }
-        
-        embedChildViewController(frontViewController)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        currentCard = deck.cards.anyObject() as! Card?
-        
-        currentViewController.configure(for: currentCard!)
-    }
-    
-    // MARK: CardViewControllerDelegate
-    func flipCard(_ sender: CardViewController) {
-        switch currentViewController.side {
-        case .front:
-            unembedChildViewController(frontViewController)
-            embedChildViewController(backViewController)
-        case .back:
-            unembedChildViewController(backViewController)
-            embedChildViewController(frontViewController)
-        }
-        currentViewController.configure(for: currentCard!)
-    }
-    
-    func set(toSide side: CardSide) {
-        switch currentViewController.side {
-        case .back:
-            unembedChildViewController(frontViewController)
-            embedChildViewController(backViewController)
-        case .front:
-            unembedChildViewController(backViewController)
-            embedChildViewController(frontViewController)
-        }
-        currentViewController.configure(for: currentCard!)
-    }
-    
-    func unembedChildViewController(_ child: CardViewController) {
-        child.willMove(toParent: nil)
-        child.removeConstraintsFromParent()
-        child.view.removeFromSuperview()
-        child.removeFromParent()
-        currentViewController = nil
-    }
-    
-    func embedChildViewController(_ child: CardViewController) {
-        addChild(child)
-        view.addSubview(child.view)
-        child.addConstraintsToParent()
-        child.didMove(toParent: self)
-        currentViewController = child
-    }
-    
-    func finishStudyingCard(_ sender: CardViewController, card: Card, status: StudyStatus) {
-        print("DONE STUDYING")
-    }
-    
-    // MARK: Properties
-    private var flashCardService: FlashCardService!
-    private var deck: Deck!
-    private var currentCard: Card?
-    
-    private var frontViewController: CardViewController!
-    private var backViewController: CardViewController!
-    private var currentViewController: CardViewController!
-}
-
-protocol CardViewControllerDelegate {
-    func flipCard(_ sender: CardViewController)
-    func finishStudyingCard (_ sender: CardViewController, card: Card, status: StudyStatus)
-}
-
-enum CardSide {
-    case front
-    case back
-}
-
-class CardViewController: UIViewController {
-    init (with delegate: CardViewControllerDelegate) {
-        super.init(nibName: nil, bundle: nil)
-        self.delegate = delegate
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: View
-    override func loadView() {
-        // intentionally left blank
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    func addConstraintsToParent() {
-        guard let view = view else {
-            fatalError("Cannot constrain to parent: view has not been created yet")
-        }
-        
-        guard let parentView = parent?.view else {
-            fatalError("Cannot constrain to parent: no parent exists")
-        }
-        
-        guard constraintsToParent.isEmpty else {
-            fatalError("Already constrained to parent")
-        }
-        
-        constraintsToParent = [
-            view.topAnchor.constraint(equalTo: parentView.safeAreaLayoutGuide.topAnchor),
-            view.bottomAnchor.constraint(equalTo: parentView.safeAreaLayoutGuide.bottomAnchor),
-            view.leadingAnchor.constraint(equalTo: parentView.safeAreaLayoutGuide.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: parentView.safeAreaLayoutGuide.trailingAnchor),
-        ]
-        
-        parentView.addConstraints(constraintsToParent)
-    }
-    
-    func removeConstraintsFromParent() {
-        guard let parentView = parent?.view else {
-            fatalError("Cannot remove constraints from parent: no parent exists")
-        }
-        
-        parentView.removeConstraints(constraintsToParent)
-        constraintsToParent = []
-    }
-    
-    func configure(for card: Card) {
-        self.card = card
-    }
-    
-    // MARK: Actions
-    @objc fileprivate func handleTap(_ sender: UITapGestureRecognizer) {
-        if sender.state == .ended {
-            delegate.flipCard(self)
-        }
-    }
-    
-    // MARK: Properties
-    var side: CardSide {
-        .front
-    }
-    
-    private var constraintsToParent: [NSLayoutConstraint] = []
-    
-    fileprivate var delegate: CardViewControllerDelegate!
-    fileprivate var contentLabel: UILabel!
-    
-    fileprivate var card: Card?
-}
-
-
-class FrontViewController: CardViewController {
-    // MARK: View
-    override func loadView() {
-        view = UIView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = UIColor.red
-        
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         
-        let frontLabel = UIView(frame: .zero)
-        spacer.translatesAutoresizingMaskIntoConstraints = false
+        sideLabel = UILabel(frame: .zero)
+        sideLabel.translatesAutoresizingMaskIntoConstraints = false
+        sideLabel.textAlignment = .center
+        sideLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         
         contentLabel = UILabel(frame: .zero)
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -203,7 +39,6 @@ class FrontViewController: CardViewController {
         contentLabel.numberOfLines = 0
         contentLabel.lineBreakMode = .byWordWrapping
         contentLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        contentLabel.text = "Front: No card loaded"
         
         let tapToFlipLabel = UILabel(frame: .zero)
         tapToFlipLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -211,72 +46,154 @@ class FrontViewController: CardViewController {
         tapToFlipLabel.textColor = tapToFlipLabel.textColor.withAlphaComponent(0.4)
         tapToFlipLabel.text = "(tap)"
         
-        view.addSubview(spacer)
+        // Back Side Button Panel
+        let config = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 58))
+        let failButtonImage = UIImage(systemName: "x.circle", withConfiguration: config)
+        let successButtonImage = UIImage(systemName: "checkmark.circle", withConfiguration: config)
+        
+        failButton = UIButton(configuration: .plain(), primaryAction: UIAction(handler: {_ in self.markFailure()}))
+        failButton.translatesAutoresizingMaskIntoConstraints = false
+        failButton.setImage(failButtonImage, for: .normal)
+        failButton.tintColor = .systemRed
+        
+        successButton = UIButton(configuration: .plain(), primaryAction: UIAction(handler: {_ in self.markSuccess()}))
+        successButton.translatesAutoresizingMaskIntoConstraints = false
+        successButton.setImage(successButtonImage, for: .normal)
+        successButton.tintColor = .systemGreen
+        
+        buttonPanel = UIStackView(arrangedSubviews: [failButton, successButton])
+        buttonPanel.translatesAutoresizingMaskIntoConstraints = false
+        buttonPanel.isLayoutMarginsRelativeArrangement = true
+        buttonPanel.axis = .horizontal
+        buttonPanel.distribution = .fillEqually
+        buttonPanel.alignment = .center
+        
+        // View Hierarchy
+        view.addSubview(sideLabel)
         view.addSubview(contentLabel)
         view.addSubview(tapToFlipLabel)
+        view.addSubview(buttonPanel)
         view.addConstraints([
-            spacer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            spacer.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
-            spacer.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.20),
+            sideLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            sideLabel.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
             
-            contentLabel.topAnchor.constraint(equalTo: spacer.bottomAnchor),
+            contentLabel.topAnchor.constraint(equalTo: sideLabel.bottomAnchor, constant: 32),
             contentLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             contentLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             
-            tapToFlipLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 16),
+            tapToFlipLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 32),
             tapToFlipLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tapToFlipLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor, constant: -2),
+            tapToFlipLabel.bottomAnchor.constraint(lessThanOrEqualTo: buttonPanel.topAnchor, constant: -2),
+            
+            buttonPanel.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2),
+            buttonPanel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            buttonPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            buttonPanel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
     
-    override func configure(for card: Card) {
-        super.configure(for: card)
-        contentLabel.text = card.frontContent
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        sideLabel.text = "Front"
+        contentLabel.text = "Content Label\nBlahblahblah"
+        
+        // Decide which cards are ready to study
+        // Show those cards
+        
+        cardsToStudy = deck.cards.allObjects as! [Card]
+        studyNextCard()
     }
     
-    override var side: CardSide {
-        get {
-            .front
+    private func flipCard() {
+        switch currentSide {
+        case .front:
+            show(.back, of: currentCard)
+        case .back:
+            show(.front, of: currentCard)
         }
-        set (newValue) {
-            //
+    }
+    
+    private func show(_ side: CardSide, of card: Card) {
+        currentSide = side
+        
+        switch side {
+        case .front:
+            successButton.isEnabled = false
+            failButton.isEnabled = false
+            updateLabels(side: currentSide.string, content: card.frontContent)
+            buttonPanel.alpha = 0.0
+        case .back:
+            successButton.isEnabled = true
+            failButton.isEnabled = true
+            updateLabels(side: currentSide.string, content: card.backContent)
+            buttonPanel.alpha = 1.0
         }
     }
     
-}
-
-
-class BackViewController: CardViewController {
-    // MARK: View
-    override func loadView() {
-        view = UIView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = UIColor.blue
-        
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
-        
-        contentLabel = UILabel(frame: .zero)
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentLabel.numberOfLines = 0
-        contentLabel.lineBreakMode = .byWordWrapping
-        contentLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        contentLabel.text = "Back: No card loaded"
-        
-        view.addSubview(contentLabel)
-        view.addConstraints([
-            contentLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            contentLabel.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-            contentLabel.widthAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.widthAnchor)
-        ])
+    private func updateLabels(side: String, content: String) {
+        sideLabel.text = side
+        contentLabel.text = content
     }
     
-    override func configure(for card: Card) {
-        super.configure(for: card)
-        contentLabel.text = card.backContent
+    // MARK: Studying
+    private func studyNextCard() {
+        guard let nextCard = cardsToStudy.popLast() else {
+            didFinishStudying()
+            return
+        }
+        
+        currentCard = nextCard
+        show(.front, of: nextCard)
+    }
+    
+    // MARK: Actions
+    @objc private func handleTap(_ sender: UIGestureRecognizer) {
+        flipCard()
+    }
+    
+    private func didFinishStudying() {
+        print("DID FINISH STUDYING")
+    }
+    
+    private func markFailure() {
+        print("Fail button")
+        _ = flashCardService.createStudyRecord(for: currentCard, status: .failure)
+        studyNextCard()
+    }
+    
+    private func markSuccess() {
+        print("Success button")
+        _ = flashCardService.createStudyRecord(for: currentCard, status: .success)
+        studyNextCard()
     }
     
     // MARK: Properties
-    override var side: CardSide {
-        .back
+    private var flashCardService: FlashCardService!
+    
+    private var sideLabel: UILabel!
+    private var contentLabel: UILabel!
+    private var buttonPanel: UIStackView!
+    private var failButton: UIButton!
+    private var successButton: UIButton!
+    
+    private var deck: Deck!
+    private var cardsToStudy: [Card] = []
+    private var currentCard: Card!
+    
+    private var currentSide: CardSide = .front
+    
+    enum CardSide {
+        case front
+        case back
+        
+        var string: String {
+            switch self {
+            case .front:
+                return "front"
+            case .back:
+                return "back"
+            }
+        }
     }
 }

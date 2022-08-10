@@ -26,6 +26,6 @@ func loadTestJig() -> UIViewController {
         _ = flashCardService.newCard(in: contentPack!, frontContent: front, backContent: back, deck: deck!)
     }
     
-    let testJigViewController = StudySessionViewController(for: deck!, FlashCardService: flashCardService)
+    let testJigViewController = StudySessionViewController(for: deck!, flashCardService: flashCardService)
     return testJigViewController
 }
