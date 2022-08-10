@@ -115,6 +115,36 @@ class CoreDataFlashCardService: FlashCardService {
         
         return resultsController
     }
+    
+    func getDecks() -> [Deck] {
+        let fetchRequest: NSFetchRequest<Deck> = Deck.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Deck.title, ascending: true)
+        ]
+        
+        do {
+            let decks = try persistentContainer.viewContext.fetch(fetchRequest)
+            return decks
+        }
+        catch {
+            fatalError("Could not fetch decks.")
+        }
+    }
+    
+    func getCards() -> [Card] {
+        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Card.frontContent, ascending: true)
+        ]
+        
+        do {
+            let cards = try persistentContainer.viewContext.fetch(fetchRequest)
+            return cards
+        }
+        catch {
+            fatalError("Could not fetch decks.")
+        }
+    }
         
     // MARK: - UPDATE
     func updateContentPack(_ pack: ContentPack, title: String, description pdesc: String, author: String) {

@@ -17,8 +17,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
         let window = UIWindow(windowScene: windowScene)
+        
+        #if LOAD_TEST_JIG
+        // A convenient way to test out the functionality of view controllers before incorporating them into the project
+        print("LOAD_TEST_JIG enabled")
+        print("Loading test jig instead of normal project...")
+        window.rootViewController = loadTestJig()
+        
+        #else
         
         let dependencyContainer = DependencyContainer.shared
         
@@ -29,16 +36,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         dependencyContainer.flashCardService.loadTestData()
         #endif
         
-        #if LOAD_TEST_JIG
-        // A convenient way to test out the functionality of view controllers before incorporating them into the project
-        print("LOAD_TEST_JIG enabled")
-        print("Loading test jig instead of normal project...")
-        let testJigViewController = UIViewController()
-        testJigViewController.view = UIView(frame: .zero)
-        testJigViewController.view.backgroundColor = UIColor.red
-        window.rootViewController = testJigViewController
-        
-        #else
         // Normal functionality
         let tabBarController = UITabBarController()
         let decksNavigation = UINavigationController()

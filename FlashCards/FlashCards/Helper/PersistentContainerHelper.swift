@@ -11,7 +11,7 @@ import Foundation
 class PersistentContainerHelper {
     func createPersistentContainer(name: String, managedObjectModel: NSManagedObjectModel, shouldLoadStores: Bool = true) -> NSPersistentContainer {
         let storeDescription = NSPersistentStoreDescription()
-        storeDescription.type = NSInMemoryStoreType
+        storeDescription.url = URL(fileURLWithPath: "/dev/null")
         storeDescription.shouldAddStoreAsynchronously = false
 
         let persistentContainer = NSPersistentContainer(name: name, managedObjectModel: managedObjectModel)

@@ -20,11 +20,15 @@ protocol FlashCardService {
     
     // MARK: READ
     func contentPackResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<ContentPack>?
+    
     func deckResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<Deck>?
     
     func cardResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<Card>?
     func cardResultsController(with delegate: NSFetchedResultsControllerDelegate, for deck: Deck) -> NSFetchedResultsController<Card>?
     func cardResultsController(with delegate: NSFetchedResultsControllerDelegate, for pack: ContentPack) -> NSFetchedResultsController<Card>?
+    
+    func getDecks() -> [Deck]
+    func getCards() -> [Card]
     
     // MARK: UPDATE
     func updateContentPack(_ pack: ContentPack, title: String, description pdesc: String, author: String)

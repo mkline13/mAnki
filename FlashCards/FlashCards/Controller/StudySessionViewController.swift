@@ -8,11 +8,15 @@
 import UIKit
 
 
-class StudySessionViewController: UIViewController {
+class StudySessionViewController: UIViewController, CardViewControllerDelegate {
     init(for deck: Deck, FlashCardService: FlashCardService) {
         super.init(nibName: nil, bundle: nil)
         self.deck = deck
+        
         self.flashCardService = FlashCardService
+        
+        frontViewController = FrontViewController(with: self)
+        backViewController = BackViewController(with: self)
     }
     
     required init?(coder: NSCoder) {
@@ -25,35 +29,90 @@ class StudySessionViewController: UIViewController {
         
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
+        
+        guard deck.cards.count > 0 else {
+            fatalError("Could not load card, no cards in deck")
+        }
+        
+        embedChildViewController(frontViewController)
     }
     
     override func viewDidLoad() {
-        //
+        super.viewDidLoad()
+        currentCard = deck.cards.anyObject() as! Card?
+        
+        currentViewController.configure(for: currentCard!)
     }
     
-    // MARK: Embedded UIViewControllers
-    private func createViewControllers(for card: Card) -> (UIViewController, UIViewController) {
-        let frontViewController = FrontViewController(for: card)
-        let backViewController = BackViewController(for: card)
-        
-        frontViewController.back = backViewController
-        backViewController.front = frontViewController
-        
-        return (frontViewController, backViewController)
+    // MARK: CardViewControllerDelegate
+    func flipCard(_ sender: CardViewController) {
+        switch currentViewController.side {
+        case .front:
+            unembedChildViewController(frontViewController)
+            embedChildViewController(backViewController)
+        case .back:
+            unembedChildViewController(backViewController)
+            embedChildViewController(frontViewController)
+        }
+        currentViewController.configure(for: currentCard!)
+    }
+    
+    func set(toSide side: CardSide) {
+        switch currentViewController.side {
+        case .back:
+            unembedChildViewController(frontViewController)
+            embedChildViewController(backViewController)
+        case .front:
+            unembedChildViewController(backViewController)
+            embedChildViewController(frontViewController)
+        }
+        currentViewController.configure(for: currentCard!)
+    }
+    
+    func unembedChildViewController(_ child: CardViewController) {
+        child.willMove(toParent: nil)
+        child.removeConstraintsFromParent()
+        child.view.removeFromSuperview()
+        child.removeFromParent()
+        currentViewController = nil
+    }
+    
+    func embedChildViewController(_ child: CardViewController) {
+        addChild(child)
+        view.addSubview(child.view)
+        child.addConstraintsToParent()
+        child.didMove(toParent: self)
+        currentViewController = child
+    }
+    
+    func finishStudyingCard(_ sender: CardViewController, card: Card, status: StudyStatus) {
+        print("DONE STUDYING")
     }
     
     // MARK: Properties
     private var flashCardService: FlashCardService!
     private var deck: Deck!
+    private var currentCard: Card?
     
-    private var frontViewController: UIViewController?
+    private var frontViewController: CardViewController!
+    private var backViewController: CardViewController!
+    private var currentViewController: CardViewController!
 }
 
+protocol CardViewControllerDelegate {
+    func flipCard(_ sender: CardViewController)
+    func finishStudyingCard (_ sender: CardViewController, card: Card, status: StudyStatus)
+}
 
-class FrontViewController: UIViewController {
-    init(for card: Card) {
+enum CardSide {
+    case front
+    case back
+}
+
+class CardViewController: UIViewController {
+    init (with delegate: CardViewControllerDelegate) {
         super.init(nibName: nil, bundle: nil)
-        self.card = card
+        self.delegate = delegate
     }
     
     required init?(coder: NSCoder) {
@@ -62,63 +121,137 @@ class FrontViewController: UIViewController {
     
     // MARK: View
     override func loadView() {
-        view = UIView(frame: .zero)
-        view.backgroundColor = UIColor.red
-        
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        label.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
-        label.text = card.frontContent
-        
-        view.addSubview(label)
-        view.addConstraints([
-            label.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            label.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            label.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-        ])
+        // intentionally left blank
     }
     
-    // MARK: Properties
-    private var card: Card!
-    var back: UIViewController!
-}
-
-
-class BackViewController: UIViewController {
-    init(for card: Card) {
-        super.init(nibName: nil, bundle: nil)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    func addConstraintsToParent() {
+        guard let view = view else {
+            fatalError("Cannot constrain to parent: view has not been created yet")
+        }
+        
+        guard let parentView = parent?.view else {
+            fatalError("Cannot constrain to parent: no parent exists")
+        }
+        
+        guard constraintsToParent.isEmpty else {
+            fatalError("Already constrained to parent")
+        }
+        
+        constraintsToParent = [
+            view.topAnchor.constraint(equalTo: parentView.safeAreaLayoutGuide.topAnchor),
+            view.bottomAnchor.constraint(equalTo: parentView.safeAreaLayoutGuide.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: parentView.safeAreaLayoutGuide.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: parentView.safeAreaLayoutGuide.trailingAnchor),
+        ]
+        
+        parentView.addConstraints(constraintsToParent)
+    }
+    
+    func removeConstraintsFromParent() {
+        guard let parentView = parent?.view else {
+            fatalError("Cannot remove constraints from parent: no parent exists")
+        }
+        
+        parentView.removeConstraints(constraintsToParent)
+        constraintsToParent = []
+    }
+    
+    func configure(for card: Card) {
         self.card = card
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: View
-    override func loadView() {
-        view = UIView(frame: .zero)
-        view.backgroundColor = UIColor.red
-        
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        label.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
-        label.text = card.frontContent
-        
-        view.addSubview(label)
-        view.addConstraints([
-            label.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            label.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            label.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
-        ])
+    // MARK: Actions
+    @objc fileprivate func handleTap(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            delegate.flipCard(self)
+        }
     }
     
     // MARK: Properties
-    private var card: Card!
-    var front: UIViewController!
+    var side: CardSide {
+        .front
+    }
+    
+    private var constraintsToParent: [NSLayoutConstraint] = []
+    
+    fileprivate var delegate: CardViewControllerDelegate!
+    fileprivate var contentLabel: UILabel!
+    
+    fileprivate var card: Card?
+}
+
+
+class FrontViewController: CardViewController {
+    // MARK: View
+    override func loadView() {
+        view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.red
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
+                
+        contentLabel = UILabel(frame: .zero)
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.numberOfLines = 0
+        contentLabel.lineBreakMode = .byWordWrapping
+        contentLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        contentLabel.text = "Front: No card loaded"
+        
+        view.addSubview(contentLabel)
+        view.addConstraints([
+            contentLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            contentLabel.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            contentLabel.widthAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.widthAnchor)
+        ])
+    }
+    
+    override func configure(for card: Card) {
+        super.configure(for: card)
+        contentLabel.text = card.frontContent
+    }
+    
+    override var side: CardSide {
+        .front
+    }
+    
+}
+
+
+class BackViewController: CardViewController {
+    // MARK: View
+    override func loadView() {
+        view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.blue
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
+        
+        contentLabel = UILabel(frame: .zero)
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.numberOfLines = 0
+        contentLabel.lineBreakMode = .byWordWrapping
+        contentLabel.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        contentLabel.text = "Back: No card loaded"
+        
+        view.addSubview(contentLabel)
+        view.addConstraints([
+            contentLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            contentLabel.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            contentLabel.widthAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.widthAnchor)
+        ])
+    }
+    
+    override func configure(for card: Card) {
+        super.configure(for: card)
+        contentLabel.text = card.backContent
+    }
+    
+    // MARK: Properties
+    override var side: CardSide {
+        .back
+    }
 }
