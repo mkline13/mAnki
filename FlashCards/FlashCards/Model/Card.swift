@@ -11,9 +11,10 @@ import CoreData
 
 @objc(Card)
 public class Card: NSManagedObject {
-    convenience init(frontContent front: String, backContent back: String, contentPack pack: ContentPack, deck: Deck?, context: NSManagedObjectContext) {
+    convenience init(creationDate: Date, frontContent front: String, backContent back: String, contentPack pack: ContentPack, deck: Deck?, context: NSManagedObjectContext) {
         self.init(context: context)
         
+        self.creationDate = creationDate
         self.frontContent = front
         self.backContent = back
         self.contentPack = pack

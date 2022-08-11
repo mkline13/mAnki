@@ -30,6 +30,10 @@ protocol FlashCardService {
     func getDecks() -> [Deck]
     func getCards() -> [Card]
     
+    func getNewCards(in deck: Deck, limit: Int64) -> [Card]
+    func drawNewCards(for deck: Deck, limit: Int64) -> [Card]
+    func getReviewCards(in deck: Deck, limit: Int64) -> [Card]
+    
     // MARK: UPDATE
     func updateContentPack(_ pack: ContentPack, title: String, description pdesc: String, author: String)
     func updateDeck(_ deck: Deck, title: String, description ddesc: String, newCardsPerDay ncpd: Int64, reviewCardsPerDay rcpd: Int64)

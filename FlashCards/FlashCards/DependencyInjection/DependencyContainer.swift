@@ -7,29 +7,33 @@
 
 import CoreData
 
-
 class DependencyContainer {
-    private init() {
+    private init(storesInMemory: Bool = false) {
         let bundle = Bundle(for: Card.self)
-        let modelURL = bundle.url(forResource: "FlashCards", withExtension: "momd")!
-        managedObjectModel = NSManagedObjectModel(contentsOf: modelURL)!
+        let name = "FlashCards"
+        let modelURL = bundle.url(forResource: name, withExtension: "momd")!
+        let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL)!
+        let persistentContainer: NSPersistentContainer
         
-        persistentContainer = NSPersistentContainer(name: "FlashCards", managedObjectModel: managedObjectModel)
+        if storesInMemory {
+            persistentContainer = PersistentContainerHelper.shared.createPersistentContainerWithInMemoryStores(name: name, managedObjectModel: managedObjectModel)
+        }
+        else {
+            persistentContainer = PersistentContainerHelper.shared.createPersistentContainerWithOnDiskStores(name: name, managedObjectModel: managedObjectModel)
+        }
+        
+        #if DESTROY_PERSISTENT_STORES
+        PersistentContainerHelper.shared.destroyPersistentStoresOnDisk(persistentContainer: persistentContainer)
+        #endif
+        
         persistentContainer.loadPersistentStores { storeDescription, err in
             if let err = err {
                 fatalError(err.localizedDescription)
             }
         }
         
-//        persistentContainer = PersistentContainerHelper.shared.createPersistentContainer(name: "FlashCards", managedObjectModel: managedObjectModel)
-        
         flashCardService = CoreDataFlashCardService(container: persistentContainer)
     }
-
-    let managedObjectModel: NSManagedObjectModel
-    let persistentContainer: NSPersistentContainer
+    
     let flashCardService: FlashCardService
-
-    static let shared = DependencyContainer()
 }
-

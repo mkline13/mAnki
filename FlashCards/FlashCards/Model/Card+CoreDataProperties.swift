@@ -11,18 +11,16 @@ import CoreData
 
 
 extension Card {
-    static let entityName: String = "Card"
-    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Card> {
-        return NSFetchRequest<Card>(entityName: entityName)
+        return NSFetchRequest<Card>(entityName: "Card")
     }
 
+    @NSManaged public var creationDate: Date
     @NSManaged public var frontContent: String
     @NSManaged public var backContent: String
     @NSManaged public var contentPack: ContentPack
     @NSManaged public var deck: Deck?
     @NSManaged public var studyRecords: NSSet
-
 }
 
 // MARK: Generated accessors for studyRecords

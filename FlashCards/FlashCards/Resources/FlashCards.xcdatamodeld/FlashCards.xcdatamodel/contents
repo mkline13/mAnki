@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Card" representedClassName="Card" syncable="YES">
         <attribute name="backContent" optional="YES" attributeType="String"/>
+        <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="frontContent" optional="YES" attributeType="String"/>
         <relationship name="contentPack" maxCount="1" deletionRule="Nullify" destinationEntity="ContentPack" inverseName="cards" inverseEntity="ContentPack"/>
         <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Deck" inverseName="cards" inverseEntity="Deck"/>
@@ -30,8 +31,8 @@
         <relationship name="card" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="studyRecords" inverseEntity="Card"/>
     </entity>
     <elements>
+        <element name="Card" positionX="-54" positionY="-9" width="128" height="119"/>
         <element name="ContentPack" positionX="-63" positionY="-18" width="128" height="104"/>
-        <element name="Card" positionX="-54" positionY="-9" width="128" height="104"/>
         <element name="Deck" positionX="-36" positionY="9" width="128" height="119"/>
         <element name="StudyRecord" positionX="0" positionY="45" width="128" height="104"/>
     </elements>

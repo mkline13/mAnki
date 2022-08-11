@@ -33,7 +33,7 @@ class CoreDataFlashCardService: FlashCardService {
     }
     
     func newCard(in pack: ContentPack, frontContent front: String, backContent back: String, deck: Deck? = nil) -> Card? {
-        let card = Card(frontContent: front, backContent: back, contentPack: pack, deck: deck, context: persistentContainer.viewContext)
+        let card = Card(creationDate: Date.now, frontContent: front, backContent: back, contentPack: pack, deck: deck, context: persistentContainer.viewContext)
         
         do {
             try persistentContainer.viewContext.obtainPermanentIDs(for: [card])
@@ -148,9 +148,63 @@ class CoreDataFlashCardService: FlashCardService {
             return cards
         }
         catch {
-            fatalError("Could not fetch decks.")
+            fatalError("Could not fetch cards.")
         }
     }
+    
+    func getNewCards(in deck: Deck, limit: Int64) -> [Card] {
+        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Card.creationDate, ascending: true),
+        ]
+        fetchRequest.predicate = NSPredicate(format: "(deck == %@) AND (studyRecords.@count == 0)", deck)
+        fetchRequest.fetchLimit = Int(limit)
+        
+        do {
+            let cards = try persistentContainer.viewContext.fetch(fetchRequest)
+            return cards
+        }
+        catch {
+            fatalError("Could not fetch cards.")
+        }
+    }
+    
+    func drawNewCards(for deck: Deck, limit: Int64) -> [Card] {
+        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Card.creationDate, ascending: true)
+        ]
+        fetchRequest.predicate = NSPredicate(format: "(deck != %@) AND (contentPack IN %@) AND (studyRecords.@count == 0)", deck, deck.associatedContentPacks)
+        fetchRequest.fetchLimit = Int(limit)
+        
+        do {
+            let cards = try persistentContainer.viewContext.fetch(fetchRequest)
+            return cards
+        }
+        catch {
+            fatalError("Could not fetch cards.")
+        }
+    }
+    
+    func getReviewCards(in deck: Deck, limit: Int64) -> [Card] {
+        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Card.creationDate, ascending: true)
+        ]
+        
+        // TODO: Write SRS algo to select review cards
+        fetchRequest.predicate = NSPredicate(format: "(deck == %@) AND (studyRecords.@count > 0)", deck)
+        fetchRequest.fetchLimit = Int(limit)
+        
+        do {
+            let cards = try persistentContainer.viewContext.fetch(fetchRequest)
+            return cards
+        }
+        catch {
+            fatalError("Could not fetch cards.")
+        }
+    }
+    
         
     // MARK: - UPDATE
     func updateContentPack(_ pack: ContentPack, title: String, description pdesc: String, author: String) {

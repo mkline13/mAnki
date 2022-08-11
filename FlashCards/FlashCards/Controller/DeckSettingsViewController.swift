@@ -188,8 +188,6 @@ class DeckSettingsViewController: UIViewController {
     
     // MARK: Actions
     @objc private func save(_ sender: UIBarButtonItem) {
-        print("SAVE")
-        
         if let deck = deck {
             flashCardService.updateDeck(deck,
                                         title: fields.title,

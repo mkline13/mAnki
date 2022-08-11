@@ -75,7 +75,9 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if self.deck.cards.count > 0 {
+        loadStudyCards()
+        
+        if totalStudyCards > 0 {
             goButton.isEnabled = true
             goButton.tintColor = nil
         }
@@ -107,10 +109,29 @@ class StudySessionLauncherViewController: UIViewController {
         show(vc, sender: self)
     }
     
+    private func loadStudyCards() {
+        newCardsFromDeck = flashCardService.getNewCards(in: deck, limit: deck.newCardsPerDay)
+        newCardsFromPacks = flashCardService.drawNewCards(for: deck, limit: deck.newCardsPerDay - Int64(newCardsFromDeck.count))
+        reviewCards = flashCardService.getReviewCards(in: deck, limit: deck.reviewCardsLimit)
+        
+        print(newCardsFromDeck)
+        print(newCardsFromPacks)
+        print(reviewCards)
+    }
+    
     // MARK: Properties
     private var tableView: UITableView!
     private var goButton: UIButton!
     
     private var deck: Deck!
+    
+    private var newCardsFromDeck: [Card] = []
+    private var newCardsFromPacks: [Card] = []
+    private var reviewCards: [Card] = []
+    
+    private var totalStudyCards: Int {
+        return newCardsFromDeck.count + newCardsFromPacks.count + reviewCards.count
+    }
+    
     private var flashCardService: FlashCardService!
 }
