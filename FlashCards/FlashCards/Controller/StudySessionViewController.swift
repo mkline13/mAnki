@@ -9,10 +9,18 @@ import UIKit
 
 
 class StudySessionViewController: UIViewController {
-    init (for deck: Deck, flashCardService: FlashCardService) {
+    init (for deck: Deck, flashCardService: FlashCardService) throws {
         super.init(nibName: nil, bundle: nil)
         self.deck = deck
         self.flashCardService = flashCardService
+        
+        // Decide which cards are ready to study
+        // Show those cards
+        
+        cardsToStudy = deck.cards.allObjects as! [Card]
+        if cardsToStudy.isEmpty {
+            throw StudySessionError.deckIsEmpty
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -95,13 +103,6 @@ class StudySessionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sideLabel.text = "Front"
-        contentLabel.text = "Content Label\nBlahblahblah"
-        
-        // Decide which cards are ready to study
-        // Show those cards
-        
-        cardsToStudy = deck.cards.allObjects as! [Card]
         studyNextCard()
     }
     
@@ -143,6 +144,9 @@ class StudySessionViewController: UIViewController {
             return
         }
         
+        // REMOVE
+        flashCardService.printStudyRecords("Study Session")
+        
         currentCard = nextCard
         show(.front, of: nextCard)
     }
@@ -153,7 +157,12 @@ class StudySessionViewController: UIViewController {
     }
     
     private func didFinishStudying() {
-        print("DID FINISH STUDYING")
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
+        }
+        else {
+            dismiss(animated: true)
+        }
     }
     
     private func markFailure() {
@@ -195,5 +204,9 @@ class StudySessionViewController: UIViewController {
                 return "back"
             }
         }
+    }
+    
+    enum StudySessionError: Error {
+        case deckIsEmpty
     }
 }

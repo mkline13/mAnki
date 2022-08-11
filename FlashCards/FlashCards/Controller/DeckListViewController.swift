@@ -96,7 +96,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     
     // MARK: Actions
     @objc private func addDeck(_ sender: UIBarButtonItem) {
-        let vc = DeckEditorViewController(flashCardService: flashCardService, deck: nil)
+        let vc = DeckSettingsViewController(for: nil, flashCardService: flashCardService)
         show(vc, sender: self)
     }
     

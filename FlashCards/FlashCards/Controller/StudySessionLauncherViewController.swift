@@ -47,6 +47,8 @@ class StudySessionLauncherViewController: UIViewController {
         goButton.backgroundColor = UIColor.systemBlue
         goButton.layer.cornerRadius = 8
         goButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        goButton.setTitle("Begin", for: .normal)
+        goButton.setTitle("No Cards", for: .disabled)
 
         buttonPanel.addSubview(goButton)
         buttonPanel.addConstraints([
@@ -72,6 +74,17 @@ class StudySessionLauncherViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(editButton(_:)))
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if self.deck.cards.count > 0 {
+            goButton.isEnabled = true
+            goButton.tintColor = nil
+        }
+        else {
+            goButton.isEnabled = false
+            goButton.backgroundColor = UIColor.systemGray
+        }
+    }
+    
     // MARK: Table
     enum Row: CaseIterable {
         case titleLabel
@@ -82,12 +95,16 @@ class StudySessionLauncherViewController: UIViewController {
     
     // MARK: Actions
     @objc private func editButton(_ sender: UIBarButtonItem) {
-        let vc = DeckEditorViewController(flashCardService: flashCardService, deck: deck)
+        let vc = DeckSettingsViewController(for: deck, flashCardService: flashCardService)
         show(vc, sender: self)
     }
     
     private func beginStudy(with deck: Deck) {
-        print("BEGIN STUDY")
+        guard let vc = try? StudySessionViewController(for: deck, flashCardService: flashCardService) else {
+            fatalError("Cannot study: deck is empty")
+        }
+        
+        show(vc, sender: self)
     }
     
     // MARK: Properties

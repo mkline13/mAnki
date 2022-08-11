@@ -201,11 +201,7 @@ class CoreDataFlashCardService: FlashCardService {
         }
     }
     
-    func printDecks() {
-        printDecks("")
-    }
-    
-    func printDecks(_ msg: String) {
+    func printDecks(_ msg: String = "") {
         let fetchRequest: NSFetchRequest<Deck> = Deck.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Deck.title, ascending: true)]
         
@@ -221,7 +217,7 @@ class CoreDataFlashCardService: FlashCardService {
         
     }
     
-    func printStudyRecords() {
+    func printStudyRecords(_ msg: String = "") {
         let fetchRequest: NSFetchRequest<StudyRecord> = StudyRecord.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \StudyRecord.timestamp, ascending: true)]
         
@@ -230,8 +226,15 @@ class CoreDataFlashCardService: FlashCardService {
             return
         }
         
+        guard results.count > 0 else {
+            print("Study Records: \(msg)")
+            print("  (none)")
+            return
+        }
+        
+        print("Study Records: \(msg)")
         for record in results {
-            print("\(record.timestamp), '\(record.card.frontContent.prefix(10))', \(record.studyStatus)")
+            print("  - \(record.timestamp), '\(record.card.frontContent.prefix(10))', \(record.studyStatus)")
         }
     }
     

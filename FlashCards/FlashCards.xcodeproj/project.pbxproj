@@ -14,6 +14,9 @@
 		966B042028A20C3900DD484E /* CardEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B041F28A20C3900DD484E /* CardEditorViewController.swift */; };
 		966B042228A22E8000DD484E /* StudySessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042128A22E8000DD484E /* StudySessionViewController.swift */; };
 		966B042428A3223A00DD484E /* TestJig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042328A3223A00DD484E /* TestJig.swift */; };
+		966B042828A4A3A200DD484E /* DeckSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042728A4A3A200DD484E /* DeckSettingsViewController.swift */; };
+		966B042A28A4B25F00DD484E /* FormElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042928A4B25F00DD484E /* FormElements.swift */; };
+		966B042C28A4C02400DD484E /* SmartDismissExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042B28A4C02400DD484E /* SmartDismissExtension.swift */; };
 		96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F1289D6BD900A04D53 /* AppDelegate.swift */; };
 		96BE32F4289D6BD900A04D53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */; };
 		96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32FA289D6BD900A04D53 /* FlashCards.xcdatamodeld */; };
@@ -72,6 +75,9 @@
 		966B041F28A20C3900DD484E /* CardEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEditorViewController.swift; sourceTree = "<group>"; };
 		966B042128A22E8000DD484E /* StudySessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionViewController.swift; sourceTree = "<group>"; };
 		966B042328A3223A00DD484E /* TestJig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJig.swift; sourceTree = "<group>"; };
+		966B042728A4A3A200DD484E /* DeckSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckSettingsViewController.swift; sourceTree = "<group>"; };
+		966B042928A4B25F00DD484E /* FormElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormElements.swift; sourceTree = "<group>"; };
+		966B042B28A4C02400DD484E /* SmartDismissExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartDismissExtension.swift; sourceTree = "<group>"; };
 		96BE32EE289D6BD900A04D53 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BE32F1289D6BD900A04D53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -201,6 +207,8 @@
 				966B041B28A0AA3B00DD484E /* CardBrowserViewController.swift */,
 				966B041F28A20C3900DD484E /* CardEditorViewController.swift */,
 				966B042128A22E8000DD484E /* StudySessionViewController.swift */,
+				966B042728A4A3A200DD484E /* DeckSettingsViewController.swift */,
+				966B042B28A4C02400DD484E /* SmartDismissExtension.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -271,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				966B041D28A0BA0600DD484E /* CardBrowserCell.swift */,
+				966B042928A4B25F00DD484E /* FormElements.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -433,6 +442,7 @@
 				96BE3327289D6DC100A04D53 /* DeckListViewController.swift in Sources */,
 				96BE337B289D827200A04D53 /* FlashCardService.swift in Sources */,
 				96BE337A289D827200A04D53 /* DependencyContainer.swift in Sources */,
+				966B042A28A4B25F00DD484E /* FormElements.swift in Sources */,
 				96BE3364289D81B400A04D53 /* StudyStatus.swift in Sources */,
 				966B041A28A07A4200DD484E /* StudySessionLauncherViewController.swift in Sources */,
 				96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */,
@@ -444,8 +454,10 @@
 				96BE3369289D81B400A04D53 /* Deck+CoreDataProperties.swift in Sources */,
 				96BE3368289D81B400A04D53 /* Card.swift in Sources */,
 				96BE3366289D81B400A04D53 /* ContentPack.swift in Sources */,
+				966B042828A4A3A200DD484E /* DeckSettingsViewController.swift in Sources */,
 				96BE3387289DA07D00A04D53 /* PersistentContainerHelper.swift in Sources */,
 				966B041E28A0BA0600DD484E /* CardBrowserCell.swift in Sources */,
+				966B042C28A4C02400DD484E /* SmartDismissExtension.swift in Sources */,
 				96BE32F4289D6BD900A04D53 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,7 +563,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG LOAD_TEST_DATA LOAD_TEST_JIG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG LOAD_TEST_DATA";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
