@@ -8,7 +8,7 @@
 import CoreData
 
 class DependencyContainer {
-    private init(storesInMemory: Bool = false) {
+    init(storesInMemory: Bool = false) {
         let bundle = Bundle(for: Card.self)
         let name = "FlashCards"
         let modelURL = bundle.url(forResource: name, withExtension: "momd")!
@@ -21,10 +21,6 @@ class DependencyContainer {
         else {
             persistentContainer = PersistentContainerHelper.shared.createPersistentContainerWithOnDiskStores(name: name, managedObjectModel: managedObjectModel)
         }
-        
-        #if DESTROY_PERSISTENT_STORES
-        PersistentContainerHelper.shared.destroyPersistentStoresOnDisk(persistentContainer: persistentContainer)
-        #endif
         
         persistentContainer.loadPersistentStores { storeDescription, err in
             if let err = err {

@@ -9,6 +9,7 @@ import CoreData
 import Foundation
 
 class PersistentContainerHelper {
+    // MARK: - In Memory
     func createPersistentContainerWithInMemoryStores(name: String, managedObjectModel: NSManagedObjectModel) -> NSPersistentContainer {
         let storeDescription = NSPersistentStoreDescription()
         storeDescription.url = URL(fileURLWithPath: "/dev/null")
@@ -20,12 +21,14 @@ class PersistentContainerHelper {
         return persistentContainer
     }
     
+    // MARK: - On Disk
     func createPersistentContainerWithOnDiskStores(name: String, managedObjectModel: NSManagedObjectModel) -> NSPersistentContainer {
         let persistentContainer = NSPersistentContainer(name: name, managedObjectModel: managedObjectModel)
         
         return persistentContainer
     }
     
+    // MARK: - Destroy Stores
     private func destroyPersistentStoresOnDisk(persistentContainer: NSPersistentContainer) {
         for storeDescription in persistentContainer.persistentStoreDescriptions {
             guard let url = storeDescription.url else{

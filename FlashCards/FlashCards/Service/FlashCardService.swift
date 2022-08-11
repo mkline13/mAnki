@@ -47,7 +47,6 @@ protocol FlashCardService {
     func delete(_ card: Card)
     
     // MARK: Helpers
-    func loadTestData()
     func printDecks(_ msg: String)
     func printStudyRecords(_ msg: String)
 }

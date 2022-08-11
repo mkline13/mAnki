@@ -296,45 +296,4 @@ class CoreDataFlashCardService: FlashCardService {
             print("  - \(record.timestamp), '\(record.card.frontContent.prefix(10))', \(record.studyStatus)")
         }
     }
-    
-    func loadTestData() {
-        // Create pack, deck, and cards
-        let contentPackFetchRequest: NSFetchRequest<ContentPack> = ContentPack.fetchRequest()
-        let contentPackCount = try! persistentContainer.viewContext.count(for: contentPackFetchRequest)
-        if contentPackCount == 0 {
-            guard let pack = self.newContentPack(title: "TestPack", description: "", author: "") else {
-                fatalError("Could not create TestPack")
-            }
-            
-            guard let deck = self.newDeck(title: "TestDeck", newCardsPerDay: 10, reviewCardsPerDay: 10) else {
-                fatalError("Could not create TestDeck")
-            }
-            
-            for i in 0...4 {
-                
-                var text = "Wo"
-                for _ in 0...i {
-                    text = text + "wee"
-                }
-                
-                _ = self.newCard(in: pack, frontContent: text, backContent: String(text.reversed()), deck: deck)
-            }
-            
-            print("Loaded Test Data")
-        }
-        else {
-            let deckFetchRequest: NSFetchRequest<Deck> = Deck.fetchRequest()
-            let deckCount = try! persistentContainer.viewContext.count(for: deckFetchRequest)
-            if deckCount == 0 {
-                guard let _ = self.newDeck(title: "TestDeck", newCardsPerDay: 10, reviewCardsPerDay: 10) else {
-                    fatalError("Could not create TestDeck")
-                }
-            }
-        }
-        
-        let studyRecordsFetchRequest: NSFetchRequest<StudyRecord> = StudyRecord.fetchRequest()
-        if try! persistentContainer.viewContext.count(for: studyRecordsFetchRequest) == 0 {
-            // TODO: study record adder
-        }
-    }
 }

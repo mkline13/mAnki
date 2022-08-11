@@ -15,13 +15,8 @@ func loadTestJig() -> UIViewController {
 }
 
 private func loadFlashCardServiceInMemory() -> FlashCardService {
-    let bundle = Bundle(for: Card.self)
-    let modelURL = bundle.url(forResource: "FlashCards", withExtension: "momd")!
-    let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL)!
-    
-    let container = PersistentContainerHelper.shared.createPersistentContainer(name: "FlashCards", managedObjectModel: managedObjectModel, shouldLoadStores: true)
-    let flashCardService: FlashCardService = CoreDataFlashCardService(container: container)
-    return flashCardService
+    let dependencyContainer = DependencyContainer(storesInMemory: true)
+    return dependencyContainer.flashCardService
 }
 
 private func studySessionTestJig() -> UIViewController {

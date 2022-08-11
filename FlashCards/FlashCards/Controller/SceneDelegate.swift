@@ -18,25 +18,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
+        let dependencyContainer: DependencyContainer
         
+        
+        // MARK: - TEST JIG
         #if LOAD_TEST_JIG
         // A convenient way to test out the functionality of view controllers before incorporating them into the project
         print("LOAD_TEST_JIG enabled")
         print("Loading test jig instead of normal project...")
         window.rootViewController = loadTestJig()
-        
-        #else
-        
-        let dependencyContainer = DependencyContainer.shared
-        
-        #if LOAD_TEST_DATA
-        // If needed, loads some test entities into CoreData
-        print("LOAD_TEST_DATA enabled")
-        print("Loading test data if needed...")
-        dependencyContainer.flashCardService.loadTestData()
+        window.makeKeyAndVisible()
+        self.window = window
+        return
         #endif
         
-        // Normal functionality
+        
+        // MARK: - TEST STORES
+        #if IN_MEMORY_STORES
+        dependencyContainer = DependencyContainer(storesInMemory: true)
+        
+            #if LOAD_TEST_DATA
+            // If needed, loads some test entities into CoreData
+            print("LOAD_TEST_DATA enabled")
+            print("Loading test data if needed...")
+            loadTestData(flashCardService: dependencyContainer.flashCardService)
+            #endif
+        
+        #else
+        dependencyContainer = DependencyContainer(storesInMemory: false)
+        
+            #if DESTROY_PERSISTENT_STORES
+            PersistentContainerHelper.shared.destroyPersistentStoresOnDisk(persistentContainer: persistentContainer)
+            #endif
+        
+        #endif
+        
+        
+        // MARK: - RUN APP
         let tabBarController = UITabBarController()
         let decksNavigation = UINavigationController()
         let packsNavigation = UINavigationController()
@@ -57,7 +75,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         packsNavigation.loadViewIfNeeded()
         
         window.rootViewController = tabBarController
-        #endif
         
         window.makeKeyAndVisible()
         self.window = window

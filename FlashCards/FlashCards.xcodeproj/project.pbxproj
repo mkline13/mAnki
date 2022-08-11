@@ -18,6 +18,7 @@
 		966B042A28A4B25F00DD484E /* FormElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042928A4B25F00DD484E /* FormElements.swift */; };
 		966B042C28A4C02400DD484E /* SmartDismissExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042B28A4C02400DD484E /* SmartDismissExtension.swift */; };
 		966B043028A4F37100DD484E /* ContentPackSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */; };
+		966B043628A5C43F00DD484E /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B043528A5C43F00DD484E /* TestData.swift */; };
 		96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F1289D6BD900A04D53 /* AppDelegate.swift */; };
 		96BE32F4289D6BD900A04D53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */; };
 		96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32FA289D6BD900A04D53 /* FlashCards.xcdatamodeld */; };
@@ -80,6 +81,7 @@
 		966B042928A4B25F00DD484E /* FormElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormElements.swift; sourceTree = "<group>"; };
 		966B042B28A4C02400DD484E /* SmartDismissExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartDismissExtension.swift; sourceTree = "<group>"; };
 		966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackSelectorViewController.swift; sourceTree = "<group>"; };
+		966B043528A5C43F00DD484E /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		96BE32EE289D6BD900A04D53 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BE32F1289D6BD900A04D53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 			children = (
 				96BE336C289D81CC00A04D53 /* PersistentContainerHelper.swift */,
 				966B042328A3223A00DD484E /* TestJig.swift */,
+				966B043528A5C43F00DD484E /* TestData.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				96BE3389289DA58500A04D53 /* DeckEditorViewController.swift in Sources */,
 				96BE3394289DC13D00A04D53 /* SpacerCell.swift in Sources */,
 				96BE338D289DADFA00A04D53 /* SingleLineTextEntryCell.swift in Sources */,
+				966B043628A5C43F00DD484E /* TestData.swift in Sources */,
 				96BE3369289D81B400A04D53 /* Deck+CoreDataProperties.swift in Sources */,
 				96BE3368289D81B400A04D53 /* Card.swift in Sources */,
 				96BE3366289D81B400A04D53 /* ContentPack.swift in Sources */,
@@ -567,7 +571,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG LOAD_TEST_DATA DESTROY_PERSISTENT_STORE";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG LOAD_TEST_DATA IN_MEMORY_STORES";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
