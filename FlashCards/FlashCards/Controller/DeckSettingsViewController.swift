@@ -95,7 +95,8 @@ class DeckSettingsViewController: UIViewController {
         stack.addArrangedSubview(titleField)
         
         stack.addArrangedSubview(Separator())
-                
+        
+        
         // NewCardsPerDay field
         let newCardsPerDayAction: StepperField.UpdateHandler = { value in
             self.fields.newCardsPerDay = value
@@ -104,6 +105,7 @@ class DeckSettingsViewController: UIViewController {
         let newCardsPerDayView = StepperField(labelText: "New Cards / Day:", initial: self.fields.newCardsPerDay, onUpdate: newCardsPerDayAction)
         newCardsPerDayView.translatesAutoresizingMaskIntoConstraints = false
         stack.addArrangedSubview(newCardsPerDayView)
+        
         
         // ReviewCardsPerDay field
         let reviewCardsPerDayAction: StepperField.UpdateHandler = { value in
@@ -118,23 +120,27 @@ class DeckSettingsViewController: UIViewController {
         stack.addArrangedSubview(sep)
         stack.setCustomSpacing(24, after: sep)
         
+        
         // Associated ContentPacks
-        let addButtonAction = UIAction { _ in
-            print("DOIN IT")
+        if let deck = deck {
+            let addButtonAction = UIAction { _ in
+                let vc = ContentPackSelectorViewController(flashCardService: self.flashCardService, selectionHandler: { pack in print(pack.title)})
+                self.show(vc, sender: self)
+            }
+            
+            let addButton = UIButton(primaryAction: addButtonAction)
+            addButton.translatesAutoresizingMaskIntoConstraints = false
+            let addButtonImage = UIImage(systemName: "plus.circle")
+            addButton.setImage(addButtonImage, for: .normal)
+            
+            contentPackListView = ListView(labelText: "Associated Collections:", button: addButton)
+            stack.addArrangedSubview(contentPackListView)
+            stack.setCustomSpacing(24, after: contentPackListView)
+            
+            let sep1 = Separator()
+            stack.addArrangedSubview(sep1)
+            stack.setCustomSpacing(24, after: sep1)
         }
-        let addButton = UIButton(primaryAction: addButtonAction)
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        let addButtonImage = UIImage(systemName: "plus.circle")
-        addButton.setImage(addButtonImage, for: .normal)
-        
-        contentPackListView = ListView(labelText: "Associated Collections:", button: addButton)
-        stack.addArrangedSubview(contentPackListView)
-        stack.setCustomSpacing(24, after: contentPackListView)
-        
-        let sep1 = Separator()
-        stack.addArrangedSubview(sep1)
-        stack.setCustomSpacing(24, after: sep1)
-        
         
         // Description field
         let updateDescriptionField: MultilineTextFieldWithLabel.UpdateHandler = { value in
@@ -145,10 +151,12 @@ class DeckSettingsViewController: UIViewController {
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         stack.addArrangedSubview(descriptionView)
         
+        // USEFUL FOR DEBUGGING
 //        for subview in stack.arrangedSubviews {
 //            subview.backgroundColor = .systemPink
 //        }
         
+        // NavBar
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(save(_:)))
         saveButton.isEnabled = false
         navigationItem.rightBarButtonItem = saveButton
