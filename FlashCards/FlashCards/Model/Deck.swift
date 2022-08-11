@@ -19,4 +19,6 @@ public class Deck: NSManagedObject {
         self.newCardsPerDay = newCardsPerDay
         self.reviewCardsLimit = reviewCardsLimit
     }
+    
+    // Custom 
 }

@@ -35,6 +35,8 @@ protocol FlashCardService {
     func updateDeck(_ deck: Deck, title: String, description ddesc: String, newCardsPerDay ncpd: Int64, reviewCardsPerDay rcpd: Int64)
     func updateCard(_ card: Card, frontContent front: String, backContent back: String)
     
+    func set(contentPacks: Set<ContentPack>, for deck: Deck)
+    
     // MARK: DELETE
     func delete(_ contentPack: ContentPack)
     func delete(_ deck: Deck)

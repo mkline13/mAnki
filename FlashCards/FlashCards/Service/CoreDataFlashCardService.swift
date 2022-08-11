@@ -174,6 +174,11 @@ class CoreDataFlashCardService: FlashCardService {
         saveViewContext()
     }
     
+    func set(contentPacks: Set<ContentPack>, for deck: Deck) {
+        deck.associatedContentPacks = contentPacks as NSSet
+        saveViewContext()
+    }
+    
     // MARK: - DELETE
     func delete(_ contentPack: ContentPack) {
         persistentContainer.viewContext.delete(contentPack)

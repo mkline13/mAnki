@@ -10,9 +10,10 @@ import CoreData
 
 
 class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, NSFetchedResultsControllerDelegate {
-    init(flashCardService: FlashCardService, selectionHandler: @escaping SelectionHandler) {
+    init(flashCardService: FlashCardService, selectionHandler: @escaping SelectionHandler, selectedContentPacks selection: Set<ContentPack>) {
         super.init(nibName: nil, bundle: nil)
         self.flashCardService = flashCardService
+        self.selectedContentPacks = selection
         self.selectionHandler = selectionHandler
     }
     
@@ -59,15 +60,18 @@ class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, 
     }
     
     private func updateSaveButton() {
-        saveButton.isEnabled = canSave
+        saveButton.isEnabled = true
     }
     
     // MARK: UITableViewDelegate
     // Handle Row Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else {
-            return
+            fatalError("Could not get cell for selected row")
         }
+        
+        let contentPack = resultsController.object(at: indexPath)
+        selectedContentPacks.insert(contentPack)
         
         cell.accessoryType = .checkmark
         updateSaveButton()
@@ -78,6 +82,9 @@ class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, 
             return
         }
         
+        let contentPack = resultsController.object(at: indexPath)
+        selectedContentPacks.remove(contentPack)
+        
         cell.accessoryType = .none
         updateSaveButton()
     }
@@ -85,12 +92,16 @@ class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, 
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
         let contentPack = resultsController.managedObjectContext.object(with: managedObjectID) as! ContentPack
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: ContentPackListTableCell.reuseIdentifier, for: indexPath) as! ContentPackListTableCell
         
-        let selectedIndexPaths = tableView.indexPathsForSelectedRows
-        let rowIsSelected = selectedIndexPaths != nil && selectedIndexPaths!.contains(indexPath)
-        cell.accessoryType = rowIsSelected ? .checkmark : .none
-        updateSaveButton()
+        if selectedContentPacks.contains(contentPack) {
+            cell.accessoryType = .checkmark
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+        }
+        else {
+            cell.accessoryType = .none
+        }
         
         cell.configure(for: contentPack)
         return cell
@@ -109,10 +120,11 @@ class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, 
             return
         }
         
-        for row in selectedRows {
-            let pack = resultsController.object(at: row)
-            self.selectionHandler(pack)
-        }
+        let packs: Set<ContentPack> = Set(selectedRows.map { indexPath in
+            return resultsController.object(at: indexPath)
+        })
+                
+        self.selectionHandler(packs)
         
         smartDismiss(animated: true)
     }
@@ -128,14 +140,7 @@ class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, 
     private var tableView: UITableView!
     private var saveButton: UIBarButtonItem!
     
-    private var canSave: Bool {
-        if let rows = tableView.indexPathsForSelectedRows {
-            return rows.count > 0
-        }
-        else {
-            return false
-        }
-    }
+    private var selectedContentPacks: Set<ContentPack>!
     
-    typealias SelectionHandler = (ContentPack) -> Void
+    typealias SelectionHandler = (Set<ContentPack>) -> Void
 }

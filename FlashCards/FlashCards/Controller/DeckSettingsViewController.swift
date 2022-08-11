@@ -122,25 +122,27 @@ class DeckSettingsViewController: UIViewController {
         
         
         // Associated ContentPacks
-        if let deck = deck {
-            let addButtonAction = UIAction { _ in
-                let vc = ContentPackSelectorViewController(flashCardService: self.flashCardService, selectionHandler: { pack in print(pack.title)})
-                self.show(vc, sender: self)
+        let addButtonAction = UIAction { _ in
+            let updateHandler: ContentPackSelectorViewController.SelectionHandler = { packs in
+                self.fields.associatedContentPacks = packs
+                self.updateSaveButton()
             }
-            
-            let addButton = UIButton(primaryAction: addButtonAction)
-            addButton.translatesAutoresizingMaskIntoConstraints = false
-            let addButtonImage = UIImage(systemName: "plus.circle")
-            addButton.setImage(addButtonImage, for: .normal)
-            
-            contentPackListView = ListView(labelText: "Associated Collections:", button: addButton)
-            stack.addArrangedSubview(contentPackListView)
-            stack.setCustomSpacing(24, after: contentPackListView)
-            
-            let sep1 = Separator()
-            stack.addArrangedSubview(sep1)
-            stack.setCustomSpacing(24, after: sep1)
+            let vc = ContentPackSelectorViewController(flashCardService: self.flashCardService, selectionHandler: updateHandler, selectedContentPacks: self.fields.associatedContentPacks)
+            self.show(vc, sender: self)
         }
+        
+        let addButton = UIButton(primaryAction: addButtonAction)
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        let addButtonImage = UIImage(systemName: "plus.circle")
+        addButton.setImage(addButtonImage, for: .normal)
+        
+        contentPackListView = ListView(labelText: "Associated Collections:", button: addButton)
+        stack.addArrangedSubview(contentPackListView)
+        stack.setCustomSpacing(24, after: contentPackListView)
+        
+        let sep1 = Separator()
+        stack.addArrangedSubview(sep1)
+        stack.setCustomSpacing(24, after: sep1)
         
         // Description field
         let updateDescriptionField: MultilineTextFieldWithLabel.UpdateHandler = { value in
@@ -167,26 +169,21 @@ class DeckSettingsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        updateContentPackList()
+        updateContentPackView()
     }
     
     private func updateSaveButton() {
         saveButton.isEnabled = canSave
     }
     
-    private func updateContentPackList() {
-        guard let packsSet = deck?.associatedContentPacks else {
-            return
+    private func updateContentPackView() {
+        var titleStrings: [String] = self.fields.associatedContentPacks.map { pack in
+            return pack.title
         }
         
-        var items: [String] = []
-        for pack in packsSet.allObjects {
-            let pack = pack as! ContentPack
-            items.append(pack.title)
-        }
-        items.sort()
+        titleStrings.sort()
         
-        contentPackListView.update(with: items)
+        self.contentPackListView.update(with: titleStrings)
     }
     
     // MARK: Actions
@@ -194,10 +191,20 @@ class DeckSettingsViewController: UIViewController {
         print("SAVE")
         
         if let deck = deck {
-            flashCardService.updateDeck(deck, title: fields.title, description: fields.deckDescription, newCardsPerDay: fields.newCardsPerDay, reviewCardsPerDay: fields.reviewCardsPerDay)
+            flashCardService.updateDeck(deck,
+                                        title: fields.title,
+                                        description: fields.deckDescription,
+                                        newCardsPerDay: fields.newCardsPerDay,
+                                        reviewCardsPerDay: fields.reviewCardsPerDay)
+            
+            flashCardService.set(contentPacks: fields.associatedContentPacks, for: deck)
         }
-        else {
-            _ = flashCardService.newDeck(title: fields.title, description: fields.deckDescription, newCardsPerDay: fields.newCardsPerDay, reviewCardsPerDay: fields.reviewCardsPerDay)
+        else if let deck = flashCardService.newDeck(title: fields.title,
+                                                    description: fields.deckDescription,
+                                                    newCardsPerDay: fields.newCardsPerDay,
+                                                    reviewCardsPerDay: fields.reviewCardsPerDay) {
+            
+            flashCardService.set(contentPacks: fields.associatedContentPacks, for: deck)
         }
         
         smartDismiss(animated: true)
@@ -224,6 +231,7 @@ class DeckSettingsViewController: UIViewController {
             deckDescription = deck.deckDescription
             newCardsPerDay = deck.newCardsPerDay
             reviewCardsPerDay = deck.reviewCardsLimit
+            associatedContentPacks = deck.associatedContentPacks as! Set<ContentPack>
         }
         
         init () {
@@ -231,11 +239,13 @@ class DeckSettingsViewController: UIViewController {
             deckDescription = ""
             newCardsPerDay = 10
             reviewCardsPerDay = 25
+            associatedContentPacks = Set()
         }
         
         var title: String
         var deckDescription: String
         var newCardsPerDay: Int64
         var reviewCardsPerDay: Int64
+        var associatedContentPacks: Set<ContentPack>
     }
 }
