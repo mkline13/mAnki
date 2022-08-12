@@ -16,13 +16,11 @@ protocol FlashCardService {
     func newContentPack(title: String, description pdesc: String, author: String) -> ContentPack?
     func newDeck(title: String, description ddesc: String, newCardsPerDay ncpd: Int64, reviewCardsPerDay rcpd: Int64) -> Deck?
     func newCard(in: ContentPack, frontContent front: String, backContent back: String, deck: Deck?) -> Card?
-    func createStudyRecord(for card: Card, studyStatus: StudyStatus, interval: Int64) -> StudyRecord?
+    func createStudyRecord(for card: Card, studyStatus: StudyStatus, afterInterval: Int64) -> StudyRecord?
     
     // MARK: READ
     func contentPackResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<ContentPack>?
-    
     func deckResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<Deck>?
-    
     func cardResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<Card>?
     func cardResultsController(with delegate: NSFetchedResultsControllerDelegate, for deck: Deck) -> NSFetchedResultsController<Card>?
     func cardResultsController(with delegate: NSFetchedResultsControllerDelegate, for pack: ContentPack) -> NSFetchedResultsController<Card>?
@@ -33,13 +31,12 @@ protocol FlashCardService {
     func getNewCards(in deck: Deck, limit: Int64) -> [Card]
     func drawNewCards(for deck: Deck, limit: Int64) -> [Card]
     func getReviewCards(in deck: Deck, limit: Int64) -> [Card]
-    
-    func getLastStudyRecord(for card: Card) -> StudyRecord?
-    
+        
     // MARK: UPDATE
     func updateContentPack(_ pack: ContentPack, title: String, description pdesc: String, author: String)
     func updateDeck(_ deck: Deck, title: String, description ddesc: String, newCardsPerDay ncpd: Int64, reviewCardsPerDay rcpd: Int64)
     func updateCard(_ card: Card, frontContent front: String, backContent back: String)
+    func updateCard(_ card: Card, interval: Int64, dueDate: Date, status: Card.Status?)
     
     func set(contentPacks: Set<ContentPack>, for deck: Deck)
     func add(cards: [Card], to: Deck)
@@ -51,5 +48,5 @@ protocol FlashCardService {
     
     // MARK: Helpers
     func printDecks(_ msg: String)
-    func printStudyRecords(_ msg: String)
+    func printStudyRecords(for deck: Deck, withMessage: String)
 }

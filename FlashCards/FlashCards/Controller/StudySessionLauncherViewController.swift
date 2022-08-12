@@ -9,10 +9,11 @@ import UIKit
 
 
 class StudySessionLauncherViewController: UIViewController {
-    init (for deck: Deck, flashCardService: FlashCardService) {
+    init (for deck: Deck, flashCardService: FlashCardService, srsService: SRSService) {
         super.init(nibName: nil, bundle: nil)
         self.deck = deck
         self.flashCardService = flashCardService
+        self.srsService = srsService
         
         hidesBottomBarWhenPushed = true
     }
@@ -108,7 +109,7 @@ class StudySessionLauncherViewController: UIViewController {
         // collect all study cards in one place
         let cards = newCardsFromDeck + newCardsFromPacks + reviewCards
         
-        guard let vc = try? StudySessionViewController(cards: cards, flashCardService: flashCardService) else {
+        guard let vc = try? StudySessionViewController(cards: cards, flashCardService: flashCardService, srsService: srsService) else {
             fatalError("Cannot study: deck is empty")
         }
         
@@ -151,4 +152,5 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     private var flashCardService: FlashCardService!
+    private var srsService: SRSService!
 }

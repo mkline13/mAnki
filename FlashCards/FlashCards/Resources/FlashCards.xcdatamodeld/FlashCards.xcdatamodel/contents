@@ -4,6 +4,9 @@
         <attribute name="backContent" optional="YES" attributeType="String"/>
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="frontContent" optional="YES" attributeType="String"/>
+        <attribute name="srsDueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="srsInterval" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="contentPack" maxCount="1" deletionRule="Nullify" destinationEntity="ContentPack" inverseName="cards" inverseEntity="ContentPack"/>
         <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Deck" inverseName="cards" inverseEntity="Deck"/>
         <relationship name="studyRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StudyRecord" inverseName="card" inverseEntity="StudyRecord"/>
@@ -24,16 +27,15 @@
         <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="deck" inverseEntity="Card"/>
     </entity>
     <entity name="StudyRecord" representedClassName="StudyRecord" syncable="YES">
-        <attribute name="interval" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="nextStudyDate" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="studyDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="afterInterval" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="studyResult" attributeType="String" minValueString="0"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="card" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="studyRecords" inverseEntity="Card"/>
     </entity>
     <elements>
-        <element name="Card" positionX="-48.906005859375" positionY="-139.4271240234375" width="128" height="133"/>
-        <element name="ContentPack" positionX="-297.356689453125" positionY="-260.3022918701172" width="128" height="118"/>
-        <element name="Deck" positionX="176.3515625" positionY="-282.2554626464844" width="128" height="133"/>
-        <element name="StudyRecord" positionX="-48.132080078125" positionY="40.34310913085938" width="128" height="118"/>
+        <element name="Card" positionX="-21.5869140625" positionY="-183.7192687988281" width="128" height="178"/>
+        <element name="ContentPack" positionX="-248.841064453125" positionY="-331.0128784179688" width="128" height="118"/>
+        <element name="Deck" positionX="182.07421875" positionY="-346.1746673583984" width="128" height="133"/>
+        <element name="StudyRecord" positionX="-23.038818359375" positionY="11.04470825195312" width="128" height="103"/>
     </elements>
 </model>

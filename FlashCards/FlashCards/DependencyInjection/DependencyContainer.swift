@@ -29,7 +29,9 @@ class DependencyContainer {
         }
         
         flashCardService = CoreDataFlashCardService(container: persistentContainer)
+        srsService = SRSService()
     }
     
     let flashCardService: FlashCardService
+    let srsService: SRSService
 }

@@ -9,9 +9,10 @@ import UIKit
 
 
 class StudySessionViewController: UIViewController {
-    init (cards: [Card], flashCardService: FlashCardService) throws {
+    init (cards: [Card], flashCardService: FlashCardService, srsService: SRSService) throws {
         super.init(nibName: nil, bundle: nil)
         self.flashCardService = flashCardService
+        self.srsService = srsService
         
         // Decide which cards are ready to study
         // Show those cards
@@ -58,12 +59,12 @@ class StudySessionViewController: UIViewController {
         let failButtonImage = UIImage(systemName: "x.circle", withConfiguration: config)
         let successButtonImage = UIImage(systemName: "checkmark.circle", withConfiguration: config)
         
-        failButton = UIButton(configuration: .plain(), primaryAction: UIAction(handler: {_ in self.markFailure()}))
+        failButton = UIButton(configuration: .plain(), primaryAction: UIAction(handler: {_ in self.mark(.failure)}))
         failButton.translatesAutoresizingMaskIntoConstraints = false
         failButton.setImage(failButtonImage, for: .normal)
         failButton.tintColor = .systemRed
         
-        successButton = UIButton(configuration: .plain(), primaryAction: UIAction(handler: {_ in self.markSuccess()}))
+        successButton = UIButton(configuration: .plain(), primaryAction: UIAction(handler: {_ in self.mark(.success)}))
         successButton.translatesAutoresizingMaskIntoConstraints = false
         successButton.setImage(successButtonImage, for: .normal)
         successButton.tintColor = .systemGreen
@@ -140,18 +141,27 @@ class StudySessionViewController: UIViewController {
     
     // MARK: Studying
     private func studyNextCard() {
-        if let suffixIndex = #file.lastIndex(of: "/") {
-            let filename = #file.suffix(from: suffixIndex)
-            flashCardService.printStudyRecords("file: \(filename)   line:\(#line)")
+        if cardsToStudy.count > 0 {
+            currentCard = cardsToStudy.popLast()
+        }
+        else if failedCards.count > 0 {
+            cardsToStudy = failedCards.shuffled()
+            failedCards = []
+            currentCard = cardsToStudy.popLast()
+        }
+        else {
+            return didFinishStudying()
         }
         
-        guard let nextCard = cardsToStudy.popLast() else {
-            didFinishStudying()
-            return
+        // REMOVE: Print study records
+        if let suffixIndex = #file.lastIndex(of: "/") {
+            let filename = #file.suffix(from: suffixIndex)
+            if let deck = currentCard.deck {
+                flashCardService.printStudyRecords(for: deck, withMessage: "file: \(filename)   line:\(#line)")
+            }
         }
                 
-        currentCard = nextCard
-        show(.front, of: nextCard)
+        show(.front, of: currentCard)
     }
     
     // MARK: Actions
@@ -168,37 +178,33 @@ class StudySessionViewController: UIViewController {
         }
     }
     
-    private func markFailure() {
-        _ = flashCardService.createStudyRecord(for: currentCard, studyStatus: .failure, interval: 0)
-        cardsToStudy.insert(currentCard, at: 0)
+    
+    // MARK: - SRS
+    private func mark(_ status: StudyStatus) {
+        let record = flashCardService.createStudyRecord(for: currentCard, studyStatus: status, afterInterval: currentCard.srsInterval)!
+        let interval = srsService.calculateInterval(previousInterval: currentCard.srsInterval, studyStatus: status)
+        let dueDate = srsService.calculateDueDate(interval: interval, studyDate: record.timestamp, studyStatus: status)
+        
+        let cardStatus: Card.Status?
+        switch status {
+        case .failure:
+            failedCards.append(currentCard)
+            cardStatus = nil
+        case .success:
+            cardStatus = .review
+        default:
+            fatalError("Status not implemented")
+        }
+        
+        flashCardService.updateCard(currentCard, interval: interval, dueDate: dueDate, status: cardStatus)
+        
         studyNextCard()
     }
     
-    private func markSuccess() {
-        let previousRecord: StudyRecord? = flashCardService.getLastStudyRecord(for: currentCard)
-        let interval: Int64
-        
-        // MARK: - "SRS Algorithm" very loosely based on SuperMemo algorithm
-        if let previousRecord = previousRecord {
-            switch previousRecord.interval {
-            case 0:
-                interval = 1
-            case 1:
-                interval = 6
-            default:
-                interval = previousRecord.interval * 2
-            }
-        }
-        else {
-            interval = 1
-        }
-        
-        _ = flashCardService.createStudyRecord(for: currentCard, studyStatus: .success, interval: interval)
-        studyNextCard()
-    }
     
     // MARK: Properties
     private var flashCardService: FlashCardService!
+    private var srsService: SRSService!
     
     private var sideLabel: UILabel!
     private var contentLabel: UILabel!
@@ -207,6 +213,7 @@ class StudySessionViewController: UIViewController {
     private var successButton: UIButton!
     
     private var cardsToStudy: [Card] = []
+    private var failedCards: [Card] = []
     private var currentCard: Card!
     
     private var currentSide: CardSide = .front

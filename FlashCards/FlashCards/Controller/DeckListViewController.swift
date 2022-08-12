@@ -10,9 +10,14 @@ import CoreData
 
 
 class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedResultsControllerDelegate {
-    convenience init(flashCardService fcs: FlashCardService) {
-        self.init(nibName: nil, bundle: nil)
-        flashCardService = fcs
+    init(flashCardService: FlashCardService, srsService: SRSService) {
+        super.init(nibName: nil, bundle: nil)
+        self.flashCardService = flashCardService
+        self.srsService = srsService
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - View
@@ -101,12 +106,13 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     }
     
     private func studyDeck(_ deck: Deck) {
-        let vc = StudySessionLauncherViewController(for: deck, flashCardService: flashCardService)
+        let vc = StudySessionLauncherViewController(for: deck, flashCardService: flashCardService, srsService: srsService)
         show(vc, sender: self)
     }
     
     // MARK: Properties
     private var flashCardService: FlashCardService!
+    private var srsService: SRSService!
     
     private var dataSource: UITableViewDiffableDataSource<Int, NSManagedObjectID>!
     private var resultsController: NSFetchedResultsController<Deck>!

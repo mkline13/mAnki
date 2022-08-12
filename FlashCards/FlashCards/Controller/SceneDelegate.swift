@@ -60,7 +60,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let packsNavigation = UINavigationController()
         
         // Inject dependencies
-        let deckListViewController = DeckListViewController(flashCardService: dependencyContainer.flashCardService)
+        let deckListViewController = DeckListViewController(flashCardService: dependencyContainer.flashCardService, srsService: dependencyContainer.srsService)
         let contentPackListViewController = ContentPackListViewController(flashCardService: dependencyContainer.flashCardService)
         
         // Set up view hierarchy
