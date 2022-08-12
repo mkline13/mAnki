@@ -12,6 +12,7 @@ import CoreData
 class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedResultsControllerDelegate {
     init(dependencyContainer: DependencyContainer) {
         super.init(nibName: nil, bundle: nil)
+        self.dependencyContainer = dependencyContainer
         self.flashCardService = dependencyContainer.flashCardService
         self.srsService = dependencyContainer.srsService
     }
@@ -106,11 +107,12 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     }
     
     private func studyDeck(_ deck: Deck) {
-        let vc = StudySessionLauncherViewController(for: deck, flashCardService: flashCardService, srsService: srsService)
+        let vc = StudySessionLauncherViewController(for: deck, dependencyContainer: dependencyContainer)
         show(vc, sender: self)
     }
     
     // MARK: Properties
+    private var dependencyContainer: DependencyContainer!
     private var flashCardService: FlashCardService!
     private var srsService: SRSService!
     

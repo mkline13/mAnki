@@ -9,12 +9,12 @@ import UIKit
 
 
 class StudySessionLauncherViewController: UIViewController {
-    init (for deck: Deck, flashCardService: FlashCardService, srsService: SRSService) {
+    init (for deck: Deck, dependencyContainer: DependencyContainer) {
         super.init(nibName: nil, bundle: nil)
         
         self.deck = deck
-        self.flashCardService = flashCardService
-        self.srsService = srsService
+        self.flashCardService = dependencyContainer.flashCardService
+        self.srsService = dependencyContainer.srsService
         
         hidesBottomBarWhenPushed = true
     }
@@ -33,6 +33,23 @@ class StudySessionLauncherViewController: UIViewController {
         
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
+        
+        let layout = EZLayout(spacing: 30)
+        
+        let label = UILabel()
+        label.text = "ABCDEFG"
+        label.backgroundColor = .systemRed
+        layout.appendView(label)
+        
+        let label1 = UILabel()
+        label1.text = "ABCDEFG"
+        label1.backgroundColor = .systemRed
+        layout.appendView(label1)
+        
+        let label2 = UILabel()
+        label2.text = "ABCDEFG"
+        label2.backgroundColor = .systemRed
+        layout.appendView(label2)
 
         let buttonPanel = UIView()
         buttonPanel.translatesAutoresizingMaskIntoConstraints = false
@@ -56,9 +73,15 @@ class StudySessionLauncherViewController: UIViewController {
             goButton.widthAnchor.constraint(equalTo: buttonPanel.widthAnchor, multiplier: 2.5/3.0),
             goButton.heightAnchor.constraint(equalTo: buttonPanel.heightAnchor, multiplier: 1/2)
         ])
-
+        
+        view.addSubview(layout)
         view.addSubview(buttonPanel)
         view.addConstraints([
+            layout.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            layout.bottomAnchor.constraint(equalTo: buttonPanel.topAnchor),
+            layout.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            layout.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
             buttonPanel.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1.0/5.0),
             buttonPanel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             buttonPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor),

@@ -23,6 +23,7 @@
 		966B044428A6300500DD484E /* Variable+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044228A6300500DD484E /* Variable+CoreDataProperties.swift */; };
 		966B044628A6348800DD484E /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044528A6348800DD484E /* SettingsService.swift */; };
 		966B044828A6443200DD484E /* ContentPackSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */; };
+		966B044A28A64F9300DD484E /* EZLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044928A64F9300DD484E /* EZLayout.swift */; };
 		96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F1289D6BD900A04D53 /* AppDelegate.swift */; };
 		96BE32F4289D6BD900A04D53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */; };
 		96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32FA289D6BD900A04D53 /* FlashCards.xcdatamodeld */; };
@@ -89,6 +90,7 @@
 		966B044228A6300500DD484E /* Variable+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Variable+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		966B044528A6348800DD484E /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPackSettingsViewController.swift; sourceTree = "<group>"; };
+		966B044928A64F9300DD484E /* EZLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EZLayout.swift; sourceTree = "<group>"; };
 		96BE32EE289D6BD900A04D53 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BE32F1289D6BD900A04D53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 			children = (
 				966B041D28A0BA0600DD484E /* CardBrowserCell.swift */,
 				966B042928A4B25F00DD484E /* FormElements.swift */,
+				966B044928A64F9300DD484E /* EZLayout.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				96BE3398289DD68300A04D53 /* StepperCell.swift in Sources */,
 				96BE3327289D6DC100A04D53 /* DeckListViewController.swift in Sources */,
 				96BE337B289D827200A04D53 /* FlashCardService.swift in Sources */,
+				966B044A28A64F9300DD484E /* EZLayout.swift in Sources */,
 				96BE337A289D827200A04D53 /* DependencyContainer.swift in Sources */,
 				966B042A28A4B25F00DD484E /* FormElements.swift in Sources */,
 				96BE3364289D81B400A04D53 /* StudyStatus.swift in Sources */,
