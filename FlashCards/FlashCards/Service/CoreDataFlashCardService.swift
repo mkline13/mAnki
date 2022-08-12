@@ -60,8 +60,23 @@ class CoreDataFlashCardService: FlashCardService {
         return deck
     }
     
-    func createStudyRecord(for card: Card, status: StudyStatus) -> StudyRecord? {
-        let studyRecord = StudyRecord(timestamp: Date.now, studyStatus: status, previousInterval: 0, nextInterval: 0, card: card, context: persistentContainer.viewContext)
+    func createStudyRecord(for card: Card, studyStatus: StudyStatus, interval: Int64) -> StudyRecord? {
+        // Generate next study date from interval
+        let calendar = Calendar(identifier: .iso8601)
+        let dateComponentsInterval = DateComponents(day: Int(interval))
+        
+        let studyDate = Date.now
+        let nextStudyDate: Date
+        
+        if studyStatus == .success {
+            let midnightOfStudyDate = calendar.startOfDay(for: studyDate)
+            nextStudyDate = calendar.date(byAdding: dateComponentsInterval, to: midnightOfStudyDate)!
+        }
+        else {
+            nextStudyDate = studyDate
+        }
+
+        let studyRecord = StudyRecord(studyDate: studyDate, studyStatus: studyStatus, interval: interval, nextStudyDate: nextStudyDate, card: card, context: persistentContainer.viewContext)
         saveViewContext()
         return studyRecord
     }
@@ -174,7 +189,7 @@ class CoreDataFlashCardService: FlashCardService {
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(keyPath: \Card.creationDate, ascending: true)
         ]
-        fetchRequest.predicate = NSPredicate(format: "(deck == nil) AND (%@ CONTAINS contentPack) AND (studyRecords.@count == 0)", deck.associatedContentPacks)
+        fetchRequest.predicate = NSPredicate(format: "(deck == nil) AND (contentPack IN %@) AND (studyRecords.@count == 0)", deck.associatedContentPacks)
         fetchRequest.fetchLimit = Int(limit)
         
         do {
@@ -192,13 +207,30 @@ class CoreDataFlashCardService: FlashCardService {
             NSSortDescriptor(keyPath: \Card.creationDate, ascending: true)
         ]
         
-        // TODO: Write SRS algo to select review cards
-        fetchRequest.predicate = NSPredicate(format: "(deck == %@) AND (studyRecords.@count > 0)", deck)
+        fetchRequest.predicate = NSPredicate(format: "(deck == %@) AND (ANY studyRecords.nextStudyDate < %@)", deck, Date.now as CVarArg)
         fetchRequest.fetchLimit = Int(limit)
         
         do {
             let cards = try persistentContainer.viewContext.fetch(fetchRequest)
             return cards
+        }
+        catch {
+            fatalError("Could not fetch cards.")
+        }
+    }
+    
+    func getLastStudyRecord(for card: Card) -> StudyRecord? {
+        let fetchRequest: NSFetchRequest<StudyRecord> = StudyRecord.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \StudyRecord.studyDate, ascending: false)
+        ]
+        
+        fetchRequest.predicate = NSPredicate(format: "card == %@", card)
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let studyRecords = try persistentContainer.viewContext.fetch(fetchRequest)
+            return studyRecords.first
         }
         catch {
             fatalError("Could not fetch cards.")
@@ -283,7 +315,7 @@ class CoreDataFlashCardService: FlashCardService {
     
     func printStudyRecords(_ msg: String = "") {
         let fetchRequest: NSFetchRequest<StudyRecord> = StudyRecord.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \StudyRecord.timestamp, ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \StudyRecord.studyDate, ascending: true)]
         
         guard let results = try? persistentContainer.viewContext.fetch(fetchRequest) else {
             print("Could not print study records: results was nil")
@@ -298,7 +330,10 @@ class CoreDataFlashCardService: FlashCardService {
         
         print("Study Records: \(msg)")
         for record in results {
-            print("  - \(record.timestamp), '\(record.card.frontContent.prefix(10))', \(record.studyStatus)")
+            let studyDate = record.studyDate.formatted(date: .numeric, time: .standard)
+            let nextStudyDate = record.nextStudyDate.formatted(date: .numeric, time: .standard)
+            let frontContent = record.card.frontContent.prefix(10)
+            print("  - \(studyDate), \(nextStudyDate): '\(frontContent)', \(record.studyStatus), interval: \(record.interval)")
         }
     }
 }

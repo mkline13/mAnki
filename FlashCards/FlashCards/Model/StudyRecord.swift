@@ -11,13 +11,23 @@ import CoreData
 
 @objc(StudyRecord)
 public class StudyRecord: NSManagedObject {
-    convenience init(timestamp: Date, studyStatus status: StudyStatus, previousInterval: Int64, nextInterval: Int64, card: Card, context: NSManagedObjectContext) {
+    convenience init(studyDate: Date, studyStatus: StudyStatus, interval: Int64, nextStudyDate: Date, card: Card, context: NSManagedObjectContext) {
         self.init(context: context)
         
-        self.timestamp = timestamp
-        self.studyStatus = status.description
-        self.previousInterval = previousInterval
-        self.nextInterval = nextInterval
+        self.studyDate = studyDate
+        self.studyStatus = studyStatus
         self.card = card
+        
+        self.interval = interval
+        self.nextStudyDate = nextStudyDate
+    }
+    
+    var studyStatus: StudyStatus {
+        get {
+            return StudyStatus.fromString(self.studyResult)
+        }
+        set (newValue) {
+            self.studyResult = newValue.description
+        }
     }
 }

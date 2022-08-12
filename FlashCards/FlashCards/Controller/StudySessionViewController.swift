@@ -140,14 +140,16 @@ class StudySessionViewController: UIViewController {
     
     // MARK: Studying
     private func studyNextCard() {
+        if let suffixIndex = #file.lastIndex(of: "/") {
+            let filename = #file.suffix(from: suffixIndex)
+            flashCardService.printStudyRecords("file: \(filename)   line:\(#line)")
+        }
+        
         guard let nextCard = cardsToStudy.popLast() else {
             didFinishStudying()
             return
         }
-        
-        // REMOVE
-        flashCardService.printStudyRecords("Study Session")
-        
+                
         currentCard = nextCard
         show(.front, of: nextCard)
     }
@@ -167,15 +169,31 @@ class StudySessionViewController: UIViewController {
     }
     
     private func markFailure() {
-        print("Fail button")
-        _ = flashCardService.createStudyRecord(for: currentCard, status: .failure)
+        _ = flashCardService.createStudyRecord(for: currentCard, studyStatus: .failure, interval: 0)
         cardsToStudy.insert(currentCard, at: 0)
         studyNextCard()
     }
     
     private func markSuccess() {
-        print("Success button")
-        _ = flashCardService.createStudyRecord(for: currentCard, status: .success)
+        let previousRecord: StudyRecord? = flashCardService.getLastStudyRecord(for: currentCard)
+        let interval: Int64
+        
+        // MARK: - "SRS Algorithm" very loosely based on SuperMemo algorithm
+        if let previousRecord = previousRecord {
+            switch previousRecord.interval {
+            case 0:
+                interval = 1
+            case 1:
+                interval = 6
+            default:
+                interval = previousRecord.interval * 2
+            }
+        }
+        else {
+            interval = 1
+        }
+        
+        _ = flashCardService.createStudyRecord(for: currentCard, studyStatus: .success, interval: interval)
         studyNextCard()
     }
     

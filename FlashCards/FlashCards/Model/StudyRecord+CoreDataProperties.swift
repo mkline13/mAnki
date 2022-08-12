@@ -11,16 +11,14 @@ import CoreData
 
 
 extension StudyRecord {
-    static let entityName: String = "StudyRecord"
-    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<StudyRecord> {
-        return NSFetchRequest<StudyRecord>(entityName: entityName)
+        return NSFetchRequest<StudyRecord>(entityName: "StudyRecord")
     }
 
-    @NSManaged public var timestamp: Date
-    @NSManaged public var studyStatus: String
-    @NSManaged public var previousInterval: Int64
-    @NSManaged public var nextInterval: Int64
+    @NSManaged public var interval: Int64
+    @NSManaged public var studyResult: String
+    @NSManaged public var studyDate: Date
+    @NSManaged public var nextStudyDate: Date
     @NSManaged public var card: Card
 
 }
@@ -28,3 +26,4 @@ extension StudyRecord {
 extension StudyRecord : Identifiable {
 
 }
+

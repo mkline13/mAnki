@@ -102,21 +102,6 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     private func beginStudy(with deck: Deck) {
-        print("\nBeginning study session with deck: \(deck.title)")
-        print("New Cards from Deck:")
-        for c in newCardsFromDeck {
-            print("  - \(c.frontContent)")
-        }
-        print("New Cards from ContentPacks:")
-        for c in newCardsFromPacks {
-            print("  - \(c.frontContent)")
-        }
-        print("Review Cards:")
-        for c in reviewCards {
-            print("  - \(c.frontContent)")
-        }
-        print("")
-        
         // add all new cards from packs to the deck
         flashCardService.add(cards: newCardsFromPacks, to: deck)
         
@@ -134,6 +119,21 @@ class StudySessionLauncherViewController: UIViewController {
         newCardsFromDeck = flashCardService.getNewCards(in: deck, limit: deck.newCardsPerDay)
         newCardsFromPacks = flashCardService.drawNewCards(for: deck, limit: deck.newCardsPerDay - Int64(newCardsFromDeck.count))
         reviewCards = flashCardService.getReviewCards(in: deck, limit: deck.reviewCardsLimit)
+        
+        print("\nBeginning study session with deck: \(deck.title)")
+        print("New Cards from Deck:")
+        for c in newCardsFromDeck {
+            print("  - \(c.frontContent)")
+        }
+        print("New Cards from ContentPacks:")
+        for c in newCardsFromPacks {
+            print("  - \(c.frontContent)")
+        }
+        print("Review Cards:")
+        for c in reviewCards {
+            print("  - \(c.frontContent)")
+        }
+        print("")
     }
     
     // MARK: Properties

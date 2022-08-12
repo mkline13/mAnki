@@ -24,16 +24,16 @@
         <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="deck" inverseEntity="Card"/>
     </entity>
     <entity name="StudyRecord" representedClassName="StudyRecord" syncable="YES">
-        <attribute name="nextInterval" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="previousInterval" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="studyStatus" attributeType="String" minValueString="0"/>
-        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="interval" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="nextStudyDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="studyDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="studyResult" attributeType="String" minValueString="0"/>
         <relationship name="card" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="studyRecords" inverseEntity="Card"/>
     </entity>
     <elements>
-        <element name="Card" positionX="-54" positionY="-9" width="128" height="119"/>
-        <element name="ContentPack" positionX="-63" positionY="-18" width="128" height="104"/>
-        <element name="Deck" positionX="-36" positionY="9" width="128" height="119"/>
-        <element name="StudyRecord" positionX="0" positionY="45" width="128" height="104"/>
+        <element name="Card" positionX="-48.906005859375" positionY="-139.4271240234375" width="128" height="133"/>
+        <element name="ContentPack" positionX="-297.356689453125" positionY="-260.3022918701172" width="128" height="118"/>
+        <element name="Deck" positionX="176.3515625" positionY="-282.2554626464844" width="128" height="133"/>
+        <element name="StudyRecord" positionX="-48.132080078125" positionY="40.34310913085938" width="128" height="118"/>
     </elements>
 </model>
