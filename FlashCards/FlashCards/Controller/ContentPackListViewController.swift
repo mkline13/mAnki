@@ -10,9 +10,13 @@ import CoreData
 
 
 class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFetchedResultsControllerDelegate {
-    convenience init(flashCardService fcs: FlashCardService) {
-        self.init(nibName: nil, bundle: nil)
-        flashCardService = fcs
+    init(dependencyContainer: DependencyContainer) {
+        super.init(nibName: nil, bundle: nil)
+        self.flashCardService = dependencyContainer.flashCardService
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: UITableViewDelegate
@@ -87,7 +91,7 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
     
     // MARK: Actions
     @objc private func addContentPack(_ sender: UIBarButtonItem) {
-        let vc = ContentPackEditorViewController(flashCardService: flashCardService, contentPack: nil)
+        let vc = ContentPackSettingsViewController(for: nil, flashCardService: flashCardService)
         show(vc, sender: self)
     }
     

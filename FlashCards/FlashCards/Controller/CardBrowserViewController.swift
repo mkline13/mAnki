@@ -177,7 +177,7 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             show(vc, sender: self)
         }
         else if let contentPack = contentPack {
-            let vc = ContentPackEditorViewController(flashCardService: flashCardService, contentPack: contentPack)
+            let vc = ContentPackSettingsViewController(for: contentPack, flashCardService: flashCardService)
             show(vc, sender: self)
         }
         else {

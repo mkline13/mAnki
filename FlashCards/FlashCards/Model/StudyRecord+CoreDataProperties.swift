@@ -15,6 +15,7 @@ extension StudyRecord {
         return NSFetchRequest<StudyRecord>(entityName: "StudyRecord")
     }
     
+    
     @NSManaged public var timestamp: Date
     @NSManaged public var studyResult: String
     @NSManaged public var afterInterval: Int64

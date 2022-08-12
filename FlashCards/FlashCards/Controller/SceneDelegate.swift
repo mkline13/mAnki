@@ -53,6 +53,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         #endif
         
+        dependencyContainer.settingsService.set(key: .test, value: .integer(22))
+        let test = dependencyContainer.settingsService.get(key: .test)
+        print(test?.toString())
         
         // MARK: - RUN APP
         let tabBarController = UITabBarController()
@@ -60,8 +63,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let packsNavigation = UINavigationController()
         
         // Inject dependencies
-        let deckListViewController = DeckListViewController(flashCardService: dependencyContainer.flashCardService, srsService: dependencyContainer.srsService)
-        let contentPackListViewController = ContentPackListViewController(flashCardService: dependencyContainer.flashCardService)
+        let deckListViewController = DeckListViewController(dependencyContainer: dependencyContainer)
+        let contentPackListViewController = ContentPackListViewController(dependencyContainer: dependencyContainer)
         
         // Set up view hierarchy
         tabBarController.setViewControllers([decksNavigation, packsNavigation], animated: true)

@@ -11,6 +11,7 @@ import UIKit
 class StudySessionLauncherViewController: UIViewController {
     init (for deck: Deck, flashCardService: FlashCardService, srsService: SRSService) {
         super.init(nibName: nil, bundle: nil)
+        
         self.deck = deck
         self.flashCardService = flashCardService
         self.srsService = srsService
@@ -32,9 +33,6 @@ class StudySessionLauncherViewController: UIViewController {
         
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
-        
-        tableView = UITableView.init(frame: .zero)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
 
         let buttonPanel = UIView()
         buttonPanel.translatesAutoresizingMaskIntoConstraints = false
@@ -47,25 +45,20 @@ class StudySessionLauncherViewController: UIViewController {
         goButton.translatesAutoresizingMaskIntoConstraints = false
         goButton.backgroundColor = UIColor.systemBlue
         goButton.layer.cornerRadius = 8
-        goButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        goButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         goButton.setTitle("Begin", for: .normal)
-        goButton.setTitle("No Cards", for: .disabled)
+        goButton.setTitle("No Cards Remaining", for: .disabled)
 
         buttonPanel.addSubview(goButton)
         buttonPanel.addConstraints([
             goButton.centerXAnchor.constraint(equalTo: buttonPanel.centerXAnchor),
             goButton.centerYAnchor.constraint(equalTo: buttonPanel.centerYAnchor),
-            goButton.widthAnchor.constraint(equalTo: buttonPanel.widthAnchor, multiplier: 2.0/3.0)
+            goButton.widthAnchor.constraint(equalTo: buttonPanel.widthAnchor, multiplier: 2.5/3.0),
+            goButton.heightAnchor.constraint(equalTo: buttonPanel.heightAnchor, multiplier: 1/2)
         ])
 
-        view.addSubview(tableView)
         view.addSubview(buttonPanel)
         view.addConstraints([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
             buttonPanel.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1.0/5.0),
             buttonPanel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             buttonPanel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -80,7 +73,7 @@ class StudySessionLauncherViewController: UIViewController {
         
         if totalStudyCards > 0 {
             goButton.isEnabled = true
-            goButton.tintColor = nil
+            goButton.backgroundColor = UIColor.systemBlue
         }
         else {
             goButton.isEnabled = false
@@ -138,7 +131,6 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     // MARK: Properties
-    private var tableView: UITableView!
     private var goButton: UIButton!
     
     private var deck: Deck!

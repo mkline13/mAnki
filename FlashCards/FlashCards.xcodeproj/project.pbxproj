@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		966B041828A0544300DD484E /* ContentPackEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B041728A0544300DD484E /* ContentPackEditorViewController.swift */; };
 		966B041A28A07A4200DD484E /* StudySessionLauncherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B041928A07A4200DD484E /* StudySessionLauncherViewController.swift */; };
 		966B041C28A0AA3B00DD484E /* CardBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B041B28A0AA3B00DD484E /* CardBrowserViewController.swift */; };
 		966B041E28A0BA0600DD484E /* CardBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B041D28A0BA0600DD484E /* CardBrowserCell.swift */; };
@@ -20,6 +19,10 @@
 		966B043028A4F37100DD484E /* ContentPackSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */; };
 		966B043628A5C43F00DD484E /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B043528A5C43F00DD484E /* TestData.swift */; };
 		966B043C28A5FB6700DD484E /* SRSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B043B28A5FB6700DD484E /* SRSService.swift */; };
+		966B044328A6300500DD484E /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044128A6300500DD484E /* Variable.swift */; };
+		966B044428A6300500DD484E /* Variable+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044228A6300500DD484E /* Variable+CoreDataProperties.swift */; };
+		966B044628A6348800DD484E /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044528A6348800DD484E /* SettingsService.swift */; };
+		966B044828A6443200DD484E /* ContentPackSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */; };
 		96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F1289D6BD900A04D53 /* AppDelegate.swift */; };
 		96BE32F4289D6BD900A04D53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */; };
 		96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32FA289D6BD900A04D53 /* FlashCards.xcdatamodeld */; };
@@ -70,7 +73,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		966B041728A0544300DD484E /* ContentPackEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPackEditorViewController.swift; sourceTree = "<group>"; };
 		966B041928A07A4200DD484E /* StudySessionLauncherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionLauncherViewController.swift; sourceTree = "<group>"; };
 		966B041B28A0AA3B00DD484E /* CardBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBrowserViewController.swift; sourceTree = "<group>"; };
 		966B041D28A0BA0600DD484E /* CardBrowserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBrowserCell.swift; sourceTree = "<group>"; };
@@ -83,6 +85,10 @@
 		966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackSelectorViewController.swift; sourceTree = "<group>"; };
 		966B043528A5C43F00DD484E /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		966B043B28A5FB6700DD484E /* SRSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSService.swift; sourceTree = "<group>"; };
+		966B044128A6300500DD484E /* Variable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
+		966B044228A6300500DD484E /* Variable+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Variable+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		966B044528A6348800DD484E /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
+		966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPackSettingsViewController.swift; sourceTree = "<group>"; };
 		96BE32EE289D6BD900A04D53 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BE32F1289D6BD900A04D53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -203,7 +209,6 @@
 				96BE32F1289D6BD900A04D53 /* AppDelegate.swift */,
 				96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */,
 				96BE3326289D6DC100A04D53 /* DeckListViewController.swift */,
-				966B041728A0544300DD484E /* ContentPackEditorViewController.swift */,
 				96BE3328289D6DE200A04D53 /* ContentPackListViewController.swift */,
 				96BE3381289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift */,
 				966B041928A07A4200DD484E /* StudySessionLauncherViewController.swift */,
@@ -211,6 +216,7 @@
 				966B041F28A20C3900DD484E /* CardEditorViewController.swift */,
 				966B042128A22E8000DD484E /* StudySessionViewController.swift */,
 				966B042728A4A3A200DD484E /* DeckSettingsViewController.swift */,
+				966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */,
 				966B042B28A4C02400DD484E /* SmartDismissExtension.swift */,
 				966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */,
 			);
@@ -230,6 +236,8 @@
 		96BE332A289D7EF000A04D53 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				966B044128A6300500DD484E /* Variable.swift */,
+				966B044228A6300500DD484E /* Variable+CoreDataProperties.swift */,
 				96BE337D289D82C300A04D53 /* StudyRecord.swift */,
 				96BE337E289D82C300A04D53 /* StudyRecord+CoreDataProperties.swift */,
 				96BE3361289D81B300A04D53 /* Card.swift */,
@@ -277,6 +285,7 @@
 				96BE3378289D827200A04D53 /* FlashCardService.swift */,
 				96BE3379289D827200A04D53 /* CoreDataFlashCardService.swift */,
 				966B043B28A5FB6700DD484E /* SRSService.swift */,
+				966B044528A6348800DD484E /* SettingsService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -438,9 +447,11 @@
 				966B042428A3223A00DD484E /* TestJig.swift in Sources */,
 				96BE3382289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift in Sources */,
 				966B042028A20C3900DD484E /* CardEditorViewController.swift in Sources */,
-				966B041828A0544300DD484E /* ContentPackEditorViewController.swift in Sources */,
 				96BE337C289D827200A04D53 /* CoreDataFlashCardService.swift in Sources */,
+				966B044428A6300500DD484E /* Variable+CoreDataProperties.swift in Sources */,
 				966B042228A22E8000DD484E /* StudySessionViewController.swift in Sources */,
+				966B044328A6300500DD484E /* Variable.swift in Sources */,
+				966B044828A6443200DD484E /* ContentPackSettingsViewController.swift in Sources */,
 				96BE337F289D82C300A04D53 /* StudyRecord.swift in Sources */,
 				96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */,
 				96BE336A289D81B400A04D53 /* ContentPack+CoreDataProperties.swift in Sources */,
@@ -450,6 +461,7 @@
 				96BE337A289D827200A04D53 /* DependencyContainer.swift in Sources */,
 				966B042A28A4B25F00DD484E /* FormElements.swift in Sources */,
 				96BE3364289D81B400A04D53 /* StudyStatus.swift in Sources */,
+				966B044628A6348800DD484E /* SettingsService.swift in Sources */,
 				966B043028A4F37100DD484E /* ContentPackSelectorViewController.swift in Sources */,
 				966B041A28A07A4200DD484E /* StudySessionLauncherViewController.swift in Sources */,
 				96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */,

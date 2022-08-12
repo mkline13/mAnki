@@ -10,10 +10,10 @@ import CoreData
 
 
 class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedResultsControllerDelegate {
-    init(flashCardService: FlashCardService, srsService: SRSService) {
+    init(dependencyContainer: DependencyContainer) {
         super.init(nibName: nil, bundle: nil)
-        self.flashCardService = flashCardService
-        self.srsService = srsService
+        self.flashCardService = dependencyContainer.flashCardService
+        self.srsService = dependencyContainer.srsService
     }
     
     required init?(coder: NSCoder) {

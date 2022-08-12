@@ -69,7 +69,7 @@ class TextFieldWithLabel: UIView {
             label.topAnchor.constraint(equalTo: self.topAnchor),
             label.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            label.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.25),
+            label.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.15),
             
             textField.topAnchor.constraint(equalTo: self.topAnchor),
             textField.bottomAnchor.constraint(equalTo: self.bottomAnchor),
