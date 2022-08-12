@@ -17,7 +17,6 @@ class StudySessionViewController: UIViewController {
         // Show those cards
         
         cardsToStudy = cards
-        cardsToStudy.shuffle()
         if cardsToStudy.isEmpty {
             throw StudySessionError.deckIsEmpty
         }
@@ -106,6 +105,8 @@ class StudySessionViewController: UIViewController {
         studyNextCard()
     }
     
+    
+    
     private func flipCard() {
         switch currentSide {
         case .front:
@@ -168,6 +169,7 @@ class StudySessionViewController: UIViewController {
     private func markFailure() {
         print("Fail button")
         _ = flashCardService.createStudyRecord(for: currentCard, status: .failure)
+        cardsToStudy.insert(currentCard, at: 0)
         studyNextCard()
     }
     
