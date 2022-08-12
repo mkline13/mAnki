@@ -47,7 +47,7 @@ class CoreDataFlashCardService: FlashCardService {
     }
     
     func newDeck(title: String, description ddesc: String = "", newCardsPerDay ncpd: Int64, reviewCardsPerDay rcpd: Int64) -> Deck? {
-        let deck = Deck(title: title, deckDescription: ddesc, newCardsPerDay: ncpd, reviewCardsLimit: rcpd, context: persistentContainer.viewContext)
+        let deck = Deck(title: title, deckDescription: ddesc, newCardsPerDay: ncpd, reviewCardsPerDay: rcpd, context: persistentContainer.viewContext)
         
         do {
             try persistentContainer.viewContext.obtainPermanentIDs(for: [deck])
@@ -219,7 +219,7 @@ class CoreDataFlashCardService: FlashCardService {
         deck.title = title
         deck.deckDescription = ddesc
         deck.newCardsPerDay = ncpd
-        deck.reviewCardsLimit = rcpd
+        deck.reviewCardsPerDay = rcpd
         saveViewContext()
     }
     

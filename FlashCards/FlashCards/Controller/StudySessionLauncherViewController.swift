@@ -112,7 +112,7 @@ class StudySessionLauncherViewController: UIViewController {
     private func loadStudyCards() {
         newCardsFromDeck = flashCardService.getNewCards(in: deck, limit: deck.newCardsPerDay)
         newCardsFromPacks = flashCardService.drawNewCards(for: deck, limit: deck.newCardsPerDay - Int64(newCardsFromDeck.count))
-        reviewCards = flashCardService.getReviewCards(in: deck, limit: deck.reviewCardsLimit)
+        reviewCards = flashCardService.getReviewCards(in: deck, limit: deck.reviewCardsPerDay)
         
         print("\nBeginning study session with deck: \(deck.title)")
         print("New Cards from Deck:")

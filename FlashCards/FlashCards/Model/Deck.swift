@@ -11,14 +11,17 @@ import CoreData
 
 @objc(Deck)
 public class Deck: NSManagedObject {
-    convenience init (title: String, deckDescription description: String, newCardsPerDay: Int64, reviewCardsLimit: Int64, context: NSManagedObjectContext) {
+    convenience init (title: String, deckDescription description: String, newCardsPerDay: Int64, reviewCardsPerDay: Int64, context: NSManagedObjectContext) {
         self.init(context: context)
         
         self.title = title
         self.deckDescription = description
+        
         self.newCardsPerDay = newCardsPerDay
-        self.reviewCardsLimit = reviewCardsLimit
+        self.reviewCardsPerDay = reviewCardsPerDay
+        
+        mostRecentStudySession = nil
+        newCardsStudiedRecently = 0
+        reviewCardsStudiedRecently = 0
     }
-    
-    // Custom 
 }

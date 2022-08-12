@@ -19,8 +19,14 @@ extension Deck {
 
     @NSManaged public var title: String
     @NSManaged public var deckDescription: String
+    
     @NSManaged public var newCardsPerDay: Int64
-    @NSManaged public var reviewCardsLimit: Int64
+    @NSManaged public var reviewCardsPerDay: Int64
+    
+    @NSManaged public var mostRecentStudySession: Date?
+    @NSManaged public var newCardsStudiedRecently: Int64
+    @NSManaged public var reviewCardsStudiedRecently: Int64
+    
     @NSManaged public var cards: NSSet
     @NSManaged public var associatedContentPacks: NSSet
 

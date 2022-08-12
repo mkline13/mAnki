@@ -20,8 +20,11 @@
     </entity>
     <entity name="Deck" representedClassName="Deck" syncable="YES">
         <attribute name="deckDescription" optional="YES" attributeType="String"/>
+        <attribute name="mostRecentStudySession" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="newCardsPerDay" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="reviewCardsLimit" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="newCardsStudiedRecently" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reviewCardsPerDay" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reviewCardsStudiedRecently" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="associatedContentPacks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ContentPack" inverseName="associatedDecks" inverseEntity="ContentPack"/>
         <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="deck" inverseEntity="Card"/>
@@ -39,7 +42,7 @@
     <elements>
         <element name="Card" positionX="-21.5869140625" positionY="-183.7192687988281" width="128" height="178"/>
         <element name="ContentPack" positionX="-248.841064453125" positionY="-331.0128784179688" width="128" height="118"/>
-        <element name="Deck" positionX="182.07421875" positionY="-346.1746673583984" width="128" height="133"/>
+        <element name="Deck" positionX="182.07421875" positionY="-346.1746673583984" width="128" height="28"/>
         <element name="StudyRecord" positionX="-23.038818359375" positionY="11.04470825195312" width="128" height="103"/>
         <element name="Variable" positionX="-54" positionY="-189" width="128" height="59"/>
     </elements>
