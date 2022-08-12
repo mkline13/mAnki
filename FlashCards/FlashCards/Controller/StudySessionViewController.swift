@@ -9,15 +9,15 @@ import UIKit
 
 
 class StudySessionViewController: UIViewController {
-    init (for deck: Deck, flashCardService: FlashCardService) throws {
+    init (cards: [Card], flashCardService: FlashCardService) throws {
         super.init(nibName: nil, bundle: nil)
-        self.deck = deck
         self.flashCardService = flashCardService
         
         // Decide which cards are ready to study
         // Show those cards
         
-        cardsToStudy = deck.cards.allObjects as! [Card]
+        cardsToStudy = cards
+        cardsToStudy.shuffle()
         if cardsToStudy.isEmpty {
             throw StudySessionError.deckIsEmpty
         }
@@ -186,7 +186,6 @@ class StudySessionViewController: UIViewController {
     private var failButton: UIButton!
     private var successButton: UIButton!
     
-    private var deck: Deck!
     private var cardsToStudy: [Card] = []
     private var currentCard: Card!
     

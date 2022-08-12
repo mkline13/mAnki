@@ -102,7 +102,28 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     private func beginStudy(with deck: Deck) {
-        guard let vc = try? StudySessionViewController(for: deck, flashCardService: flashCardService) else {
+        print("\nBeginning study session with deck: \(deck.title)")
+        print("New Cards from Deck:")
+        for c in newCardsFromDeck {
+            print("  - \(c.frontContent)")
+        }
+        print("New Cards from ContentPacks:")
+        for c in newCardsFromPacks {
+            print("  - \(c.frontContent)")
+        }
+        print("Review Cards:")
+        for c in reviewCards {
+            print("  - \(c.frontContent)")
+        }
+        print("")
+        
+        // add all new cards from packs to the deck
+        flashCardService.add(cards: newCardsFromPacks, to: deck)
+        
+        // collect all study cards in one place
+        let cards = newCardsFromDeck + newCardsFromPacks + reviewCards
+        
+        guard let vc = try? StudySessionViewController(cards: cards, flashCardService: flashCardService) else {
             fatalError("Cannot study: deck is empty")
         }
         
@@ -113,10 +134,6 @@ class StudySessionLauncherViewController: UIViewController {
         newCardsFromDeck = flashCardService.getNewCards(in: deck, limit: deck.newCardsPerDay)
         newCardsFromPacks = flashCardService.drawNewCards(for: deck, limit: deck.newCardsPerDay - Int64(newCardsFromDeck.count))
         reviewCards = flashCardService.getReviewCards(in: deck, limit: deck.reviewCardsLimit)
-        
-        print(newCardsFromDeck)
-        print(newCardsFromPacks)
-        print(reviewCards)
     }
     
     // MARK: Properties

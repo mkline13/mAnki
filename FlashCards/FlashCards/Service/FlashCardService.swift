@@ -40,6 +40,7 @@ protocol FlashCardService {
     func updateCard(_ card: Card, frontContent front: String, backContent back: String)
     
     func set(contentPacks: Set<ContentPack>, for deck: Deck)
+    func add(cards: [Card], to: Deck)
     
     // MARK: DELETE
     func delete(_ contentPack: ContentPack)

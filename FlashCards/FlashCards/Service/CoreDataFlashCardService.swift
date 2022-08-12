@@ -174,7 +174,7 @@ class CoreDataFlashCardService: FlashCardService {
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(keyPath: \Card.creationDate, ascending: true)
         ]
-        fetchRequest.predicate = NSPredicate(format: "(deck != %@) AND (contentPack IN %@) AND (studyRecords.@count == 0)", deck, deck.associatedContentPacks)
+        fetchRequest.predicate = NSPredicate(format: "(deck == nil) AND (%@ CONTAINS contentPack) AND (studyRecords.@count == 0)", deck.associatedContentPacks)
         fetchRequest.fetchLimit = Int(limit)
         
         do {
@@ -230,6 +230,11 @@ class CoreDataFlashCardService: FlashCardService {
     
     func set(contentPacks: Set<ContentPack>, for deck: Deck) {
         deck.associatedContentPacks = contentPacks as NSSet
+        saveViewContext()
+    }
+    
+    func add(cards: [Card], to deck: Deck) {
+        deck.addToCards(NSSet(array: cards))
         saveViewContext()
     }
     

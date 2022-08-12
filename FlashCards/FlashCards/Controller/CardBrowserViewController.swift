@@ -173,7 +173,7 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
     // MARK: - Actions
     @objc private func settingsButton(_ sender: UIBarButtonItem) {
         if let deck = deck {
-            let vc = DeckEditorViewController(flashCardService: flashCardService, deck: deck)
+            let vc = DeckSettingsViewController(for: deck, flashCardService: flashCardService)
             show(vc, sender: self)
         }
         else if let contentPack = contentPack {

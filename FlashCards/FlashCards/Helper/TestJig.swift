@@ -19,22 +19,6 @@ private func loadFlashCardServiceInMemory() -> FlashCardService {
     return dependencyContainer.flashCardService
 }
 
-private func studySessionTestJig() -> UIViewController {
-    let flashCardService: FlashCardService = loadFlashCardServiceInMemory()
-    
-    let contentPack = flashCardService.newContentPack(title: "TestCollection", description: "TestCollection's Description", author: "Me")
-    let deck = flashCardService.newDeck(title: "TestDeck", description: "TestDeck's Description", newCardsPerDay: 10, reviewCardsPerDay: 100)
-    
-    for i in 0...10 {
-        let front = "\(i): Front of card #\(i)"
-        let back = "\(i): Back of card #\(i)"
-        _ = flashCardService.newCard(in: contentPack!, frontContent: front, backContent: back, deck: deck!)
-    }
-    
-    let testJigViewController = try! StudySessionViewController(for: deck!, flashCardService: flashCardService)
-    return testJigViewController
-}
-
 private func deckSettingsV2TestJig() -> UIViewController {
     let flashCardService: FlashCardService = loadFlashCardServiceInMemory()
     
