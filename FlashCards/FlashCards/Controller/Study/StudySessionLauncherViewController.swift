@@ -29,28 +29,25 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     override func loadView() {
-        title = "Study"
+//        title = "Study"
         
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
         
-        let layout = EZLayout(spacing: 30)
+        let layout = EZLayout(spacing: 8)
         
-        let label = UILabel()
-        label.text = "ABCDEFG"
-        label.backgroundColor = .systemRed
-        layout.appendView(label)
+        layout.appendSeparator()
+        titleLabel = UILabel(frame: .zero)
+        titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        layout.appendView(titleLabel, spacing: 24)
         
-        let label1 = UILabel()
-        label1.text = "ABCDEFG"
-        label1.backgroundColor = .systemRed
-        layout.appendView(label1)
+        descriptionLabel = UILabel(frame: .zero)
+        descriptionLabel.font = .systemFont(ofSize: 14)
+        layout.appendView(descriptionLabel, spacing: 16)
         
-        let label2 = UILabel()
-        label2.text = "ABCDEFG"
-        label2.backgroundColor = .systemRed
-        layout.appendView(label2)
-
+        layout.appendSeparator()
+        
+        // Go button
         let buttonPanel = UIView()
         buttonPanel.translatesAutoresizingMaskIntoConstraints = false
         buttonPanel.backgroundColor = UIColor.secondarySystemBackground
@@ -63,7 +60,7 @@ class StudySessionLauncherViewController: UIViewController {
         goButton.backgroundColor = UIColor.systemBlue
         goButton.layer.cornerRadius = 8
         goButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        goButton.setTitle("Begin", for: .normal)
+        goButton.setTitle("Begin Studying", for: .normal)
         goButton.setTitle("No Cards Remaining", for: .disabled)
 
         buttonPanel.addSubview(goButton)
@@ -93,6 +90,9 @@ class StudySessionLauncherViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         loadStudyCards()
+        
+        titleLabel.text = deck.title
+        descriptionLabel.text = deck.deckDescription
         
         if totalStudyCards > 0 {
             goButton.isEnabled = true
@@ -154,6 +154,8 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     // MARK: Properties
+    private var titleLabel: UILabel!
+    private var descriptionLabel: UILabel!
     private var goButton: UIButton!
     
     private var deck: Deck!

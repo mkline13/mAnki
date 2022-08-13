@@ -50,10 +50,8 @@
 		96BE3380289D82C300A04D53 /* StudyRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE337E289D82C300A04D53 /* StudyRecord+CoreDataProperties.swift */; };
 		96BE3382289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3381289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift */; };
 		96BE3387289DA07D00A04D53 /* PersistentContainerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE336C289D81CC00A04D53 /* PersistentContainerHelper.swift */; };
-		96BE338D289DADFA00A04D53 /* SingleLineTextEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE338C289DADFA00A04D53 /* SingleLineTextEntryCell.swift */; };
-		96BE3394289DC13D00A04D53 /* SpacerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3393289DC13D00A04D53 /* SpacerCell.swift */; };
-		96BE3396289DCED000A04D53 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3395289DCED000A04D53 /* Form.swift */; };
-		96BE3398289DD68300A04D53 /* StepperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3397289DD68300A04D53 /* StepperCell.swift */; };
+		96E85B0E28A81FE80047C132 /* ContentPackListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B0D28A81FE80047C132 /* ContentPackListCell.swift */; };
+		96E85B1128A8207D0047C132 /* DeckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1028A8207D0047C132 /* DeckListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,10 +119,8 @@
 		96BE337D289D82C300A04D53 /* StudyRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyRecord.swift; sourceTree = "<group>"; };
 		96BE337E289D82C300A04D53 /* StudyRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StudyRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		96BE3381289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewDiffableDataSource.swift; sourceTree = "<group>"; };
-		96BE338C289DADFA00A04D53 /* SingleLineTextEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLineTextEntryCell.swift; sourceTree = "<group>"; };
-		96BE3393289DC13D00A04D53 /* SpacerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerCell.swift; sourceTree = "<group>"; };
-		96BE3395289DCED000A04D53 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
-		96BE3397289DD68300A04D53 /* StepperCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperCell.swift; sourceTree = "<group>"; };
+		96E85B0D28A81FE80047C132 /* ContentPackListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackListCell.swift; sourceTree = "<group>"; };
+		96E85B1028A8207D0047C132 /* DeckListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,15 +171,14 @@
 		96BE32F0289D6BD900A04D53 /* FlashCards */ = {
 			isa = PBXGroup;
 			children = (
-				96BE3392289DBCE700A04D53 /* Forms */,
+				96BE3302289D6BDA00A04D53 /* Info.plist */,
+				96BE3325289D6C3200A04D53 /* Resources */,
+				96BE332A289D7EF000A04D53 /* Model */,
+				96BE3377289D827200A04D53 /* Service */,
+				96BE3375289D827200A04D53 /* DependencyInjection */,
+				96BE3324289D6C1900A04D53 /* Controller */,
 				96BE338A289DADDD00A04D53 /* Views */,
 				96BE336B289D81CC00A04D53 /* Helper */,
-				96BE3375289D827200A04D53 /* DependencyInjection */,
-				96BE3377289D827200A04D53 /* Service */,
-				96BE332A289D7EF000A04D53 /* Model */,
-				96BE3324289D6C1900A04D53 /* Controller */,
-				96BE3325289D6C3200A04D53 /* Resources */,
-				96BE3302289D6BDA00A04D53 /* Info.plist */,
 			);
 			path = FlashCards;
 			sourceTree = "<group>";
@@ -210,17 +205,9 @@
 			children = (
 				96BE32F1289D6BD900A04D53 /* AppDelegate.swift */,
 				96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */,
-				96BE3326289D6DC100A04D53 /* DeckListViewController.swift */,
-				96BE3328289D6DE200A04D53 /* ContentPackListViewController.swift */,
-				96BE3381289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift */,
-				966B041928A07A4200DD484E /* StudySessionLauncherViewController.swift */,
-				966B041B28A0AA3B00DD484E /* CardBrowserViewController.swift */,
-				966B041F28A20C3900DD484E /* CardEditorViewController.swift */,
-				966B042128A22E8000DD484E /* StudySessionViewController.swift */,
-				966B042728A4A3A200DD484E /* DeckSettingsViewController.swift */,
-				966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */,
-				966B042B28A4C02400DD484E /* SmartDismissExtension.swift */,
-				966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */,
+				96E85B0B28A81EC50047C132 /* Content */,
+				96E85B0928A81E600047C132 /* Study */,
+				96E85B0A28A81E910047C132 /* Components */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -295,22 +282,61 @@
 		96BE338A289DADDD00A04D53 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				966B041D28A0BA0600DD484E /* CardBrowserCell.swift */,
-				966B042928A4B25F00DD484E /* FormElements.swift */,
 				966B044928A64F9300DD484E /* EZLayout.swift */,
+				96E85B0F28A820370047C132 /* Elements */,
+				96E85B0C28A81FAF0047C132 /* TableCells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		96BE3392289DBCE700A04D53 /* Forms */ = {
+		96E85B0928A81E600047C132 /* Study */ = {
 			isa = PBXGroup;
 			children = (
-				96BE338C289DADFA00A04D53 /* SingleLineTextEntryCell.swift */,
-				96BE3393289DC13D00A04D53 /* SpacerCell.swift */,
-				96BE3395289DCED000A04D53 /* Form.swift */,
-				96BE3397289DD68300A04D53 /* StepperCell.swift */,
+				96BE3326289D6DC100A04D53 /* DeckListViewController.swift */,
+				966B041928A07A4200DD484E /* StudySessionLauncherViewController.swift */,
+				966B042728A4A3A200DD484E /* DeckSettingsViewController.swift */,
+				966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */,
+				966B042128A22E8000DD484E /* StudySessionViewController.swift */,
 			);
-			path = Forms;
+			path = Study;
+			sourceTree = "<group>";
+		};
+		96E85B0A28A81E910047C132 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				966B042B28A4C02400DD484E /* SmartDismissExtension.swift */,
+				96BE3381289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		96E85B0B28A81EC50047C132 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				96BE3328289D6DE200A04D53 /* ContentPackListViewController.swift */,
+				966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */,
+				966B041B28A0AA3B00DD484E /* CardBrowserViewController.swift */,
+				966B041F28A20C3900DD484E /* CardEditorViewController.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		96E85B0C28A81FAF0047C132 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				966B041D28A0BA0600DD484E /* CardBrowserCell.swift */,
+				96E85B0D28A81FE80047C132 /* ContentPackListCell.swift */,
+				96E85B1028A8207D0047C132 /* DeckListCell.swift */,
+			);
+			path = TableCells;
+			sourceTree = "<group>";
+		};
+		96E85B0F28A820370047C132 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				966B042928A4B25F00DD484E /* FormElements.swift */,
+			);
+			path = Elements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,6 +469,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96E85B0E28A81FE80047C132 /* ContentPackListCell.swift in Sources */,
 				96BE3367289D81B400A04D53 /* Deck.swift in Sources */,
 				96BE3329289D6DE200A04D53 /* ContentPackListViewController.swift in Sources */,
 				96BE3380289D82C300A04D53 /* StudyRecord+CoreDataProperties.swift in Sources */,
@@ -458,7 +485,6 @@
 				96BE337F289D82C300A04D53 /* StudyRecord.swift in Sources */,
 				96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */,
 				96BE336A289D81B400A04D53 /* ContentPack+CoreDataProperties.swift in Sources */,
-				96BE3398289DD68300A04D53 /* StepperCell.swift in Sources */,
 				96BE3327289D6DC100A04D53 /* DeckListViewController.swift in Sources */,
 				96BE337B289D827200A04D53 /* FlashCardService.swift in Sources */,
 				966B044A28A64F9300DD484E /* EZLayout.swift in Sources */,
@@ -469,13 +495,11 @@
 				966B043028A4F37100DD484E /* ContentPackSelectorViewController.swift in Sources */,
 				966B041A28A07A4200DD484E /* StudySessionLauncherViewController.swift in Sources */,
 				96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */,
-				96BE3396289DCED000A04D53 /* Form.swift in Sources */,
 				966B041C28A0AA3B00DD484E /* CardBrowserViewController.swift in Sources */,
-				96BE3394289DC13D00A04D53 /* SpacerCell.swift in Sources */,
-				96BE338D289DADFA00A04D53 /* SingleLineTextEntryCell.swift in Sources */,
 				966B043628A5C43F00DD484E /* TestData.swift in Sources */,
 				96BE3369289D81B400A04D53 /* Deck+CoreDataProperties.swift in Sources */,
 				96BE3368289D81B400A04D53 /* Card.swift in Sources */,
+				96E85B1128A8207D0047C132 /* DeckListCell.swift in Sources */,
 				96BE3366289D81B400A04D53 /* ContentPack.swift in Sources */,
 				966B042828A4A3A200DD484E /* DeckSettingsViewController.swift in Sources */,
 				96BE3387289DA07D00A04D53 /* PersistentContainerHelper.swift in Sources */,

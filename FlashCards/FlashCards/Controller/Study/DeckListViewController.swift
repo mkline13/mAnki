@@ -52,7 +52,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         
         // TableView
         tableView.delegate = self
-        tableView.register(DeckListTableCell.self, forCellReuseIdentifier: DeckListTableCell.reuseIdentifier)
+        tableView.register(DeckListCell.self, forCellReuseIdentifier: DeckListCell.reuseIdentifier)
 
         dataSource = EditingTableViewDiffableDataSource<Int, NSManagedObjectID>(tableView: tableView, cellProvider: provideCell, editHandler: handleEdit)
         resultsController = flashCardService.deckResultsController(with: self)
@@ -83,7 +83,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
         let deck = resultsController.managedObjectContext.object(with: managedObjectID) as! Deck
-        let cell = tableView.dequeueReusableCell(withIdentifier: DeckListTableCell.reuseIdentifier, for: indexPath) as! DeckListTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: DeckListCell.reuseIdentifier, for: indexPath) as! DeckListCell
         
         cell.configure(for: deck)
         return cell
@@ -122,39 +122,3 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     private var tableView: UITableView!
 }
 
-
-
-class DeckListTableCell: UITableViewCell {
-    // MARK: Initializers
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        self.accessoryType = .disclosureIndicator
-        
-        label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        contentView.addSubview(label)
-        contentView.addConstraints([
-            label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            label.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
-            label.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            label.trailingAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor),
-        ])
-        
-        label.font = label.font.withSize(14)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: View
-    func configure(for deck: Deck) {
-        label.text = deck.title
-    }
-    
-    // MARK: Properties
-    static let reuseIdentifier: String = "DeckListTableCell"
-    private var label: UILabel!
-}

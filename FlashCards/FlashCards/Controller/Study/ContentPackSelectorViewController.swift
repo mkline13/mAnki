@@ -52,7 +52,7 @@ class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, 
         
         // TableView
         tableView.delegate = self
-        tableView.register(ContentPackListTableCell.self, forCellReuseIdentifier: ContentPackListTableCell.reuseIdentifier)
+        tableView.register(ContentPackListCell.self, forCellReuseIdentifier: ContentPackListCell.reuseIdentifier)
         tableView.allowsMultipleSelection = true
         
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: provideCell)
@@ -93,7 +93,7 @@ class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, 
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
         let contentPack = resultsController.managedObjectContext.object(with: managedObjectID) as! ContentPack
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: ContentPackListTableCell.reuseIdentifier, for: indexPath) as! ContentPackListTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ContentPackListCell.reuseIdentifier, for: indexPath) as! ContentPackListCell
         
         if selectedContentPacks.contains(contentPack) {
             cell.accessoryType = .checkmark

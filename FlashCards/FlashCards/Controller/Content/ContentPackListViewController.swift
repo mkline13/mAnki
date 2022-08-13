@@ -33,7 +33,7 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
     // MARK: - NSFetchedResultsControllerDelegate
     private func provideCell(for tableView: UITableView, _ indexPath: IndexPath, _ managedObjectID: NSManagedObjectID) -> UITableViewCell? {
         let contentPack = resultsController.managedObjectContext.object(with: managedObjectID) as! ContentPack
-        let cell = tableView.dequeueReusableCell(withIdentifier: ContentPackListTableCell.reuseIdentifier, for: indexPath) as! ContentPackListTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ContentPackListCell.reuseIdentifier, for: indexPath) as! ContentPackListCell
         
         cell.configure(for: contentPack)
         return cell
@@ -57,7 +57,7 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
         
         // TableView
         tableView.delegate = self
-        tableView.register(ContentPackListTableCell.self, forCellReuseIdentifier: ContentPackListTableCell.reuseIdentifier)
+        tableView.register(ContentPackListCell.self, forCellReuseIdentifier: ContentPackListCell.reuseIdentifier)
 
         dataSource = EditingTableViewDiffableDataSource<Int, NSManagedObjectID>(tableView: tableView, cellProvider: provideCell, editHandler: handleEdit)
         resultsController = flashCardService.contentPackResultsController(with: self)
@@ -109,38 +109,3 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
     private var tableView: UITableView!
 }
 
-
-class ContentPackListTableCell: UITableViewCell {
-    // MARK: Initializers
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        self.accessoryType = .disclosureIndicator
-        
-        label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        contentView.addSubview(label)
-        contentView.addConstraints([
-            label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            label.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
-            label.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            label.trailingAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor),
-        ])
-        
-        label.font = label.font.withSize(14)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: View
-    func configure(for contentPack: ContentPack) {
-        label.text = contentPack.title
-    }
-    
-    // MARK: Properties
-    static let reuseIdentifier: String = "ContentPackListTableCell"
-    private var label: UILabel!
-}

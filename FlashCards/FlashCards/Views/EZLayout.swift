@@ -86,14 +86,43 @@ class EZLayout: UIView {
         content.addConstraint(finalConstraint!)
     }
     
-    func finish() {
-        guard let previousView = previousView else {
-            return
+    func appendSeparator(spacing: CGFloat? = nil) {
+        if let finalConstraint = finalConstraint {
+            content.removeConstraint(finalConstraint)
+        }
+        
+        let separator = UIView(frame: .zero)
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.backgroundColor = .separator
+        
+        let spacer = UIView(frame: .zero)
+        spacer.translatesAutoresizingMaskIntoConstraints = false
+        
+        content.addSubview(spacer)
+        content.addSubview(separator)
+        
+        if let previousView = previousView {
+            content.addConstraint(separator.topAnchor.constraint(equalTo: previousView.bottomAnchor))
+        }
+        else {
+            content.addConstraint(separator.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor))
         }
         
         content.addConstraints([
-            previousView.bottomAnchor.constraint(equalTo: content.bottomAnchor)
+            separator.centerXAnchor.constraint(equalTo: content.centerXAnchor),
+            separator.widthAnchor.constraint(equalTo: content.layoutMarginsGuide.widthAnchor, multiplier: 1.0),
+            separator.heightAnchor.constraint(equalToConstant: 0.5),
+            
+            spacer.topAnchor.constraint(equalTo: separator.bottomAnchor),
+            spacer.leadingAnchor.constraint(equalTo: content.layoutMarginsGuide.leadingAnchor),
+            spacer.trailingAnchor.constraint(equalTo: content.layoutMarginsGuide.trailingAnchor),
+            spacer.heightAnchor.constraint(equalToConstant: spacing ?? defaultSpacing),
         ])
+        
+        previousView = spacer
+        
+        finalConstraint = spacer.bottomAnchor.constraint(equalTo: content.bottomAnchor)
+        content.addConstraint(finalConstraint!)
     }
     
     // MARK: Properties
