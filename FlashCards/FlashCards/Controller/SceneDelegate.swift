@@ -53,14 +53,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         #endif
         
-        dependencyContainer.settingsService.set(key: .test, value: .integer(22))
-        let test = dependencyContainer.settingsService.get(key: .test)
-        print(test?.toString())
-        
         // MARK: - RUN APP
+        
+        // Configure Navigation
         let tabBarController = UITabBarController()
         let decksNavigation = UINavigationController()
         let packsNavigation = UINavigationController()
+        
+        // Tab bar appearance
+        let tabStandardAppearance = UITabBarAppearance()
+        tabStandardAppearance.configureWithOpaqueBackground()
+        tabStandardAppearance.backgroundColor = .secondarySystemBackground
+        
+        tabBarController.tabBar.standardAppearance = tabStandardAppearance
+        tabBarController.tabBar.scrollEdgeAppearance = tabStandardAppearance
+        
+        // Nav appearance
+        let navStandardAppearance = UINavigationBarAppearance()
+        navStandardAppearance.configureWithOpaqueBackground()
+        navStandardAppearance.backgroundColor = .secondarySystemBackground
+        
+        decksNavigation.navigationBar.standardAppearance = navStandardAppearance
+        decksNavigation.navigationBar.scrollEdgeAppearance = navStandardAppearance
+        decksNavigation.navigationBar.compactAppearance = navStandardAppearance
+        
+        packsNavigation.navigationBar.standardAppearance = navStandardAppearance
+        packsNavigation.navigationBar.scrollEdgeAppearance = navStandardAppearance
+        packsNavigation.navigationBar.compactAppearance = navStandardAppearance
         
         // Inject dependencies
         let deckListViewController = DeckListViewController(dependencyContainer: dependencyContainer)
@@ -68,7 +87,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Set up view hierarchy
         tabBarController.setViewControllers([decksNavigation, packsNavigation], animated: true)
+        
         decksNavigation.setViewControllers([deckListViewController], animated: true)
+        
         packsNavigation.setViewControllers([contentPackListViewController], animated: true)
         
         // Make tab bar items visible

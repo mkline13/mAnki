@@ -43,70 +43,29 @@ class ContentPackSettingsViewController: UIViewController {
         view = UIView(frame: .zero)
         view.backgroundColor = .systemBackground
         
-        let scrollView = UIScrollView(frame: .zero)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.isScrollEnabled = true
-        view.addSubview(scrollView)
+        let layout = EZLayout(spacing: 16)
         
-        let content = UIView(frame: .zero)
-        content.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(content)
-        
-        // Form views
-        let stack = UIStackView(frame: .zero)
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = 16.0
-        
-        content.addSubview(stack)
-        
-        content.addConstraints([
-            stack.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor),
-            stack.bottomAnchor.constraint(equalTo: content.layoutMarginsGuide.bottomAnchor),
-            stack.centerXAnchor.constraint(equalTo: content.layoutMarginsGuide.centerXAnchor),
-            stack.widthAnchor.constraint(equalTo: content.layoutMarginsGuide.widthAnchor, constant: -8),
-        ])
-        
-        scrollView.addConstraints([
-            content.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            content.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            content.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            content.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            content.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
-        ])
-        
+        view.addSubview(layout)
         view.addConstraints([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            layout.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            layout.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            layout.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            layout.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-                
+        
         // MARK: - Fields
+        
+        layout.addSpacer()
+        
         // Title field
         let updateTitleField: TitleField.UpdateHandler = { value in
             self.fields.title = value
             self.updateSaveButton()
         }
-        let titleField = TitleField(placeholder: "Title", initial: self.fields.title, onUpdate: updateTitleField)
+        let titleField = TitleField(labelText: "Title:", placeholder: "Title", initial: self.fields.title, onUpdate: updateTitleField)
         titleField.translatesAutoresizingMaskIntoConstraints = false
-        stack.addArrangedSubview(titleField)
-        stack.addArrangedSubview(Separator())
-        
-        // Author field
-        let updateAuthorField: TextFieldWithLabel.UpdateHandler = { value in
-            self.fields.author = value
-            self.updateSaveButton()
-        }
-        let authorField = TextFieldWithLabel(labelText: "Author:", initial: self.fields.author, onUpdate: updateAuthorField)
-        stack.addArrangedSubview(authorField)
-        
-        
-        let sep1 = Separator()
-        stack.addArrangedSubview(sep1)
-        stack.setCustomSpacing(24, after: sep1)
+        layout.addArrangedSubview(titleField)
+        layout.addSeparator()
         
         // Description field
         let updateDescriptionField: MultilineTextFieldWithLabel.UpdateHandler = { value in
@@ -115,7 +74,18 @@ class ContentPackSettingsViewController: UIViewController {
         }
         let descriptionView = MultilineTextFieldWithLabel(labelText: "Description:", initial: self.fields.packDescription, onUpdate: updateDescriptionField)
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
-        stack.addArrangedSubview(descriptionView)
+        layout.addArrangedSubview(descriptionView)
+        layout.addSeparator()
+        
+        // Author field
+        let updateAuthorField: TextFieldWithLabel.UpdateHandler = { value in
+            self.fields.author = value
+            self.updateSaveButton()
+        }
+        let authorField = TextFieldWithLabel(labelText: "Author:", initial: self.fields.author, onUpdate: updateAuthorField)
+        layout.addArrangedSubview(authorField)
+        
+        layout.addSeparator()
         
         // USEFUL FOR DEBUGGING
 //        for subview in stack.arrangedSubviews {

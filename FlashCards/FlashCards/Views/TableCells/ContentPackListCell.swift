@@ -26,7 +26,7 @@ class ContentPackListCell: UITableViewCell {
             label.trailingAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor),
         ])
         
-        label.font = label.font.withSize(14)
+        label.font = ViewConstants.regularFont
     }
     
     required init?(coder: NSCoder) {

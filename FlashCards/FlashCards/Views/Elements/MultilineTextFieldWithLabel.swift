@@ -17,9 +17,9 @@ class MultilineTextFieldWithLabel: UIView, UITextViewDelegate {
                 
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
+        label.font = ViewConstants.smallFont
         label.text = labelText
-        label.textColor = .systemGray
+        label.textColor = ViewConstants.labelColor
         
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ class MultilineTextFieldWithLabel: UIView, UITextViewDelegate {
         textView.isScrollEnabled = false
         textView.isEditable = true
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = .systemFont(ofSize: 14)
+        textView.font = ViewConstants.regularFont
         textView.text = initial
         textView.backgroundColor = .clear
         

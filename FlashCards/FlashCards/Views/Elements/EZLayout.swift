@@ -46,7 +46,8 @@ class EZLayout: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func appendView(_ view: UIView, spacing: CGFloat? = nil) {
+    // MARK: - ADD VIEW
+    func addArrangedSubview(_ view: UIView, spacing: CGFloat? = nil) {
         if let finalConstraint = finalConstraint {
             content.removeConstraint(finalConstraint)
         }
@@ -56,24 +57,26 @@ class EZLayout: UIView {
         let spacer = UIView(frame: .zero)
         spacer.translatesAutoresizingMaskIntoConstraints = false
         
+        if debugMode {
+            spacer.backgroundColor = .systemBlue
+            view.backgroundColor = .systemRed
+        }
+        
         content.addSubview(spacer)
         content.addSubview(view)
+        
+        // Add constraints
         if let previousView = previousView {
-            content.addConstraints([
-                view.topAnchor.constraint(equalTo: previousView.bottomAnchor),
-                view.leadingAnchor.constraint(equalTo: content.layoutMarginsGuide.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: content.layoutMarginsGuide.trailingAnchor),
-            ])
+            content.addConstraint(view.topAnchor.constraint(equalTo: previousView.bottomAnchor))
         }
         else {
-            content.addConstraints([
-                view.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor),
-                view.leadingAnchor.constraint(equalTo: content.layoutMarginsGuide.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: content.layoutMarginsGuide.trailingAnchor),
-            ])
+            content.addConstraint(view.topAnchor.constraint(equalTo: content.topAnchor))
         }
         
         content.addConstraints([
+            view.leadingAnchor.constraint(equalTo: content.layoutMarginsGuide.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: content.layoutMarginsGuide.trailingAnchor),
+            
             spacer.topAnchor.constraint(equalTo: view.bottomAnchor),
             spacer.leadingAnchor.constraint(equalTo: content.layoutMarginsGuide.leadingAnchor),
             spacer.trailingAnchor.constraint(equalTo: content.layoutMarginsGuide.trailingAnchor),
@@ -86,7 +89,7 @@ class EZLayout: UIView {
         content.addConstraint(finalConstraint!)
     }
     
-    func appendSeparator(spacing: CGFloat? = nil) {
+    func addSeparator(spacing: CGFloat? = nil) {
         if let finalConstraint = finalConstraint {
             content.removeConstraint(finalConstraint)
         }
@@ -98,14 +101,20 @@ class EZLayout: UIView {
         let spacer = UIView(frame: .zero)
         spacer.translatesAutoresizingMaskIntoConstraints = false
         
+        if debugMode {
+            spacer.backgroundColor = .systemBlue
+            separator.backgroundColor = .magenta
+        }
+        
         content.addSubview(spacer)
         content.addSubview(separator)
         
+        // Add constraints
         if let previousView = previousView {
             content.addConstraint(separator.topAnchor.constraint(equalTo: previousView.bottomAnchor))
         }
         else {
-            content.addConstraint(separator.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor))
+            content.addConstraint(separator.topAnchor.constraint(equalTo: content.topAnchor))
         }
         
         content.addConstraints([
@@ -125,7 +134,40 @@ class EZLayout: UIView {
         content.addConstraint(finalConstraint!)
     }
     
+    func addSpacer(height: CGFloat? = nil) {
+        if let finalConstraint = finalConstraint {
+            content.removeConstraint(finalConstraint)
+        }
+                
+        let spacer = UIView(frame: .zero)
+        spacer.translatesAutoresizingMaskIntoConstraints = false
+        
+        if debugMode {
+            spacer.backgroundColor = .systemBlue
+        }
+        
+        content.addSubview(spacer)
+        if let previousView = previousView {
+            content.addConstraint(spacer.topAnchor.constraint(equalTo: previousView.bottomAnchor))
+        }
+        else {
+            content.addConstraint(spacer.topAnchor.constraint(equalTo: content.topAnchor))
+        }
+        
+        content.addConstraints([
+            spacer.leadingAnchor.constraint(equalTo: content.layoutMarginsGuide.leadingAnchor),
+            spacer.trailingAnchor.constraint(equalTo: content.layoutMarginsGuide.trailingAnchor),
+            spacer.heightAnchor.constraint(equalToConstant: height ?? defaultSpacing),
+        ])
+        
+        previousView = spacer
+        
+        finalConstraint = spacer.bottomAnchor.constraint(equalTo: content.bottomAnchor)
+        content.addConstraint(finalConstraint!)
+    }
+    
     // MARK: Properties
+    var debugMode: Bool = false
     private let defaultSpacing: CGFloat
     
     private var content: UIView!

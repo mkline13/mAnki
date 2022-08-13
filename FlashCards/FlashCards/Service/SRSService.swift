@@ -15,7 +15,7 @@ class SRSService {
         self.multiplier = multiplier
     }
     
-    func calculateInterval(previousInterval: Int64, studyStatus: StudyStatus) -> Int64 {
+    func calculateInterval(previousInterval: Int64, studyStatus: StudyResult) -> Int64 {
         switch studyStatus {
         case .failure:
             return 0
@@ -42,7 +42,7 @@ class SRSService {
     }
     
     
-    func calculateDueDate(interval: Int64, studyDate: Date, studyStatus: StudyStatus) -> Date {
+    func calculateDueDate(interval: Int64, studyDate: Date, studyStatus: StudyResult) -> Date {
         let calendar = Calendar(identifier: .iso8601)
         let dateComponentsInterval = DateComponents(day: Int(interval))
         

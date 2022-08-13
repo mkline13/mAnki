@@ -45,7 +45,7 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             if subtitleText.count != deck.title.count {
                 subtitleText += "..."
             }
-            navigationItem.titleView = createTitleView(title: "Cards", subtitle: "Deck: \(subtitleText)")
+            navigationItem.titleView = createTitleView(title: "Cards", subtitle: "in '\(subtitleText)'")
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
         else if let contentPack = contentPack {
@@ -53,7 +53,7 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             if subtitleText.count != contentPack.title.count {
                 subtitleText += "..."
             }
-            navigationItem.titleView = createTitleView(title: "Cards", subtitle: "Collection: \(subtitleText)")
+            navigationItem.titleView = createTitleView(title: "Cards", subtitle: "in '\(subtitleText)'")
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
         else {
@@ -100,7 +100,8 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
         let smallLabel = UILabel(frame: .zero)
         smallLabel.translatesAutoresizingMaskIntoConstraints = false
         smallLabel.text = subtitle
-        smallLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        smallLabel.font = ViewConstants.smallFont
+        smallLabel.textColor = ViewConstants.labelColor
         smallLabel.textAlignment = .center
         
         titleView.addSubview(bigLabel)

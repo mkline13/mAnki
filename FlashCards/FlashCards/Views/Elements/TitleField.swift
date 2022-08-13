@@ -9,25 +9,39 @@ import UIKit
 
 
 class TitleField: UIView {
-    init (placeholder: String, initial: String, onUpdate: @escaping UpdateHandler) {
+    init (labelText: String, placeholder: String, initial: String, onUpdate: @escaping UpdateHandler) {
         updateHandler = onUpdate
         
-        super.init(frame: .zero)
+        label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = ViewConstants.smallFont
+        label.textColor = ViewConstants.labelColor
+        label.text = labelText
         
         textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = .systemFont(ofSize: 24, weight: .bold)
+        textField.font = ViewConstants.titleFont
         textField.placeholder = placeholder
         textField.text = initial
-        textField.addAction(UIAction(handler: handleUpdateAction), for: .editingChanged)
         
+        super.init(frame: .zero)
+        
+        // Layout
+        self.addSubview(label)
         self.addSubview(textField)
         self.addConstraints([
-            textField.topAnchor.constraint(equalTo: self.topAnchor),
+            label.topAnchor.constraint(equalTo: self.topAnchor),
+            label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
+            textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8),
             textField.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             textField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             textField.trailingAnchor.constraint(equalTo: self.trailingAnchor),
         ])
+        
+        // Actions
+        textField.addAction(UIAction(handler: handleUpdateAction), for: .editingChanged)
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +52,9 @@ class TitleField: UIView {
         updateHandler(self.textField.text ?? "")
     }
     
-    var textField: UITextField!
+    // MARK: Properties
+    private var label: UILabel
+    private var textField: UITextField
     
     private var updateHandler: UpdateHandler
     typealias UpdateHandler = (String) -> Void

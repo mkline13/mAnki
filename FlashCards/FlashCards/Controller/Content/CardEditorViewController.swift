@@ -41,7 +41,6 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
         let cornerRadius = 4.0
         let borderColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         let borderWidth = 0.4
-        let labelFont = UIFont.systemFont(ofSize: 17, weight: .bold)
         let inset = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
         
         // Front
@@ -50,7 +49,7 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
         
         let frontLabel = UILabel(frame: .zero)
         frontLabel.translatesAutoresizingMaskIntoConstraints = false
-        frontLabel.font = labelFont
+        frontLabel.font = ViewConstants.smallTitleFont
         frontLabel.text = "Front"
         
         frontContent = UITextView(frame: .zero)
@@ -79,7 +78,7 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
         
         let backLabel = UILabel(frame: .zero)
         backLabel.translatesAutoresizingMaskIntoConstraints = false
-        backLabel.font = labelFont
+        backLabel.font = ViewConstants.smallTitleFont
         backLabel.text = "Back"
         
         backContent = UITextView(frame: .zero)

@@ -11,7 +11,7 @@ import CoreData
 
 @objc(StudyRecord)
 public class StudyRecord: NSManagedObject {
-    convenience init(timestamp: Date, studyStatus: StudyStatus, afterInterval: Int64, card: Card, context: NSManagedObjectContext) {
+    convenience init(timestamp: Date, studyStatus: StudyResult, afterInterval: Int64, card: Card, context: NSManagedObjectContext) {
         self.init(context: context)
         
         self.timestamp = timestamp
@@ -20,9 +20,9 @@ public class StudyRecord: NSManagedObject {
         self.card = card
     }
     
-    var studyStatus: StudyStatus {
+    var studyStatus: StudyResult {
         get {
-            return StudyStatus.fromString(self.studyResult)
+            return StudyResult.fromString(self.studyResult)
         }
         set (newValue) {
             self.studyResult = newValue.description

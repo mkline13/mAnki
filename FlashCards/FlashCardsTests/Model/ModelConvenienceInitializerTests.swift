@@ -20,7 +20,7 @@ class ModelConvenienceInitializerTests: XCTestCase {
         let contentPack = ContentPack(title: "testPackTitle", packDescription: "testPackDescription", author: "testAuthor", context: container.viewContext)
         let deck = Deck(title: "testDeckTitle", deckDescription: "testDeckDescription", newCardsPerDay: 10, reviewCardsLimit: 12, context: container.viewContext)
         let card = Card(frontContent: "front", backContent: "back", contentPack: contentPack, deck: deck, context: container.viewContext)
-        let studyRecord = StudyRecord(timestamp: date, studyStatus: StudyStatus.success.description, previousInterval: 0, nextInterval: 3, card: card, context: container.viewContext)
+        let studyRecord = StudyRecord(timestamp: date, studyStatus: StudyResult.success.description, previousInterval: 0, nextInterval: 3, card: card, context: container.viewContext)
         
         // MARK: test ContentPack convenience init
         XCTAssertEqual(contentPack.title, "testPackTitle", "Unexpected title")
@@ -45,7 +45,7 @@ class ModelConvenienceInitializerTests: XCTestCase {
         
         // MARK: test StudyRecord convenience init
         XCTAssertEqual(studyRecord.timestamp, date, "Unexpected date")
-        XCTAssertEqual(studyRecord.studyStatus, StudyStatus.success.description, "Unexpected studyStatus")
+        XCTAssertEqual(studyRecord.studyStatus, StudyResult.success.description, "Unexpected studyStatus")
         XCTAssertEqual(studyRecord.previousInterval, 0, "Unexpected previousInterval")
         XCTAssertEqual(studyRecord.nextInterval, 3, "Unexpected nextInterval")
         XCTAssertEqual(studyRecord.card.objectID, card.objectID, "Unexpected card")

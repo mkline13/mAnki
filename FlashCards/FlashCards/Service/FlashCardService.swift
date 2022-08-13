@@ -16,7 +16,7 @@ protocol FlashCardService {
     func newContentPack(title: String, description pdesc: String, author: String) -> ContentPack?
     func newDeck(title: String, description ddesc: String, newCardsPerDay ncpd: Int64, reviewCardsPerDay rcpd: Int64) -> Deck?
     func newCard(in: ContentPack, frontContent front: String, backContent back: String, deck: Deck?) -> Card?
-    func createStudyRecord(for card: Card, studyStatus: StudyStatus, afterInterval: Int64) -> StudyRecord?
+    func createStudyRecord(for card: Card, studyStatus: StudyResult, afterInterval: Int64) -> StudyRecord?
     
     // MARK: READ
     func contentPackResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<ContentPack>?

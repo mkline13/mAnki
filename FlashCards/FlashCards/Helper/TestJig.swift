@@ -10,7 +10,7 @@ import UIKit
 
 
 func loadTestJig() -> UIViewController {
-    studySessionLauncherTestJig()
+    studySessionTestJig()
 }
 
 private func loadFlashCardServiceInMemory() -> FlashCardService {
@@ -54,5 +54,22 @@ private func studySessionLauncherTestJig() -> UIViewController {
     deck!.addToAssociatedContentPacks(p4!)
     
     let testJigViewController = StudySessionLauncherViewController(for: deck!, dependencyContainer: dependencyContainer)
+    return testJigViewController
+}
+
+private func studySessionTestJig() -> UIViewController {
+    let dependencyContainer = DependencyContainer(storesInMemory: true)
+    let flashCardService = dependencyContainer.flashCardService
+    
+    let deck = flashCardService.newDeck(title: "TestDeck", description: "TestDeck's Description", newCardsPerDay: 10, reviewCardsPerDay: 100)
+    let pack = flashCardService.newContentPack(title: "ABC", description: "TestCollection 1's Description", author: "Me")
+    
+    let cards = [
+        flashCardService.newCard(in: pack!, frontContent: "FRONT CONTENT 1", backContent: "BACK CONTENT 1", deck: deck)!,
+        flashCardService.newCard(in: pack!, frontContent: "FRONT CONTENT 2", backContent: "BACK CONTENT 2", deck: deck)!,
+        flashCardService.newCard(in: pack!, frontContent: "FRONT CONTENT 2", backContent: "BACK CONTENT 2", deck: deck)!,
+    ]
+    
+    let testJigViewController = try! StudySessionViewController(cards: cards, dependencyContainer: dependencyContainer)
     return testJigViewController
 }

@@ -43,58 +43,39 @@ class DeckSettingsViewController: UIViewController {
         view = UIView(frame: .zero)
         view.backgroundColor = .systemBackground
         
-        let scrollView = UIScrollView(frame: .zero)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.isScrollEnabled = true
-        view.addSubview(scrollView)
+        let layout = EZLayout(spacing: 16)
+//        layout.debugMode = true
         
-        let content = UIView(frame: .zero)
-        content.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(content)
+        layout.addSpacer()
         
-        // Form views
-        let stack = UIStackView(frame: .zero)
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.alignment = .fill
-        stack.distribution = .fill
-        stack.spacing = 16.0
-        
-        content.addSubview(stack)
-        
-        content.addConstraints([
-            stack.topAnchor.constraint(equalTo: content.layoutMarginsGuide.topAnchor),
-            stack.bottomAnchor.constraint(equalTo: content.layoutMarginsGuide.bottomAnchor),
-            stack.centerXAnchor.constraint(equalTo: content.layoutMarginsGuide.centerXAnchor),
-            stack.widthAnchor.constraint(equalTo: content.layoutMarginsGuide.widthAnchor, constant: -8),
-        ])
-        
-        scrollView.addConstraints([
-            content.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            content.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            content.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            content.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            content.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
-        ])
-        
+        view.addSubview(layout)
         view.addConstraints([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            layout.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            layout.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            layout.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            layout.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-                
-        // MARK: - Fields
+        
+        
         // Title field
         let updateTitleField: TitleField.UpdateHandler = { value in
             self.fields.title = value
             self.updateSaveButton()
         }
-        let titleField = TitleField(placeholder: "Title", initial: self.fields.title, onUpdate: updateTitleField)
+        let titleField = TitleField(labelText: "Title:", placeholder: "Title", initial: self.fields.title, onUpdate: updateTitleField)
         titleField.translatesAutoresizingMaskIntoConstraints = false
-        stack.addArrangedSubview(titleField)
+        layout.addArrangedSubview(titleField, spacing: 24)
         
-        stack.addArrangedSubview(Separator())
+        
+        // Description field
+        let updateDescriptionField: MultilineTextFieldWithLabel.UpdateHandler = { value in
+            self.fields.deckDescription = value
+            self.updateSaveButton()
+        }
+        let descriptionView = MultilineTextFieldWithLabel(labelText: "Description:", initial: self.fields.deckDescription, onUpdate: updateDescriptionField)
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        layout.addArrangedSubview(descriptionView)
+        layout.addSeparator()
         
         
         // NewCardsPerDay field
@@ -104,7 +85,7 @@ class DeckSettingsViewController: UIViewController {
         }
         let newCardsPerDayView = StepperField(labelText: "New Cards / Day:", initial: self.fields.newCardsPerDay, onUpdate: newCardsPerDayAction)
         newCardsPerDayView.translatesAutoresizingMaskIntoConstraints = false
-        stack.addArrangedSubview(newCardsPerDayView)
+        layout.addArrangedSubview(newCardsPerDayView)
         
         
         // ReviewCardsPerDay field
@@ -114,11 +95,9 @@ class DeckSettingsViewController: UIViewController {
         }
         let reviewCardsPerDayView = StepperField(labelText: "Review Cards / Day:", initial: self.fields.reviewCardsPerDay, onUpdate: reviewCardsPerDayAction)
         reviewCardsPerDayView.translatesAutoresizingMaskIntoConstraints = false
-        stack.addArrangedSubview(reviewCardsPerDayView)
+        layout.addArrangedSubview(reviewCardsPerDayView)
         
-        let sep = Separator()
-        stack.addArrangedSubview(sep)
-        stack.setCustomSpacing(24, after: sep)
+        layout.addSeparator()
         
         
         // Associated ContentPacks
@@ -137,21 +116,8 @@ class DeckSettingsViewController: UIViewController {
         addButton.setImage(addButtonImage, for: .normal)
         
         contentPackListView = CollectionViewer(labelText: "Associated Collections:", button: addButton)
-        stack.addArrangedSubview(contentPackListView)
-        stack.setCustomSpacing(24, after: contentPackListView)
+        layout.addArrangedSubview(contentPackListView)
         
-        let sep1 = Separator()
-        stack.addArrangedSubview(sep1)
-        stack.setCustomSpacing(24, after: sep1)
-        
-        // Description field
-        let updateDescriptionField: MultilineTextFieldWithLabel.UpdateHandler = { value in
-            self.fields.deckDescription = value
-            self.updateSaveButton()
-        }
-        let descriptionView = MultilineTextFieldWithLabel(labelText: "Description:", initial: self.fields.deckDescription, onUpdate: updateDescriptionField)
-        descriptionView.translatesAutoresizingMaskIntoConstraints = false
-        stack.addArrangedSubview(descriptionView)
         
         // USEFUL FOR DEBUGGING
 //        for subview in stack.arrangedSubviews {

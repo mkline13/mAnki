@@ -16,13 +16,13 @@ class TextFieldWithLabel: UIView {
                 
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
+        label.font = ViewConstants.smallFont
         label.text = labelText
-        label.textColor = .systemGray
+        label.textColor = ViewConstants.labelColor
         
         textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = .systemFont(ofSize: 14)
+        textField.font = ViewConstants.regularFont
         textField.text = initial
         textField.addAction(UIAction(handler: handleUpdateAction), for: .editingChanged)
         

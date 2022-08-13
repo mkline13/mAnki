@@ -14,14 +14,14 @@ class CollectionViewer: UIView {
                 
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
+        label.font = ViewConstants.smallFont
         label.text = labelText
-        label.textColor = .systemGray
+        label.textColor = ViewConstants.labelColor
         label.setContentHuggingPriority(UILayoutPriority(1), for: .horizontal)
         
         itemsLabel = UILabel(frame: .zero)
         itemsLabel.translatesAutoresizingMaskIntoConstraints = false
-        itemsLabel.font = .systemFont(ofSize: 12)
+        itemsLabel.font = ViewConstants.smallFont
         itemsLabel.numberOfLines = 0
         itemsLabel.lineBreakMode = .byWordWrapping
         itemsLabel.setContentHuggingPriority(UILayoutPriority(1), for: .horizontal)

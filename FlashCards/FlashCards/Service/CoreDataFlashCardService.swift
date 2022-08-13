@@ -60,7 +60,7 @@ class CoreDataFlashCardService: FlashCardService {
         return deck
     }
     
-    func createStudyRecord(for card: Card, studyStatus: StudyStatus, afterInterval: Int64) -> StudyRecord? {
+    func createStudyRecord(for card: Card, studyStatus: StudyResult, afterInterval: Int64) -> StudyRecord? {
         let studyRecord = StudyRecord(timestamp: Date.now, studyStatus: studyStatus, afterInterval: afterInterval, card: card, context: persistentContainer.viewContext)
         saveViewContext()
         return studyRecord

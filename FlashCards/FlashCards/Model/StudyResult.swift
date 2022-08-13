@@ -6,7 +6,7 @@
 //
 
 
-enum StudyStatus: Int, CaseIterable, CustomStringConvertible {
+enum StudyResult: Int, CaseIterable, CustomStringConvertible {
     case deprecated = -1
     case failure = 0
     case success = 1
@@ -22,14 +22,14 @@ enum StudyStatus: Int, CaseIterable, CustomStringConvertible {
         }
     }
     
-    static func fromString(_ string: String) -> StudyStatus {
+    static func fromString(_ string: String) -> StudyResult {
         switch string {
         case "failure":
-            return StudyStatus.failure
+            return StudyResult.failure
         case "success":
-            return StudyStatus.success
+            return StudyResult.success
         default:
-            return StudyStatus.deprecated
+            return StudyResult.deprecated
         }
     }
 }

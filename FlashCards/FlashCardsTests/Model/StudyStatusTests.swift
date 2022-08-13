@@ -10,30 +10,30 @@ import XCTest
 
 class StudyStatusTests: XCTestCase {
     func testFromStringDeprecated() {
-        XCTAssertEqual(StudyStatus.fromString("aosdinbaoifbn"), .deprecated)
-        XCTAssertEqual(StudyStatus.fromString("deprecated"), .deprecated)
+        XCTAssertEqual(StudyResult.fromString("aosdinbaoifbn"), .deprecated)
+        XCTAssertEqual(StudyResult.fromString("deprecated"), .deprecated)
         
-        XCTAssertNotEqual(StudyStatus.fromString("failure"), .deprecated)
-        XCTAssertNotEqual(StudyStatus.fromString("success"), .deprecated)
+        XCTAssertNotEqual(StudyResult.fromString("failure"), .deprecated)
+        XCTAssertNotEqual(StudyResult.fromString("success"), .deprecated)
     }
     
     func testFromStringFailure() {
-        XCTAssertEqual(StudyStatus.fromString("failure"), .failure)
+        XCTAssertEqual(StudyResult.fromString("failure"), .failure)
         
-        XCTAssertNotEqual(StudyStatus.fromString("success"), .failure)
-        XCTAssertNotEqual(StudyStatus.fromString("aosdinbaoifbn"), .failure)
+        XCTAssertNotEqual(StudyResult.fromString("success"), .failure)
+        XCTAssertNotEqual(StudyResult.fromString("aosdinbaoifbn"), .failure)
     }
     
     func testFromStringSuccess() {
-        XCTAssertEqual(StudyStatus.fromString("success"), .success)
+        XCTAssertEqual(StudyResult.fromString("success"), .success)
         
-        XCTAssertNotEqual(StudyStatus.fromString("failure"), .success)
-        XCTAssertNotEqual(StudyStatus.fromString("successsss"), .success)
+        XCTAssertNotEqual(StudyResult.fromString("failure"), .success)
+        XCTAssertNotEqual(StudyResult.fromString("successsss"), .success)
     }
     
     func testDescriptionMatchesFromString() {
-        for c in StudyStatus.allCases {
-            let status = StudyStatus.fromString(c.description)
+        for c in StudyResult.allCases {
+            let status = StudyResult.fromString(c.description)
             XCTAssertEqual(c, status)
         }
     }

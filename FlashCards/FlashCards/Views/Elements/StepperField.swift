@@ -16,13 +16,13 @@ class StepperField: UIView {
         
         let nameLabel = UILabel(frame: .zero)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.font = .systemFont(ofSize: 12)
+        nameLabel.font = ViewConstants.smallFont
         nameLabel.text = labelText
         nameLabel.textColor = .systemGray
         
         valueLabel = UILabel(frame: .zero)
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
-        valueLabel.font = .systemFont(ofSize: 14)
+        valueLabel.font = ViewConstants.regularFont
         valueLabel.text = "\(initial)"
         
         stepper = UIStepper(frame: .zero)

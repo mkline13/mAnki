@@ -9,12 +9,14 @@ import UIKit
 
 
 class StudySessionLauncherViewController: UIViewController {
-    init (for deck: Deck, dependencyContainer: DependencyContainer) {
-        super.init(nibName: nil, bundle: nil)
+    init (for studyDeck: Deck, dependencyContainer dc: DependencyContainer) {
+        dependencyContainer = dc
+        flashCardService = dependencyContainer.flashCardService
+        srsService = dependencyContainer.srsService
         
-        self.deck = deck
-        self.flashCardService = dependencyContainer.flashCardService
-        self.srsService = dependencyContainer.srsService
+        deck = studyDeck
+        
+        super.init(nibName: nil, bundle: nil)
         
         hidesBottomBarWhenPushed = true
     }
@@ -34,18 +36,26 @@ class StudySessionLauncherViewController: UIViewController {
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
         
-        let layout = EZLayout(spacing: 8)
+        let layout = EZLayout(spacing: 16)
         
-        layout.appendSeparator()
+        layout.addSpacer()
+        
         titleLabel = UILabel(frame: .zero)
-        titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
-        layout.appendView(titleLabel, spacing: 24)
+        titleLabel.textAlignment = .center
+        titleLabel.font = ViewConstants.titleFont
+        layout.addArrangedSubview(titleLabel)
         
-        descriptionLabel = UILabel(frame: .zero)
-        descriptionLabel.font = .systemFont(ofSize: 14)
-        layout.appendView(descriptionLabel, spacing: 16)
+        let descriptionLabel = UILabel(frame: .zero)
+        descriptionLabel.font = ViewConstants.regularFont
+        descriptionLabel.textColor = ViewConstants.labelColor
+        descriptionLabel.text = "Description:"
+        layout.addArrangedSubview(descriptionLabel, spacing: 8)
         
-        layout.appendSeparator()
+        descriptionTextLabel = UILabel(frame: .zero)
+        descriptionTextLabel.font = ViewConstants.regularFont
+        layout.addArrangedSubview(descriptionTextLabel)
+        
+        layout.addSeparator()
         
         // Go button
         let buttonPanel = UIView()
@@ -92,7 +102,7 @@ class StudySessionLauncherViewController: UIViewController {
         loadStudyCards()
         
         titleLabel.text = deck.title
-        descriptionLabel.text = deck.deckDescription
+        descriptionTextLabel.text = deck.deckDescription
         
         if totalStudyCards > 0 {
             goButton.isEnabled = true
@@ -125,7 +135,7 @@ class StudySessionLauncherViewController: UIViewController {
         // collect all study cards in one place
         let cards = newCardsFromDeck + newCardsFromPacks + reviewCards
         
-        guard let vc = try? StudySessionViewController(cards: cards, flashCardService: flashCardService, srsService: srsService) else {
+        guard let vc = try? StudySessionViewController(cards: cards, dependencyContainer: dependencyContainer) else {
             fatalError("Cannot study: deck is empty")
         }
         
@@ -154,11 +164,15 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     // MARK: Properties
-    private var titleLabel: UILabel!
-    private var descriptionLabel: UILabel!
-    private var goButton: UIButton!
+    private var dependencyContainer: DependencyContainer
+    private var flashCardService: FlashCardService
+    private var srsService: SRSService
     
-    private var deck: Deck!
+    private var deck: Deck
+    
+    private var titleLabel: UILabel!
+    private var descriptionTextLabel: UILabel!
+    private var goButton: UIButton!
     
     private var newCardsFromDeck: [Card] = []
     private var newCardsFromPacks: [Card] = []
@@ -167,7 +181,4 @@ class StudySessionLauncherViewController: UIViewController {
     private var totalStudyCards: Int {
         return newCardsFromDeck.count + newCardsFromPacks.count + reviewCards.count
     }
-    
-    private var flashCardService: FlashCardService!
-    private var srsService: SRSService!
 }
