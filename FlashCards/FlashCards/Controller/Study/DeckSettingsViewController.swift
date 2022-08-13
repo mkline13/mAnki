@@ -136,7 +136,7 @@ class DeckSettingsViewController: UIViewController {
         let addButtonImage = UIImage(systemName: "plus.circle")
         addButton.setImage(addButtonImage, for: .normal)
         
-        contentPackListView = ListView(labelText: "Associated Collections:", button: addButton)
+        contentPackListView = CollectionViewer(labelText: "Associated Collections:", button: addButton)
         stack.addArrangedSubview(contentPackListView)
         stack.setCustomSpacing(24, after: contentPackListView)
         
@@ -212,7 +212,7 @@ class DeckSettingsViewController: UIViewController {
     private var deck: Deck?
     private var flashCardService: FlashCardService!
     
-    private var contentPackListView: ListView!
+    private var contentPackListView: CollectionViewer!
     
     private var fields: Fields!
     

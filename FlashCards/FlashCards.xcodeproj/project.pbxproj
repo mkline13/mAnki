@@ -14,7 +14,7 @@
 		966B042228A22E8000DD484E /* StudySessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042128A22E8000DD484E /* StudySessionViewController.swift */; };
 		966B042428A3223A00DD484E /* TestJig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042328A3223A00DD484E /* TestJig.swift */; };
 		966B042828A4A3A200DD484E /* DeckSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042728A4A3A200DD484E /* DeckSettingsViewController.swift */; };
-		966B042A28A4B25F00DD484E /* FormElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042928A4B25F00DD484E /* FormElements.swift */; };
+		966B042A28A4B25F00DD484E /* MiscElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042928A4B25F00DD484E /* MiscElements.swift */; };
 		966B042C28A4C02400DD484E /* SmartDismissExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042B28A4C02400DD484E /* SmartDismissExtension.swift */; };
 		966B043028A4F37100DD484E /* ContentPackSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */; };
 		966B043628A5C43F00DD484E /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B043528A5C43F00DD484E /* TestData.swift */; };
@@ -52,6 +52,11 @@
 		96BE3387289DA07D00A04D53 /* PersistentContainerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE336C289D81CC00A04D53 /* PersistentContainerHelper.swift */; };
 		96E85B0E28A81FE80047C132 /* ContentPackListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B0D28A81FE80047C132 /* ContentPackListCell.swift */; };
 		96E85B1128A8207D0047C132 /* DeckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1028A8207D0047C132 /* DeckListCell.swift */; };
+		96E85B1328A821B40047C132 /* TitleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1228A821B40047C132 /* TitleField.swift */; };
+		96E85B1528A821C40047C132 /* TextFieldWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1428A821C40047C132 /* TextFieldWithLabel.swift */; };
+		96E85B1728A821DA0047C132 /* MultilineTextFieldWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1628A821DA0047C132 /* MultilineTextFieldWithLabel.swift */; };
+		96E85B1928A822300047C132 /* CollectionViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1828A822300047C132 /* CollectionViewer.swift */; };
+		96E85B1B28A822510047C132 /* StepperField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1A28A822510047C132 /* StepperField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +84,7 @@
 		966B042128A22E8000DD484E /* StudySessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionViewController.swift; sourceTree = "<group>"; };
 		966B042328A3223A00DD484E /* TestJig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJig.swift; sourceTree = "<group>"; };
 		966B042728A4A3A200DD484E /* DeckSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckSettingsViewController.swift; sourceTree = "<group>"; };
-		966B042928A4B25F00DD484E /* FormElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormElements.swift; sourceTree = "<group>"; };
+		966B042928A4B25F00DD484E /* MiscElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscElements.swift; sourceTree = "<group>"; };
 		966B042B28A4C02400DD484E /* SmartDismissExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartDismissExtension.swift; sourceTree = "<group>"; };
 		966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackSelectorViewController.swift; sourceTree = "<group>"; };
 		966B043528A5C43F00DD484E /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
@@ -121,6 +126,11 @@
 		96BE3381289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewDiffableDataSource.swift; sourceTree = "<group>"; };
 		96E85B0D28A81FE80047C132 /* ContentPackListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackListCell.swift; sourceTree = "<group>"; };
 		96E85B1028A8207D0047C132 /* DeckListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckListCell.swift; sourceTree = "<group>"; };
+		96E85B1228A821B40047C132 /* TitleField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleField.swift; sourceTree = "<group>"; };
+		96E85B1428A821C40047C132 /* TextFieldWithLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithLabel.swift; sourceTree = "<group>"; };
+		96E85B1628A821DA0047C132 /* MultilineTextFieldWithLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextFieldWithLabel.swift; sourceTree = "<group>"; };
+		96E85B1828A822300047C132 /* CollectionViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewer.swift; sourceTree = "<group>"; };
+		96E85B1A28A822510047C132 /* StepperField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,7 +344,12 @@
 		96E85B0F28A820370047C132 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
-				966B042928A4B25F00DD484E /* FormElements.swift */,
+				966B042928A4B25F00DD484E /* MiscElements.swift */,
+				96E85B1228A821B40047C132 /* TitleField.swift */,
+				96E85B1428A821C40047C132 /* TextFieldWithLabel.swift */,
+				96E85B1628A821DA0047C132 /* MultilineTextFieldWithLabel.swift */,
+				96E85B1828A822300047C132 /* CollectionViewer.swift */,
+				96E85B1A28A822510047C132 /* StepperField.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -475,6 +490,7 @@
 				96BE3380289D82C300A04D53 /* StudyRecord+CoreDataProperties.swift in Sources */,
 				96BE3365289D81B400A04D53 /* Card+CoreDataProperties.swift in Sources */,
 				966B042428A3223A00DD484E /* TestJig.swift in Sources */,
+				96E85B1728A821DA0047C132 /* MultilineTextFieldWithLabel.swift in Sources */,
 				96BE3382289D8DE800A04D53 /* EditingTableViewDiffableDataSource.swift in Sources */,
 				966B042028A20C3900DD484E /* CardEditorViewController.swift in Sources */,
 				96BE337C289D827200A04D53 /* CoreDataFlashCardService.swift in Sources */,
@@ -485,24 +501,28 @@
 				96BE337F289D82C300A04D53 /* StudyRecord.swift in Sources */,
 				96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */,
 				96BE336A289D81B400A04D53 /* ContentPack+CoreDataProperties.swift in Sources */,
+				96E85B1328A821B40047C132 /* TitleField.swift in Sources */,
 				96BE3327289D6DC100A04D53 /* DeckListViewController.swift in Sources */,
 				96BE337B289D827200A04D53 /* FlashCardService.swift in Sources */,
 				966B044A28A64F9300DD484E /* EZLayout.swift in Sources */,
 				96BE337A289D827200A04D53 /* DependencyContainer.swift in Sources */,
-				966B042A28A4B25F00DD484E /* FormElements.swift in Sources */,
+				966B042A28A4B25F00DD484E /* MiscElements.swift in Sources */,
 				96BE3364289D81B400A04D53 /* StudyStatus.swift in Sources */,
 				966B044628A6348800DD484E /* SettingsService.swift in Sources */,
+				96E85B1528A821C40047C132 /* TextFieldWithLabel.swift in Sources */,
 				966B043028A4F37100DD484E /* ContentPackSelectorViewController.swift in Sources */,
 				966B041A28A07A4200DD484E /* StudySessionLauncherViewController.swift in Sources */,
 				96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */,
 				966B041C28A0AA3B00DD484E /* CardBrowserViewController.swift in Sources */,
 				966B043628A5C43F00DD484E /* TestData.swift in Sources */,
 				96BE3369289D81B400A04D53 /* Deck+CoreDataProperties.swift in Sources */,
+				96E85B1B28A822510047C132 /* StepperField.swift in Sources */,
 				96BE3368289D81B400A04D53 /* Card.swift in Sources */,
 				96E85B1128A8207D0047C132 /* DeckListCell.swift in Sources */,
 				96BE3366289D81B400A04D53 /* ContentPack.swift in Sources */,
 				966B042828A4A3A200DD484E /* DeckSettingsViewController.swift in Sources */,
 				96BE3387289DA07D00A04D53 /* PersistentContainerHelper.swift in Sources */,
+				96E85B1928A822300047C132 /* CollectionViewer.swift in Sources */,
 				966B043C28A5FB6700DD484E /* SRSService.swift in Sources */,
 				966B041E28A0BA0600DD484E /* CardBrowserCell.swift in Sources */,
 				966B042C28A4C02400DD484E /* SmartDismissExtension.swift in Sources */,

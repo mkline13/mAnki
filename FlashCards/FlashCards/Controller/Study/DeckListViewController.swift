@@ -121,4 +121,3 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     
     private var tableView: UITableView!
 }
-
