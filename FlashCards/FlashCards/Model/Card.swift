@@ -23,11 +23,27 @@ public class Card: NSManagedObject {
         
         self.contentPack = pack
         self.deck = deck
-        self.status = Status.new.rawValue
+        self.status = Status.new
+    }
+    
+    var status: Status {
+        get {
+            let value = Status(rawValue: self.studyStatus)
+            if let value = value {
+                return value
+            }
+            else {
+                return Status.new
+            }
+        }
+        set (newValue) {
+            studyStatus = newValue.rawValue
+        }
     }
     
     enum Status: Int64 {
         case new = 0
+        case learning
         case review
     }
 }

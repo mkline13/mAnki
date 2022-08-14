@@ -9,20 +9,17 @@ import UIKit
 
 
 class StudySessionViewController: UIViewController {
-    init (cards: [Card], dependencyContainer dc: DependencyContainer) throws {
-        // Check if the initializer was provided cards
-        // throw if not
-        guard !cards.isEmpty else {
-            throw StudySessionError.deckIsEmpty
-        }
-        cardsToStudy = cards
-        
+    init (for deck: Deck, dependencyContainer dc: DependencyContainer) {
         // Initialize dependencies
         dependencyContainer = dc
         flashCardService = dependencyContainer.flashCardService
         srsService = dependencyContainer.srsService
         
         studySessionView = StudySessionView()
+        
+        cardsToStudy += flashCardService.getCards(in: deck, with: .new, limit: deck.newCardsPerDay)
+        cardsToStudy += flashCardService.getCards(in: deck, with: .learning, limit: nil)
+        cardsToStudy += flashCardService.getCards(in: deck, with: .new, limit: deck.newCardsPerDay)
         
         super.init(nibName: nil, bundle: nil)
         
@@ -52,15 +49,15 @@ class StudySessionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        studyNextCard()
+        let _ = studyNextCard()
     }
     
     // MARK: Studying
     private func studyNextCard() -> Bool {
         // Add failed cards to queue if out of cards to study
-        if cardsToStudy.count == 0 && failedCards.count > 0 {
-            cardsToStudy = failedCards.shuffled()
-            failedCards = []
+        if cardsToStudy.count == 0 && discardPile.count > 0 {
+            cardsToStudy = discardPile.shuffled()
+            discardPile = []
         }
         
         guard let card = cardsToStudy.popLast() else {
@@ -97,19 +94,18 @@ class StudySessionViewController: UIViewController {
         let interval = srsService.calculateInterval(previousInterval: card.srsInterval, studyStatus: result)
         let dueDate = srsService.calculateDueDate(interval: interval, studyDate: record.timestamp, studyStatus: result)
         
-        // Mark the card as review if studied successfully for the first time
-        let cardStatus: Card.Status?
-        switch result {
-        case .failure:
-            failedCards.append(card)
-            cardStatus = nil
-        case .success:
-            cardStatus = .review
-        default:
-            fatalError("Status not implemented")
-        }
+        let previousStatus = card.status
+        let cardStatus = srsService.computeNewStatus(for: card, studyResult: result)
         
         flashCardService.updateCard(card, interval: interval, dueDate: dueDate, status: cardStatus)
+        
+        if cardStatus == .learning {
+            discardPile.append(card)
+        }
+        
+        if previousStatus == .learning && cardStatus == .review{
+            
+        }
         
         let finished = studyNextCard() // Return true when finished
         return finished
@@ -124,7 +120,7 @@ class StudySessionViewController: UIViewController {
     private let studySessionView: StudySessionView
     
     private var cardsToStudy: [Card] = []
-    private var failedCards: [Card] = []
+    private var discardPile: [Card] = []
     
     enum StudySessionError: Error {
         case deckIsEmpty

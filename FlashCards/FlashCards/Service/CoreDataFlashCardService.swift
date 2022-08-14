@@ -152,13 +152,22 @@ class CoreDataFlashCardService: FlashCardService {
         }
     }
     
-    func getNewCards(in deck: Deck, limit: Int64) -> [Card] {
+    func getCards(in deck: Deck, with status: Card.Status, limit: Int64?) -> [Card] {
         let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(keyPath: \Card.creationDate, ascending: true),
+            NSSortDescriptor(keyPath: \Card.frontContent, ascending: true)
         ]
-        fetchRequest.predicate = NSPredicate(format: "(deck == %@) AND (status == 0)", deck)
-        fetchRequest.fetchLimit = Int(limit)
+        
+        if let limit = limit {
+            fetchRequest.fetchLimit = Int(limit)
+        }
+        
+        switch status {
+        case .review:
+            fetchRequest.predicate = NSPredicate(format: "(studyStatus == %ld) AND (deck == %@) AND (srsDueDate < %@)", status.rawValue, deck, Date.now as CVarArg)
+        default:
+            fetchRequest.predicate = NSPredicate(format: "(studyStatus == %ld) AND (deck == %@)", status.rawValue, deck)
+        }
         
         do {
             let cards = try persistentContainer.viewContext.fetch(fetchRequest)
@@ -169,43 +178,28 @@ class CoreDataFlashCardService: FlashCardService {
         }
     }
     
-    func drawNewCards(for deck: Deck, limit: Int64) -> [Card] {
+    func countCards(in deck: Deck, with status: Card.Status) -> Int {
         let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(keyPath: \Card.creationDate, ascending: true)
+            NSSortDescriptor(keyPath: \Card.frontContent, ascending: true)
         ]
-        fetchRequest.predicate = NSPredicate(format: "(deck == nil) AND (contentPack IN %@) AND (status == 0)", deck.associatedContentPacks)
-        fetchRequest.fetchLimit = Int(limit)
+        
+        switch status {
+        case .review:
+            fetchRequest.predicate = NSPredicate(format: "(studyStatus == %ld) AND (deck == %@) AND (srsDueDate < %@)", status.rawValue, deck, Date.now as CVarArg)
+        default:
+            fetchRequest.predicate = NSPredicate(format: "(studyStatus == %ld) AND (deck == %@)", status.rawValue, deck)
+        }
         
         do {
-            let cards = try persistentContainer.viewContext.fetch(fetchRequest)
-            return cards
+            let count = try persistentContainer.viewContext.count(for: fetchRequest)
+            return count
         }
         catch {
             fatalError("Could not fetch cards.")
         }
     }
-    
-    func getReviewCards(in deck: Deck, limit: Int64) -> [Card] {
-        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
-        fetchRequest.sortDescriptors = [
-            NSSortDescriptor(keyPath: \Card.creationDate, ascending: true)
-        ]
         
-        fetchRequest.predicate = NSPredicate(format: "(deck == %@) AND (srsDueDate < %@) AND (status != 0)", deck, Date.now as CVarArg)
-        
-        fetchRequest.fetchLimit = Int(limit)
-        
-        do {
-            let cards = try persistentContainer.viewContext.fetch(fetchRequest)
-            print(cards)
-            return cards
-        }
-        catch {
-            fatalError("Could not fetch cards.")
-        }
-    }
-    
         
     // MARK: - UPDATE
     func updateContentPack(_ pack: ContentPack, title: String, description pdesc: String, author: String) {
@@ -223,23 +217,19 @@ class CoreDataFlashCardService: FlashCardService {
         saveViewContext()
     }
     
-    
     func updateCard(_ card: Card, frontContent front: String, backContent back: String) {
         card.frontContent = front
         card.backContent = back
         saveViewContext()
     }
     
-    func updateCard(_ card: Card, interval: Int64, dueDate: Date, status: Card.Status?) {
+    func updateCard(_ card: Card, interval: Int64, dueDate: Date, status: Card.Status) {
         card.srsInterval = interval
         card.srsDueDate = dueDate
+        card.status = status
         
-        if let status = status {
-            card.status = status.rawValue
-        }
         saveViewContext()
     }
-    
     
     func set(contentPacks: Set<ContentPack>, for deck: Deck) {
         deck.associatedContentPacks = contentPacks as NSSet

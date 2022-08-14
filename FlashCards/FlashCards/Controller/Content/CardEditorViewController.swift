@@ -75,10 +75,11 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
         // In content pack label
         if let card = card {
             let infoView = InfoViewer(title: "Card info:")
-            infoView.addLine(name: "content pack:", content: "\(contentPack.title)")
-            infoView.addLine(name: "deck:", content: "\(card.deck?.title ?? "(none)")")
-            infoView.addLine(name: "created:", content: card.creationDate.formatted(date: .numeric, time: .omitted))
-            infoView.addLine(name: "times studied:", content: "\(card.studyRecords.count)")
+            infoView.addLine(name: "content pack:") { "\(self.contentPack.title)" }
+            infoView.addLine(name: "deck:") { "\(card.deck?.title ?? "(none)")" }
+            infoView.addLine(name: "created:") { card.creationDate.formatted(date: .numeric, time: .omitted) }
+            infoView.addLine(name: "times studied:") { "\(card.studyRecords.count)" }
+            infoView.update()
             
             if let dueDate = card.srsDueDate {
                 let color: UIColor
@@ -88,9 +89,8 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
                 else {
                     color = .systemGreen
                 }
-                let text = dueDate.formatted(date: .numeric, time: .omitted)
                 
-                infoView.addLine(name: "due date:", content: text, contentColor: color)
+                infoView.addLine(name: "due date:", contentColor: color) { dueDate.formatted(date: .numeric, time: .omitted) }
             }
             
             layout.addArrangedSubview(infoView)

@@ -19,6 +19,16 @@ class StudySessionLauncherViewController: UIViewController {
         descriptionTextLabel = UILabel(frame: .zero)
         goButton = UIButton(type: .custom)
         
+        
+        let style = InfoViewer.Style(titleFont: .preferredFont(forTextStyle: .headline),
+                                     nameFont: .preferredFont(forTextStyle: .body),
+                                     contentFont: .preferredFont(forTextStyle: .headline),
+                                     titleColor: .label,
+                                     nameColor: .label,
+                                     contentColor: .label)
+        
+        infoViewer = InfoViewer(title: "Study Info:", style: style)
+        
         super.init(nibName: nil, bundle: nil)
         hidesBottomBarWhenPushed = true
     }
@@ -45,11 +55,13 @@ class StudySessionLauncherViewController: UIViewController {
         descriptionTextLabel.font = .preferredFont(forTextStyle: .body)
         layout.addArrangedSubview(descriptionTextLabel)
         
-        layout.addSeparator()
+        layout.addSeparator(spacing: 32)
         
         // Info View
-        let infoViewer = InfoViewer(title: "Session Info:")
-//        infoViewer.addLine(name: <#T##String#>, content: <#T##String#>, contentColor: <#T##UIColor#>)
+        infoViewer.addLine(name: "New cards:", contentColor: .systemBlue) { "\(self.numNewCards)" }
+        infoViewer.addLine(name: "Learning:", contentColor: .systemRed) { "\(self.numLearningCards)" }
+        infoViewer.addLine(name: "Review:", contentColor: .systemGreen) { "\(self.numReviewCards)" }
+        layout.addArrangedSubview(infoViewer)
         
         
         // Button Panel
@@ -102,12 +114,20 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadStudyCards()
-        
         titleLabel.text = deck.title
         descriptionTextLabel.text = deck.deckDescription
         
-        if totalStudyCards > 0 {
+        numNewCards = flashCardService.countCards(in: deck, with: .new)
+        numLearningCards = flashCardService.countCards(in: deck, with: .learning)
+        numReviewCards = flashCardService.countCards(in: deck, with: .review)
+        
+        infoViewer.update()
+        
+        updateGoButton()
+    }
+    
+    private func updateGoButton() {
+        if totalAvailableCards > 0 {
             goButton.isEnabled = true
             goButton.backgroundColor = UIColor.systemBlue
         }
@@ -117,14 +137,6 @@ class StudySessionLauncherViewController: UIViewController {
         }
     }
     
-    // MARK: Table
-    enum Row: CaseIterable {
-        case titleLabel
-        case descriptionLabel
-        case newCardsRemaining
-        case reviewCardsRemaining
-    }
-    
     // MARK: Actions
     @objc private func editButton(_ sender: UIBarButtonItem) {
         let vc = DeckSettingsViewController(for: deck, flashCardService: flashCardService)
@@ -132,56 +144,33 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     private func beginStudy(with deck: Deck) {
-        // add all new cards from packs to the deck
-        flashCardService.add(cards: newCardsFromPacks, to: deck)
-        
         // collect all study cards in one place
-        let cards = newCardsFromDeck + newCardsFromPacks + reviewCards
-        
-        guard let vc = try? StudySessionViewController(cards: cards, dependencyContainer: dependencyContainer) else {
-            fatalError("Cannot study: deck is empty")
+        guard totalAvailableCards > 0 else {
+            return
         }
+        let vc = StudySessionViewController(for: deck, dependencyContainer: dependencyContainer)
         
         show(vc, sender: self)
     }
     
-    private func loadStudyCards() {
-        newCardsFromDeck = flashCardService.getNewCards(in: deck, limit: deck.newCardsPerDay)
-        newCardsFromPacks = flashCardService.drawNewCards(for: deck, limit: deck.newCardsPerDay - Int64(newCardsFromDeck.count))
-        reviewCards = flashCardService.getReviewCards(in: deck, limit: deck.reviewCardsPerDay)
-        
-        print("\nBeginning study session with deck: \(deck.title)")
-        print("New Cards from Deck:")
-        for c in newCardsFromDeck {
-            print("  - \(c.frontContent)")
-        }
-        print("New Cards from ContentPacks:")
-        for c in newCardsFromPacks {
-            print("  - \(c.frontContent)")
-        }
-        print("Review Cards:")
-        for c in reviewCards {
-            print("  - \(c.frontContent)")
-        }
-        print("")
-    }
     
     // MARK: Properties
     private var dependencyContainer: DependencyContainer
     private var flashCardService: FlashCardService
     private var srsService: SRSService
     
-    private var deck: Deck
+    private let deck: Deck
     
-    private var titleLabel: UILabel!
-    private var descriptionTextLabel: UILabel!
-    private var goButton: UIButton!
+    private let titleLabel: UILabel
+    private let descriptionTextLabel: UILabel
+    private let goButton: UIButton
+    private let infoViewer: InfoViewer
     
-    private var newCardsFromDeck: [Card] = []
-    private var newCardsFromPacks: [Card] = []
-    private var reviewCards: [Card] = []
+    private var numNewCards: Int = 0
+    private var numLearningCards: Int = 0
+    private var numReviewCards: Int = 0
     
-    private var totalStudyCards: Int {
-        return newCardsFromDeck.count + newCardsFromPacks.count + reviewCards.count
+    private var totalAvailableCards: Int {
+        numNewCards + numLearningCards + numReviewCards
     }
 }

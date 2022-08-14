@@ -36,8 +36,6 @@ class SRSService {
             default:
                 return Int64(Float(previousInterval) * multiplier)
             }
-        default:
-            fatalError("Invalid study status")
         }
     }
     
@@ -58,6 +56,20 @@ class SRSService {
         }
         
         return dueDate
+    }
+    
+    func computeNewStatus(for card: Card, studyResult: StudyResult) -> Card.Status {
+        if card.status == .new {
+            return .learning
+        }
+        else {
+            switch studyResult {
+            case .failure:
+                return .learning
+            case .success:
+                return .review
+            }
+        }
     }
     
     // MARK: Properties

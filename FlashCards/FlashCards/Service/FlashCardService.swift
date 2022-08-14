@@ -26,17 +26,18 @@ protocol FlashCardService {
     func cardResultsController(with delegate: NSFetchedResultsControllerDelegate, for pack: ContentPack) -> NSFetchedResultsController<Card>?
     
     func getDecks() -> [Deck]
-    func getCards() -> [Card]
     
-    func getNewCards(in deck: Deck, limit: Int64) -> [Card]
-    func drawNewCards(for deck: Deck, limit: Int64) -> [Card]
-    func getReviewCards(in deck: Deck, limit: Int64) -> [Card]
+    func getCards() -> [Card]
+    func getCards(in deck: Deck, with status: Card.Status, limit: Int64?) -> [Card]
+    
+    func countCards(in deck: Deck, with status: Card.Status) -> Int
+
         
     // MARK: UPDATE
     func updateContentPack(_ pack: ContentPack, title: String, description pdesc: String, author: String)
     func updateDeck(_ deck: Deck, title: String, description ddesc: String, newCardsPerDay ncpd: Int64, reviewCardsPerDay rcpd: Int64)
     func updateCard(_ card: Card, frontContent front: String, backContent back: String)
-    func updateCard(_ card: Card, interval: Int64, dueDate: Date, status: Card.Status?)
+    func updateCard(_ card: Card, interval: Int64, dueDate: Date, status: Card.Status)
     
     func set(contentPacks: Set<ContentPack>, for deck: Deck)
     func add(cards: [Card], to: Deck)

@@ -22,10 +22,10 @@ public class StudyRecord: NSManagedObject {
     
     var studyStatus: StudyResult {
         get {
-            return StudyResult.fromString(self.studyResult)
+            return StudyResult(rawValue: self.studyResult) ?? .failure
         }
         set (newValue) {
-            self.studyResult = newValue.description
+            self.studyResult = newValue.rawValue
         }
     }
 }

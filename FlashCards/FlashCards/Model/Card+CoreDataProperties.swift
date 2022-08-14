@@ -19,7 +19,7 @@ extension Card {
     @NSManaged public var frontContent: String
     @NSManaged public var backContent: String
     
-    @NSManaged public var status: Int64
+    @NSManaged public var studyStatus: Int64
     @NSManaged public var srsInterval: Int64
     @NSManaged public var srsDueDate: Date?
     

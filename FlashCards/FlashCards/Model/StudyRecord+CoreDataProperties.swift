@@ -17,7 +17,7 @@ extension StudyRecord {
     
     
     @NSManaged public var timestamp: Date
-    @NSManaged public var studyResult: String
+    @NSManaged public var studyResult: Int64
     @NSManaged public var afterInterval: Int64
     @NSManaged public var card: Card
 
