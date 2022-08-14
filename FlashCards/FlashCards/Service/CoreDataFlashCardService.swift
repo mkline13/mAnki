@@ -241,6 +241,16 @@ class CoreDataFlashCardService: FlashCardService {
         saveViewContext()
     }
     
+    func incrementNewCardsStudiedRecently(for deck: Deck) {
+        deck.newCardsStudiedRecently += 1
+        saveViewContext()
+    }
+    
+    func incrementReviewCardsStudiedRecently(for deck: Deck) {
+        deck.reviewCardsStudiedRecently += 1
+        saveViewContext()
+    }
+    
     // MARK: - DELETE
     func delete(_ contentPack: ContentPack) {
         persistentContainer.viewContext.delete(contentPack)

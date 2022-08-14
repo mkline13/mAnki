@@ -59,21 +59,16 @@ class SRSService {
     }
     
     func computeNewStatus(for card: Card, studyResult: StudyResult) -> Card.Status {
-        if card.status == .new {
+        switch studyResult {
+        case .failure:
             return .learning
-        }
-        else {
-            switch studyResult {
-            case .failure:
-                return .learning
-            case .success:
-                return .review
-            }
+        case .success:
+            return .review
         }
     }
     
     // MARK: Properties
-    let firstInterval: Int64
-    let secondInterval: Int64
-    let multiplier: Float
+    private let firstInterval: Int64
+    private let secondInterval: Int64
+    private let multiplier: Float
 }

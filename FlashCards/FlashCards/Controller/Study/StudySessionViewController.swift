@@ -9,17 +9,19 @@ import UIKit
 
 
 class StudySessionViewController: UIViewController {
-    init (for deck: Deck, dependencyContainer dc: DependencyContainer) {
+    init (for studyDeck: Deck, dependencyContainer dc: DependencyContainer) {
         // Initialize dependencies
         dependencyContainer = dc
         flashCardService = dependencyContainer.flashCardService
         srsService = dependencyContainer.srsService
         
+        deck = studyDeck
+        
         studySessionView = StudySessionView()
         
-        cardsToStudy += flashCardService.getCards(in: deck, with: .new, limit: deck.newCardsPerDay)
+        cardsToStudy += flashCardService.getCards(in: deck, with: .new, limit: deck.newCardsPerDay - deck.newCardsStudiedRecently)
         cardsToStudy += flashCardService.getCards(in: deck, with: .learning, limit: nil)
-        cardsToStudy += flashCardService.getCards(in: deck, with: .new, limit: deck.newCardsPerDay)
+        cardsToStudy += flashCardService.getCards(in: deck, with: .review, limit: deck.reviewCardsPerDay - deck.reviewCardsStudiedRecently)
         
         super.init(nibName: nil, bundle: nil)
         
@@ -95,20 +97,26 @@ class StudySessionViewController: UIViewController {
         let dueDate = srsService.calculateDueDate(interval: interval, studyDate: record.timestamp, studyStatus: result)
         
         let previousStatus = card.status
-        let cardStatus = srsService.computeNewStatus(for: card, studyResult: result)
+        let currentStatus = srsService.computeNewStatus(for: card, studyResult: result)
         
-        flashCardService.updateCard(card, interval: interval, dueDate: dueDate, status: cardStatus)
+        // increment daily study counter
+        if previousStatus == .new {
+            flashCardService.incrementNewCardsStudiedRecently(for: deck)
+        }
+        else if previousStatus == .review && currentStatus == .review {
+            flashCardService.incrementReviewCardsStudiedRecently(for: deck)
+        }
         
-        if cardStatus == .learning {
+        // update card with new study data
+        flashCardService.updateCard(card, interval: interval, dueDate: dueDate, status: currentStatus)
+        
+        // put card in discardPile to be shown later in this session
+        if currentStatus == .learning {
             discardPile.append(card)
         }
         
-        if previousStatus == .learning && cardStatus == .review{
-            
-        }
-        
-        let finished = studyNextCard() // Return true when finished
-        return finished
+        // Continue
+        return studyNextCard() // Return true when finished
     }
     
     
@@ -117,6 +125,7 @@ class StudySessionViewController: UIViewController {
     private let flashCardService: FlashCardService
     private let srsService: SRSService
     
+    private let deck: Deck
     private let studySessionView: StudySessionView
     
     private var cardsToStudy: [Card] = []

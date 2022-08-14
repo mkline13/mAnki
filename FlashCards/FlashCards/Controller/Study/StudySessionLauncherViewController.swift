@@ -117,9 +117,12 @@ class StudySessionLauncherViewController: UIViewController {
         titleLabel.text = deck.title
         descriptionTextLabel.text = deck.deckDescription
         
-        numNewCards = flashCardService.countCards(in: deck, with: .new)
+        let totalNewCards = flashCardService.countCards(in: deck, with: .new)
+        let totalReviewCards = flashCardService.countCards(in: deck, with: .review)
+        
+        numNewCards = min(Int(deck.newCardsPerDay - deck.newCardsStudiedRecently), totalNewCards)
         numLearningCards = flashCardService.countCards(in: deck, with: .learning)
-        numReviewCards = flashCardService.countCards(in: deck, with: .review)
+        numReviewCards = min(Int(deck.reviewCardsPerDay - deck.reviewCardsStudiedRecently), totalReviewCards)
         
         infoViewer.update()
         
