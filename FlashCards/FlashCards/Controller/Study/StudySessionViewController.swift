@@ -103,7 +103,7 @@ class StudySessionViewController: UIViewController {
         if previousStatus == .new {
             flashCardService.incrementNewCardsStudiedRecently(for: deck)
         }
-        else if previousStatus == .review && currentStatus == .review {
+        else if previousStatus == .review {
             flashCardService.incrementReviewCardsStudiedRecently(for: deck)
         }
         

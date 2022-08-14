@@ -34,10 +34,10 @@ class ContentPackSettingsViewController: UIViewController {
     
     override func loadView() {
         if contentPack == nil {
-            title = "New Collection"
+            title = "New Content Pack"
         }
         else {
-            title = "Edit Collection"
+            title = "Content Pack Settings"
         }
         
         view = UIView(frame: .zero)
