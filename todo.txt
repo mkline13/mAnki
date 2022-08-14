@@ -1,19 +1,22 @@
 REQUIRED:
 
-- create Study ViewController:
-    - going to next card when pressing success or failure buttons
-    - updating study data when going to next card
-    - intelligently picking cards to study based on the SRS algorithm
-- show study stats like Anki in StudySessionSetup
-- labels for certain fields in ContentPack + Deck editors
+- Implement adding cards to decks manually + automatically
+- Refactor the StudySession logic so that it is more obviously correct
+- Delete unused code
+- make local backup and merge with main branch
 - add all the Tests + UI Tests
 
 
 IDEAS (EASY):
+- make the StudySessionLauncher look better
 - show a label that indicates there are no cards in a selected deck
-- show cards associated with deck in "Deck Settings screen"
-- show numbers in card browser
-- fade in success/fail buttons
+- browse cards associated with deck in "Deck Settings screen"
+
+- add info field to cards: 
+  - show num times the card has been passed / failed
+  - show how long the card has been studied for
+
+- update some other labels to be DataLabels
 
 IDEAS (HARD):
-- refactor code so that CoreData entities reflect new naming conventions (ex. Deck + Collection)
+- 
