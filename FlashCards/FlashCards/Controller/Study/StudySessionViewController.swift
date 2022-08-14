@@ -27,6 +27,13 @@ class StudySessionViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         studySessionView.delegate = self
+        
+        let studySessionNavAppearance = UINavigationBarAppearance()
+        studySessionNavAppearance.configureWithTransparentBackground()
+        
+        navigationItem.standardAppearance = studySessionNavAppearance
+        navigationItem.scrollEdgeAppearance = studySessionNavAppearance
+        navigationItem.compactAppearance = studySessionNavAppearance
     }
     
     required init?(coder: NSCoder) {
@@ -39,14 +46,7 @@ class StudySessionViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         studySessionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(studySessionView)
-        view.addConstraints([
-            studySessionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            studySessionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            studySessionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            studySessionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
+        view.addSubviewAndFit(studySessionView)
     }
     
     override func viewDidLoad() {
@@ -56,7 +56,7 @@ class StudySessionViewController: UIViewController {
     }
     
     // MARK: Studying
-    private func studyNextCard() {
+    private func studyNextCard() -> Bool {
         // Add failed cards to queue if out of cards to study
         if cardsToStudy.count == 0 && failedCards.count > 0 {
             cardsToStudy = failedCards.shuffled()
@@ -64,7 +64,8 @@ class StudySessionViewController: UIViewController {
         }
         
         guard let card = cardsToStudy.popLast() else {
-            return didFinishStudying()
+            didFinishStudying()
+            return true  // Return true when finished studying
         }
         
         // REMOVE: Print study records
@@ -76,6 +77,7 @@ class StudySessionViewController: UIViewController {
         }
                 
         studySessionView.setCard(card)
+        return false
     }
     
     // MARK: Actions
@@ -90,7 +92,7 @@ class StudySessionViewController: UIViewController {
     
     
     // MARK: - SRS
-    func didStudyCard(_ card: Card, with result: StudyResult) {
+    func didStudyCard(_ card: Card, with result: StudyResult) -> Bool {
         let record = flashCardService.createStudyRecord(for: card, studyStatus: result, afterInterval: card.srsInterval)!
         let interval = srsService.calculateInterval(previousInterval: card.srsInterval, studyStatus: result)
         let dueDate = srsService.calculateDueDate(interval: interval, studyDate: record.timestamp, studyStatus: result)
@@ -109,7 +111,8 @@ class StudySessionViewController: UIViewController {
         
         flashCardService.updateCard(card, interval: interval, dueDate: dueDate, status: cardStatus)
         
-        studyNextCard()
+        let finished = studyNextCard() // Return true when finished
+        return finished
     }
     
     

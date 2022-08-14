@@ -19,7 +19,7 @@ class CardBrowserCell: UITableViewCell {
         label.lineBreakMode = .byTruncatingTail
         label.numberOfLines = 1
         
-        label.font = ViewConstants.regularFont
+        label.font = .preferredFont(forTextStyle: .body)
         
         contentView.addSubview(label)
         contentView.addConstraints([

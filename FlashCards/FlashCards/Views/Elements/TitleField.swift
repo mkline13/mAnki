@@ -14,13 +14,13 @@ class TitleField: UIView {
         
         label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = ViewConstants.smallFont
-        label.textColor = ViewConstants.labelColor
+        label.font = .preferredFont(forTextStyle: .caption1)
+        label.textColor = .secondaryLabel
         label.text = labelText
         
         textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = ViewConstants.titleFont
+        textField.font = .preferredFont(forTextStyle: .largeTitle)
         textField.placeholder = placeholder
         textField.text = initial
         

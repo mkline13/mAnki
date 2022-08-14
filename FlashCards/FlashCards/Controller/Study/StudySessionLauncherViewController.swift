@@ -13,11 +13,13 @@ class StudySessionLauncherViewController: UIViewController {
         dependencyContainer = dc
         flashCardService = dependencyContainer.flashCardService
         srsService = dependencyContainer.srsService
-        
         deck = studyDeck
         
-        super.init(nibName: nil, bundle: nil)
+        titleLabel = UILabel(frame: .zero)
+        descriptionTextLabel = UILabel(frame: .zero)
+        goButton = UIButton(type: .custom)
         
+        super.init(nibName: nil, bundle: nil)
         hidesBottomBarWhenPushed = true
     }
     
@@ -26,60 +28,32 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     // MARK: View
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func loadView() {
-//        title = "Study"
-        
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
         
         let layout = EZLayout(spacing: 16)
         
-        layout.addSpacer()
+        layout.addSpacer(height: 32)
         
-        titleLabel = UILabel(frame: .zero)
+        // Title Label
         titleLabel.textAlignment = .center
-        titleLabel.font = ViewConstants.titleFont
-        layout.addArrangedSubview(titleLabel)
+        titleLabel.font = .preferredFont(forTextStyle: .largeTitle)
+        layout.addArrangedSubview(titleLabel, spacing: 32)
         
-        let descriptionLabel = UILabel(frame: .zero)
-        descriptionLabel.font = ViewConstants.regularFont
-        descriptionLabel.textColor = ViewConstants.labelColor
-        descriptionLabel.text = "Description:"
-        layout.addArrangedSubview(descriptionLabel, spacing: 8)
-        
-        descriptionTextLabel = UILabel(frame: .zero)
-        descriptionTextLabel.font = ViewConstants.regularFont
+        // Description Label
+        descriptionTextLabel.font = .preferredFont(forTextStyle: .body)
         layout.addArrangedSubview(descriptionTextLabel)
         
         layout.addSeparator()
         
-        // Go button
-        let buttonPanel = UIView()
-        buttonPanel.translatesAutoresizingMaskIntoConstraints = false
-        buttonPanel.backgroundColor = UIColor.secondarySystemBackground
-
-        let goButtonAction = UIAction(handler: { _ in self.beginStudy(with: self.deck)})
-        goButtonAction.title = "Begin"
-
-        goButton = UIButton.init(type: .custom, primaryAction: goButtonAction)
-        goButton.translatesAutoresizingMaskIntoConstraints = false
-        goButton.backgroundColor = UIColor.systemBlue
-        goButton.layer.cornerRadius = 8
-        goButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        goButton.setTitle("Begin Studying", for: .normal)
-        goButton.setTitle("No Cards Remaining", for: .disabled)
-
-        buttonPanel.addSubview(goButton)
-        buttonPanel.addConstraints([
-            goButton.centerXAnchor.constraint(equalTo: buttonPanel.centerXAnchor),
-            goButton.centerYAnchor.constraint(equalTo: buttonPanel.centerYAnchor),
-            goButton.widthAnchor.constraint(equalTo: buttonPanel.widthAnchor, multiplier: 2.5/3.0),
-            goButton.heightAnchor.constraint(equalTo: buttonPanel.heightAnchor, multiplier: 1/2)
-        ])
+        // Info View
+        let infoViewer = InfoViewer(title: "Session Info:")
+//        infoViewer.addLine(name: <#T##String#>, content: <#T##String#>, contentColor: <#T##UIColor#>)
+        
+        
+        // Button Panel
+        let buttonPanel = createButtonPanel()
         
         view.addSubview(layout)
         view.addSubview(buttonPanel)
@@ -95,7 +69,36 @@ class StudySessionLauncherViewController: UIViewController {
             buttonPanel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
         
+        // Nav Bar
+        title = "Study"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(editButton(_:)))
+    }
+    
+    private func createButtonPanel() -> UIView {
+        let buttonPanel = UIView()
+        buttonPanel.translatesAutoresizingMaskIntoConstraints = false
+        buttonPanel.backgroundColor = UIColor.secondarySystemBackground
+
+        let goButtonAction = UIAction(handler: { _ in self.beginStudy(with: self.deck)})
+        goButtonAction.title = "Begin"
+        goButton.addAction(goButtonAction, for: .touchUpInside)
+
+        goButton.translatesAutoresizingMaskIntoConstraints = false
+        goButton.backgroundColor = UIColor.systemBlue
+        goButton.layer.cornerRadius = 8
+        goButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title2)
+        goButton.setTitle("Begin Studying", for: .normal)
+        goButton.setTitle("No Cards Remaining", for: .disabled)
+
+        buttonPanel.addSubview(goButton)
+        buttonPanel.addConstraints([
+            goButton.centerXAnchor.constraint(equalTo: buttonPanel.centerXAnchor),
+            goButton.centerYAnchor.constraint(equalTo: buttonPanel.centerYAnchor),
+            goButton.widthAnchor.constraint(equalTo: buttonPanel.widthAnchor, multiplier: 2.5/3.0),
+            goButton.heightAnchor.constraint(equalTo: buttonPanel.heightAnchor, multiplier: 1/2)
+        ])
+        
+        return buttonPanel
     }
     
     override func viewWillAppear(_ animated: Bool) {

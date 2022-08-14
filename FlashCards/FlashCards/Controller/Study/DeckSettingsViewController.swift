@@ -72,7 +72,7 @@ class DeckSettingsViewController: UIViewController {
             self.fields.deckDescription = value
             self.updateSaveButton()
         }
-        let descriptionView = MultilineTextFieldWithLabel(labelText: "Description:", initial: self.fields.deckDescription, onUpdate: updateDescriptionField)
+        let descriptionView = MultilineTextFieldWithLabel(labelText: "About:", initial: self.fields.deckDescription, onUpdate: updateDescriptionField)
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         layout.addArrangedSubview(descriptionView)
         layout.addSeparator()

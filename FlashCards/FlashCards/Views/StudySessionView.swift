@@ -17,14 +17,14 @@ class StudySessionView: UIView {
         sideLabel.translatesAutoresizingMaskIntoConstraints = false
         sideLabel.textAlignment = .center
         
-        sideLabel.font = .systemFont(ofSize: 12, weight: .medium)
+        sideLabel.font = .preferredFont(forTextStyle: .headline)
         layout.addArrangedSubview(sideLabel, spacing: 8)
         
         let tapToFlipLabel = UILabel(frame: .zero)
         tapToFlipLabel.translatesAutoresizingMaskIntoConstraints = false
         tapToFlipLabel.textAlignment = .center
-        tapToFlipLabel.font = ViewConstants.smallFont
-        tapToFlipLabel.textColor = ViewConstants.labelColor
+        tapToFlipLabel.font = .preferredFont(forTextStyle: .caption1)
+        tapToFlipLabel.textColor = .secondaryLabel
         tapToFlipLabel.text = "(tap to flip)"
         layout.addArrangedSubview(tapToFlipLabel)
         
@@ -33,7 +33,7 @@ class StudySessionView: UIView {
         contentLabel = UILabel(frame: .zero)
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
         contentLabel.textAlignment = .center
-        contentLabel.font = ViewConstants.regularFont
+        contentLabel.font = .preferredFont(forTextStyle: .body)
         contentLabel.numberOfLines = 0
         contentLabel.lineBreakMode = .byWordWrapping
         layout.addArrangedSubview(contentLabel, spacing: 48)
@@ -68,8 +68,8 @@ class StudySessionView: UIView {
         super.init(frame: .zero)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         
-        failButton.addAction(UIAction(handler: handleFailButtonPress), for: .touchUpInside)
-        successButton.addAction(UIAction(handler: handleSuccessButtonPress), for: .touchUpInside)
+        failButton.addAction(UIAction(handler: { _ in self.handleButtonPress(for: .failure) }), for: .touchUpInside)
+        successButton.addAction(UIAction(handler: { _ in self.handleButtonPress(for: .success) }), for: .touchUpInside)
         
         // View Hierarchy
         addSubview(layout)
@@ -93,43 +93,44 @@ class StudySessionView: UIView {
     
     func setCard(_ card: Card) {
         self.card = card
-        showFront()
+        showSide(.front)
     }
     
-    private func showFront() {
-        currentSide = .front
+    private func showSide(_ side: Side) {
+        currentSide = side
         
-        successButton.isEnabled = false
-        failButton.isEnabled = false
+        let buttonsEnabled: Bool
+        let labelText: String
+        let content: String
+        let alpha: Double
         
-        sideLabel.text = "Front"
-        UIView.animate(withDuration: TimeInterval(0.08)) {
-            self.buttonPanel.alpha = 0.0
+        switch side {
+        case .front:
+            buttonsEnabled = false
+            labelText = "Front"
+            content = card.frontContent
+            alpha = 0.0
+        case .back:
+            buttonsEnabled = true
+            labelText = "Back"
+            content = card.backContent
+            alpha = 1.0
         }
         
-        contentLabel.text = card.frontContent
-    }
-    
-    private func showBack() {
-        currentSide = .back
+        successButton.isEnabled = buttonsEnabled
+        failButton.isEnabled = buttonsEnabled
+        self.sideLabel.text = labelText
+        self.contentLabel.text = content
         
-        successButton.isEnabled = true
-        failButton.isEnabled = true
-        
-        sideLabel.text = "Back"
-        UIView.animate(withDuration: TimeInterval(0.08)) {
-            self.buttonPanel.alpha = 1.0
-        }
-        
-        contentLabel.text = card.backContent
+        UIView.animate(withDuration: TimeInterval(0.1), animations: { self.buttonPanel.alpha = alpha })
     }
     
     private func flip() {
         switch currentSide {
         case .front:
-            showBack()
+            showSide(.back)
         case .back:
-            showFront()
+            showSide(.front)
         }
     }
     
@@ -138,21 +139,18 @@ class StudySessionView: UIView {
         flip()
     }
     
-    private func handleSuccessButtonPress(_ action: UIAction) {
-        let fadeOut = {
-            self.alpha = 0.0
-        }
-        
-        UIView.animate(withDuration: TimeInterval(0.2), animations: fadeOut) { _ in
-            UIView.animate(withDuration: TimeInterval(0.2)) {
-                self.delegate.didStudyCard(self.card, with: .success)
-                self.alpha = 1.0
+    
+    private func handleButtonPress(for result: StudyResult) {
+        UIView.animate(withDuration: TimeInterval(0.2), animations: { self.alpha = 0.0 }) { _ in
+            let finished = self.delegate.didStudyCard(self.card, with: result)
+            
+            if finished {
+                return
+            }
+            else {
+                UIView.animate(withDuration: TimeInterval(0.2), animations: { self.alpha = 1.0 })
             }
         }
-    }
-    
-    private func handleFailButtonPress(_ action: UIAction) {
-        delegate.didStudyCard(card, with: .failure)
     }
     
     

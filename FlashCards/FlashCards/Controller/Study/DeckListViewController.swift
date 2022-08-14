@@ -10,11 +10,14 @@ import CoreData
 
 
 class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedResultsControllerDelegate {
-    init(dependencyContainer: DependencyContainer) {
+    init(dependencyContainer dc: DependencyContainer) {
+        dependencyContainer = dc
+        flashCardService = dependencyContainer.flashCardService
+        srsService = dependencyContainer.srsService
+        
+        tableView = UITableView(frame: .zero, style: .plain)
+        
         super.init(nibName: nil, bundle: nil)
-        self.dependencyContainer = dependencyContainer
-        self.flashCardService = dependencyContainer.flashCardService
-        self.srsService = dependencyContainer.srsService
     }
     
     required init?(coder: NSCoder) {
@@ -23,12 +26,10 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     
     // MARK: - View
     override func loadView() {
-        title = "Study Decks"
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
         
         // TableView
-        tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tableView)
@@ -44,7 +45,9 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         tabBarItem.selectedImage = UIImage(systemName: "book.fill")
         
         // Nav bar
+        title = "Decks"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDeck(_:)))
+        navigationItem.prompt = "Pick a deck to begin studying"
     }
     
     override func viewDidLoad() {
@@ -112,12 +115,12 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
     }
     
     // MARK: Properties
-    private var dependencyContainer: DependencyContainer!
-    private var flashCardService: FlashCardService!
-    private var srsService: SRSService!
+    private let dependencyContainer: DependencyContainer
+    private let flashCardService: FlashCardService
+    private let srsService: SRSService
     
     private var dataSource: UITableViewDiffableDataSource<Int, NSManagedObjectID>!
     private var resultsController: NSFetchedResultsController<Deck>!
     
-    private var tableView: UITableView!
+    private let tableView: UITableView
 }

@@ -72,7 +72,7 @@ class ContentPackSettingsViewController: UIViewController {
             self.fields.packDescription = value
             self.updateSaveButton()
         }
-        let descriptionView = MultilineTextFieldWithLabel(labelText: "Description:", initial: self.fields.packDescription, onUpdate: updateDescriptionField)
+        let descriptionView = MultilineTextFieldWithLabel(labelText: "About:", initial: self.fields.packDescription, onUpdate: updateDescriptionField)
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         layout.addArrangedSubview(descriptionView)
         layout.addSeparator()

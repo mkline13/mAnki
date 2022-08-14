@@ -10,9 +10,13 @@ import CoreData
 
 
 class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFetchedResultsControllerDelegate {
-    init(dependencyContainer: DependencyContainer) {
+    init(dependencyContainer dc: DependencyContainer) {
+        dependencyContainer = dc
+        flashCardService = dc.flashCardService
+        
+        tableView = UITableView(frame: .zero, style: .plain)
+        
         super.init(nibName: nil, bundle: nil)
-        self.flashCardService = dependencyContainer.flashCardService
     }
     
     required init?(coder: NSCoder) {
@@ -64,13 +68,10 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
     }
     
     override func loadView() {
-        title = "Card Collections"
-
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
         
         // TableView
-        tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tableView)
@@ -86,7 +87,9 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
         tabBarItem.selectedImage = UIImage(systemName: "books.vertical.fill")
         
         // Nav bar
+        title = "Content Packs"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addContentPack(_:)))
+        navigationItem.prompt = "Pick a pack to edit contents"
     }
     
     // MARK: Actions
@@ -96,16 +99,17 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
     }
     
     private func browseCards(_ pack: ContentPack) {
-        let vc = CardBrowserViewController(for: pack, flashCardService: flashCardService)
+        let vc = CardBrowserViewController(for: pack, dependencyContainer: dependencyContainer)
         show(vc, sender: self)
     }
     
     // MARK: Properties
-    private var flashCardService: FlashCardService!
+    private let dependencyContainer: DependencyContainer
+    private let flashCardService: FlashCardService
     
     private var dataSource: UITableViewDiffableDataSource<Int, NSManagedObjectID>!
     private var resultsController: NSFetchedResultsController<ContentPack>!
     
-    private var tableView: UITableView!
+    private let tableView: UITableView!
 }
 

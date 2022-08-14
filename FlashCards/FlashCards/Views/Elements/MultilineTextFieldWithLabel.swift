@@ -17,20 +17,20 @@ class MultilineTextFieldWithLabel: UIView, UITextViewDelegate {
                 
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = ViewConstants.smallFont
+        label.font = .preferredFont(forTextStyle: .caption1)
         label.text = labelText
-        label.textColor = ViewConstants.labelColor
+        label.textColor = .secondaryLabel
         
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.backgroundColor = .systemGray
+        line.backgroundColor = .separator
         
         textView = UITextView(frame: .zero)
         textView.delegate = self
         textView.isScrollEnabled = false
         textView.isEditable = true
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = ViewConstants.regularFont
+        textView.font = .preferredFont(forTextStyle: .body)
         textView.text = initial
         textView.backgroundColor = .clear
         

@@ -58,7 +58,8 @@
 		96E85B1928A822300047C132 /* CollectionViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1828A822300047C132 /* CollectionViewer.swift */; };
 		96E85B1B28A822510047C132 /* StepperField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1A28A822510047C132 /* StepperField.swift */; };
 		96E85B1D28A8437F0047C132 /* StudySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1C28A8437F0047C132 /* StudySessionView.swift */; };
-		96E85B1F28A8584A0047C132 /* ViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B1E28A8584A0047C132 /* ViewConstants.swift */; };
+		96E85B2128A86D4B0047C132 /* View+addSubviewAndFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B2028A86D4B0047C132 /* View+addSubviewAndFit.swift */; };
+		96E85B2328A875780047C132 /* InfoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E85B2228A875780047C132 /* InfoViewer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,7 +135,8 @@
 		96E85B1828A822300047C132 /* CollectionViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewer.swift; sourceTree = "<group>"; };
 		96E85B1A28A822510047C132 /* StepperField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperField.swift; sourceTree = "<group>"; };
 		96E85B1C28A8437F0047C132 /* StudySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionView.swift; sourceTree = "<group>"; };
-		96E85B1E28A8584A0047C132 /* ViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConstants.swift; sourceTree = "<group>"; };
+		96E85B2028A86D4B0047C132 /* View+addSubviewAndFit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+addSubviewAndFit.swift"; sourceTree = "<group>"; };
+		96E85B2228A875780047C132 /* InfoViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,7 +301,7 @@
 				96E85B0F28A820370047C132 /* Elements */,
 				96E85B0C28A81FAF0047C132 /* TableCells */,
 				96E85B1C28A8437F0047C132 /* StudySessionView.swift */,
-				96E85B1E28A8584A0047C132 /* ViewConstants.swift */,
+				96E85B2028A86D4B0047C132 /* View+addSubviewAndFit.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -356,6 +358,7 @@
 				96E85B1628A821DA0047C132 /* MultilineTextFieldWithLabel.swift */,
 				96E85B1828A822300047C132 /* CollectionViewer.swift */,
 				96E85B1A28A822510047C132 /* StepperField.swift */,
+				96E85B2228A875780047C132 /* InfoViewer.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96E85B2328A875780047C132 /* InfoViewer.swift in Sources */,
 				96E85B0E28A81FE80047C132 /* ContentPackListCell.swift in Sources */,
 				96BE3367289D81B400A04D53 /* Deck.swift in Sources */,
 				96BE3329289D6DE200A04D53 /* ContentPackListViewController.swift in Sources */,
@@ -520,12 +524,12 @@
 				966B043028A4F37100DD484E /* ContentPackSelectorViewController.swift in Sources */,
 				966B041A28A07A4200DD484E /* StudySessionLauncherViewController.swift in Sources */,
 				96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */,
-				96E85B1F28A8584A0047C132 /* ViewConstants.swift in Sources */,
 				966B041C28A0AA3B00DD484E /* CardBrowserViewController.swift in Sources */,
 				966B043628A5C43F00DD484E /* TestData.swift in Sources */,
 				96BE3369289D81B400A04D53 /* Deck+CoreDataProperties.swift in Sources */,
 				96E85B1B28A822510047C132 /* StepperField.swift in Sources */,
 				96BE3368289D81B400A04D53 /* Card.swift in Sources */,
+				96E85B2128A86D4B0047C132 /* View+addSubviewAndFit.swift in Sources */,
 				96E85B1128A8207D0047C132 /* DeckListCell.swift in Sources */,
 				96BE3366289D81B400A04D53 /* ContentPack.swift in Sources */,
 				966B042828A4A3A200DD484E /* DeckSettingsViewController.swift in Sources */,

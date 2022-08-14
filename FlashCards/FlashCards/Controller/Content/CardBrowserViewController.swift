@@ -10,20 +10,23 @@ import CoreData
 
 
 class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetchedResultsControllerDelegate {
-    init (flashCardService: FlashCardService) {
-        super.init(nibName: nil, bundle: nil)
+    init (dependencyContainer dc: DependencyContainer) {
+        dependencyContainer = dc
+        flashCardService = dc.flashCardService
         
-        self.flashCardService = flashCardService
+        tableView = UITableView(frame: .zero)
+        
+        super.init(nibName: nil, bundle: nil)
         hidesBottomBarWhenPushed = true
     }
         
-    convenience init (for deck: Deck, flashCardService: FlashCardService) {
-        self.init(flashCardService: flashCardService)
+    convenience init (for deck: Deck, dependencyContainer dc: DependencyContainer) {
+        self.init(dependencyContainer: dc)
         self.deck = deck
     }
     
-    convenience init (for pack: ContentPack, flashCardService: FlashCardService) {
-        self.init(flashCardService: flashCardService)
+    convenience init (for pack: ContentPack, dependencyContainer dc: DependencyContainer) {
+        self.init(dependencyContainer: dc)
         self.contentPack = pack
     }
     
@@ -45,7 +48,7 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             if subtitleText.count != deck.title.count {
                 subtitleText += "..."
             }
-            navigationItem.titleView = createTitleView(title: "Cards", subtitle: "in '\(subtitleText)'")
+            navigationItem.prompt = "Deck: \(deck.title)"
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
         else if let contentPack = contentPack {
@@ -53,14 +56,13 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             if subtitleText.count != contentPack.title.count {
                 subtitleText += "..."
             }
-            navigationItem.titleView = createTitleView(title: "Cards", subtitle: "in '\(subtitleText)'")
+            navigationItem.prompt = "Content Pack: \(contentPack.title)"
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
         else {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
         
-        tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         let toolbar = UIToolbar(frame: CGRect.infinite)  // CGRect.infinite fixes a weird autoresizing constraint bug
@@ -80,44 +82,10 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             toolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             toolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-    }
-    
-    private func createTitleView(title: String, subtitle: String) -> UIView {
-        let titleView = UIView(frame: .zero)
-        titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.backgroundColor = UIColor.clear
-        
-        let bigLabel = UILabel(frame: .zero)
-        bigLabel.translatesAutoresizingMaskIntoConstraints = false
-        bigLabel.text = title
-        bigLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-        bigLabel.textAlignment = .center
-        
-        let smallLabel = UILabel(frame: .zero)
-        smallLabel.translatesAutoresizingMaskIntoConstraints = false
-        smallLabel.text = subtitle
-        smallLabel.font = ViewConstants.smallFont
-        smallLabel.textColor = ViewConstants.labelColor
-        smallLabel.textAlignment = .center
-        
-        titleView.addSubview(bigLabel)
-        titleView.addSubview(smallLabel)
-        titleView.addConstraints([
-            bigLabel.topAnchor.constraint(equalTo: titleView.topAnchor),
-            bigLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
-            bigLabel.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
-            
-            smallLabel.topAnchor.constraint(equalTo: bigLabel.bottomAnchor, constant: 2),
-            smallLabel.bottomAnchor.constraint(equalTo: titleView.bottomAnchor),
-            smallLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
-            smallLabel.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
-        ])
-        
-        return titleView
     }
     
     override func viewDidLoad() {
@@ -140,7 +108,8 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
         }
     }
     
-    // MARK: - UITableViewDelegate
+    
+    // MARK: - UITableViewDelegate & Datasource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Handle UI
         tableView.deselectRow(at: indexPath, animated: true)
@@ -191,21 +160,23 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             fatalError("New card creation must only happen from the ContentPack card browser")
         }
         
-        let vc = CardEditorViewController(in: contentPack, flashCardService: flashCardService)
+        let vc = CardEditorViewController(in: contentPack, dependencyContainer: dependencyContainer)
         show(vc, sender: self)
     }
     
     private func editCard(_ card: Card) {
-        let vc = CardEditorViewController(for: card, flashCardService: flashCardService)
+        let vc = CardEditorViewController(for: card, dependencyContainer: dependencyContainer)
         show(vc, sender: self)
     }
     
     // MARK: - Properties
-    private var flashCardService: FlashCardService!
+    private let dependencyContainer: DependencyContainer
+    private let flashCardService: FlashCardService!
+    
     private var deck: Deck? = nil
     private var contentPack: ContentPack? = nil
     
-    private var tableView: UITableView!
+    private let tableView: UITableView
     
     private var dataSource: UITableViewDiffableDataSource<Int, NSManagedObjectID>!
     private var resultsController: NSFetchedResultsController<Card>!

@@ -25,7 +25,7 @@ class Separator: UIView {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        self.backgroundColor = .systemGray
+        self.backgroundColor = .separator
     }
     
     required init?(coder: NSCoder) {
