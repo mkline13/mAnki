@@ -115,7 +115,7 @@ class DeckSettingsViewController: UIViewController {
         let addButtonImage = UIImage(systemName: "plus.circle")
         addButton.setImage(addButtonImage, for: .normal)
         
-        contentPackListView = CollectionViewer(labelText: "Associated Collections:", button: addButton)
+        contentPackListView = CollectionViewer(labelText: "Associated Content Packs:", button: addButton)
         layout.addArrangedSubview(contentPackListView)
         
         

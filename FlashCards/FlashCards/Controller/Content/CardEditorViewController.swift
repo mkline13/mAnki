@@ -18,6 +18,8 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
         backContent = ""
         
         super.init(nibName: nil, bundle: nil)
+        
+
     }
     
     init (for editCard: Card, dependencyContainer dc: DependencyContainer) {
@@ -95,11 +97,17 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
             
             layout.addArrangedSubview(infoView)
         }
-
         
         // Nav Bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveButton(_:)))
         navigationItem.rightBarButtonItem?.isEnabled = false
+        
+        let navAppearance = UINavigationBarAppearance()
+        navAppearance.configureWithTransparentBackground()
+        
+        navigationItem.standardAppearance = navAppearance
+        navigationItem.scrollEdgeAppearance = navAppearance
+        navigationItem.compactAppearance = navAppearance
     }
     
     private func updateSaveButton() {

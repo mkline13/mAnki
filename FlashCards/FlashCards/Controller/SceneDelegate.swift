@@ -87,9 +87,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Set up view hierarchy
         tabBarController.setViewControllers([decksNavigation, packsNavigation], animated: true)
-        
         decksNavigation.setViewControllers([deckListViewController], animated: true)
-        
         packsNavigation.setViewControllers([contentPackListViewController], animated: true)
         
         // Make tab bar items visible

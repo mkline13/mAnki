@@ -17,9 +17,6 @@ class StudySessionLauncherViewController: UIViewController {
         
         titleLabel = UILabel(frame: .zero)
         descriptionTextLabel = UILabel(frame: .zero)
-        goButton = UIButton(type: .custom)
-        
-        
         let style = InfoViewer.Style(titleFont: .preferredFont(forTextStyle: .headline),
                                      nameFont: .preferredFont(forTextStyle: .body),
                                      contentFont: .preferredFont(forTextStyle: .headline),
@@ -28,6 +25,8 @@ class StudySessionLauncherViewController: UIViewController {
                                      contentColor: .label)
         
         infoViewer = InfoViewer(title: "Study Info:", style: style)
+        addCardsButton = UIButton(configuration: .bordered())
+        goButton = UIButton(type: .custom)
         
         super.init(nibName: nil, bundle: nil)
         hidesBottomBarWhenPushed = true
@@ -58,11 +57,18 @@ class StudySessionLauncherViewController: UIViewController {
         layout.addSeparator(spacing: 32)
         
         // Info View
-        infoViewer.addLine(name: "New cards:", contentColor: .systemBlue) { "\(self.numNewCards)" }
+        infoViewer.addLine(name: "New cards:", contentColor: .systemBlue) { "\(self.newCardsToStudy)" }
         infoViewer.addLine(name: "Learning:", contentColor: .systemRed) { "\(self.numLearningCards)" }
         infoViewer.addLine(name: "Review:", contentColor: .systemGreen) { "\(self.numReviewCards)" }
         layout.addArrangedSubview(infoViewer)
         
+        layout.addSeparator(spacing: 32)
+        
+        // Add cards
+        addCardsButton.setTitle("Auto-Add Cards", for: .normal)
+        addCardsButton.setTitle("No Available Cards", for: .disabled)
+        addCardsButton.addAction(UIAction(handler: handleAddCardsButton), for: .touchUpInside)
+        layout.addArrangedSubview(addCardsButton)
         
         // Button Panel
         let buttonPanel = createButtonPanel()
@@ -114,22 +120,39 @@ class StudySessionLauncherViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        titleLabel.text = deck.title
-        descriptionTextLabel.text = deck.deckDescription
-        
-        let totalNewCards = flashCardService.countCards(in: deck, with: .new)
-        let totalReviewCards = flashCardService.countCards(in: deck, with: .review)
-        
-        numNewCards = min(Int(deck.newCardsPerDay - deck.newCardsStudiedRecently), totalNewCards)
-        numLearningCards = flashCardService.countCards(in: deck, with: .learning)
-        numReviewCards = min(Int(deck.reviewCardsPerDay - deck.reviewCardsStudiedRecently), totalReviewCards)
-        
-        infoViewer.update()
-        
-        updateGoButton()
+        update()
     }
     
-    private func updateGoButton() {
+    private func update() {
+        // Check if study counters need to be reset for new day
+        let calendar = Calendar(identifier: .iso8601)
+        if let mostRecentStudySession = deck.mostRecentStudySession {
+            if !calendar.isDateInToday(mostRecentStudySession) {
+                flashCardService.resetStudyCounters(for: deck)
+            }
+        }
+
+        // Update card information
+        availableCardsInAssociatedPacks = flashCardService.getAvailableCards(for: deck)
+        
+        let newCardsInDeck = flashCardService.countCards(in: deck, with: .new)                   // count of all new cards in current deck
+        let newCardsRemaining = Int(deck.newCardsPerDay - deck.newCardsStudiedRecently)   // remaining number of new cards to study today
+        cardsDeficit = max(newCardsRemaining - newCardsInDeck, 0)               // num of new cards needed to add to deck to meet study goal for the day
+        newCardsToStudy = min(newCardsRemaining, newCardsInDeck)                // max cards that can be studied now without raising limit
+
+        numLearningCards = flashCardService.countCards(in: deck, with: .learning)     // num cards in process of learning
+        
+        let numRemainingCardsToReviewToday = flashCardService.countCards(in: deck, with: .review)
+        numReviewCards = min(Int(deck.reviewCardsPerDay - deck.reviewCardsStudiedRecently), numRemainingCardsToReviewToday)
+        
+        // Update views
+        titleLabel.text = deck.title
+        descriptionTextLabel.text = deck.deckDescription
+        infoViewer.update()
+        updateButtons()
+    }
+    
+    private func updateButtons() {
         if totalAvailableCards > 0 {
             goButton.isEnabled = true
             goButton.backgroundColor = UIColor.systemBlue
@@ -137,6 +160,13 @@ class StudySessionLauncherViewController: UIViewController {
         else {
             goButton.isEnabled = false
             goButton.backgroundColor = UIColor.systemGray
+        }
+        
+        if cardsDeficit > 0 && availableCardsInAssociatedPacks.count > 0 {
+            addCardsButton.isEnabled = true
+        }
+        else {
+            addCardsButton.isEnabled = false
         }
     }
     
@@ -151,9 +181,17 @@ class StudySessionLauncherViewController: UIViewController {
         guard totalAvailableCards > 0 else {
             return
         }
+        
+        deck.mostRecentStudySession = Date.now
+        
         let vc = StudySessionViewController(for: deck, dependencyContainer: dependencyContainer)
         
         show(vc, sender: self)
+    }
+    
+    private func handleAddCardsButton(_ sender: UIAction) {
+        self.flashCardService.add(randomCards: self.availableCardsInAssociatedPacks, to: self.deck, quantity: self.cardsDeficit)
+        update()
     }
     
     
@@ -166,14 +204,18 @@ class StudySessionLauncherViewController: UIViewController {
     
     private let titleLabel: UILabel
     private let descriptionTextLabel: UILabel
-    private let goButton: UIButton
     private let infoViewer: InfoViewer
+    private let addCardsButton: UIButton
+    private let goButton: UIButton
     
-    private var numNewCards: Int = 0
+    private var newCardsToStudy: Int = 0
     private var numLearningCards: Int = 0
     private var numReviewCards: Int = 0
+    private var cardsDeficit: Int = 0
+    
+    private var availableCardsInAssociatedPacks: [Card] = []
     
     private var totalAvailableCards: Int {
-        numNewCards + numLearningCards + numReviewCards
+        newCardsToStudy + numLearningCards + numReviewCards
     }
 }

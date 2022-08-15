@@ -251,6 +251,52 @@ class CoreDataFlashCardService: FlashCardService {
         saveViewContext()
     }
     
+    func resetStudyCounters(for deck: Deck) {
+        deck.newCardsStudiedRecently = 0
+        deck.reviewCardsStudiedRecently = 0
+        saveViewContext()
+    }
+    
+    func getAvailableCards(for deck: Deck) -> [Card] {
+
+        
+        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Card.frontContent, ascending: true)
+        ]
+        fetchRequest.predicate = NSPredicate(format: "(deck = nil)")
+        
+        let availableCards: [Card]
+        do {
+            let fetchedCards = try persistentContainer.viewContext.fetch(fetchRequest)
+            availableCards = fetchedCards.filter({ deck.associatedContentPacks.contains($0.contentPack) })
+        }
+        catch {
+            fatalError("Could not fetch cards.")
+        }
+        
+        return availableCards
+    }
+    
+    func add(randomCards cards: [Card], to deck: Deck, quantity: Int) {
+        guard quantity > 0 else {
+            return
+        }
+        
+        var cards = cards
+        
+        for _ in 0..<quantity {
+            guard let randomIndex = cards.indices.randomElement() else {
+                break
+            }
+            
+            let card = cards.remove(at: randomIndex)
+            deck.addToCards(card)
+        }
+        
+        saveViewContext()
+    }
+    
     // MARK: - DELETE
     func delete(_ contentPack: ContentPack) {
         persistentContainer.viewContext.delete(contentPack)

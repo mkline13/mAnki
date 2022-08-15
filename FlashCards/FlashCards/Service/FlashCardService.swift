@@ -44,6 +44,10 @@ protocol FlashCardService {
     
     func incrementNewCardsStudiedRecently(for deck: Deck)
     func incrementReviewCardsStudiedRecently(for deck: Deck)
+    func resetStudyCounters(for deck: Deck)
+    
+    func getAvailableCards(for deck: Deck) -> [Card]
+    func add(randomCards cards: [Card], to deck: Deck, quantity: Int)
     
     // MARK: DELETE
     func delete(_ contentPack: ContentPack)

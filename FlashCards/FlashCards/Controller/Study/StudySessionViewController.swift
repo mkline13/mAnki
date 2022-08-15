@@ -26,13 +26,6 @@ class StudySessionViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         studySessionView.delegate = self
-        
-        let studySessionNavAppearance = UINavigationBarAppearance()
-        studySessionNavAppearance.configureWithTransparentBackground()
-        
-        navigationItem.standardAppearance = studySessionNavAppearance
-        navigationItem.scrollEdgeAppearance = studySessionNavAppearance
-        navigationItem.compactAppearance = studySessionNavAppearance
     }
     
     required init?(coder: NSCoder) {
@@ -46,6 +39,13 @@ class StudySessionViewController: UIViewController {
         
         studySessionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubviewAndFit(studySessionView)
+        
+        let studySessionNavAppearance = UINavigationBarAppearance()
+        studySessionNavAppearance.configureWithTransparentBackground()
+        
+        navigationItem.standardAppearance = studySessionNavAppearance
+        navigationItem.scrollEdgeAppearance = studySessionNavAppearance
+        navigationItem.compactAppearance = studySessionNavAppearance
     }
     
     override func viewDidLoad() {
