@@ -66,7 +66,7 @@ class StudySessionLauncherViewController: UIViewController {
         
         // Add cards
         addCardsButton.setTitle("Auto-Add Cards", for: .normal)
-        addCardsButton.setTitle("No Available Cards", for: .disabled)
+        addCardsButton.setTitle("No Available Cards to Add", for: .disabled)
         addCardsButton.addAction(UIAction(handler: handleAddCardsButton), for: .touchUpInside)
         layout.addArrangedSubview(addCardsButton)
         
@@ -132,6 +132,7 @@ class StudySessionLauncherViewController: UIViewController {
             }
         }
 
+        // TODO: Rewrite to have fewer side-effects in this function (retain less state)
         // Update card information
         availableCardsInAssociatedPacks = flashCardService.getAvailableCards(for: deck)
         
