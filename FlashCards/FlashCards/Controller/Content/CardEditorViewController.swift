@@ -81,7 +81,6 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
             infoView.addLine(name: "deck:") { "\(card.deck?.title ?? "(none)")" }
             infoView.addLine(name: "created:") { card.creationDate.formatted(date: .numeric, time: .omitted) }
             infoView.addLine(name: "times studied:") { "\(card.studyRecords.count)" }
-            infoView.update()
             
             if let dueDate = card.srsDueDate {
                 let color: UIColor
@@ -96,6 +95,7 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
             }
             
             layout.addArrangedSubview(infoView)
+            infoView.update()
         }
         
         // Nav Bar

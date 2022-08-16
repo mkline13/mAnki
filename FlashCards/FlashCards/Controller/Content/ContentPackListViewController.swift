@@ -89,7 +89,7 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
         // Nav bar
         title = "Content Packs"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addContentPack(_:)))
-        navigationItem.prompt = "Pick a pack to edit contents"
+//        navigationItem.prompt = "Pick a pack to edit contents"  // causes some weird layout errors
     }
     
     // MARK: Actions

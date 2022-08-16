@@ -13,13 +13,14 @@ func loadTestJig() -> UIViewController {
     studySessionTestJig()
 }
 
-private func loadFlashCardServiceInMemory() -> FlashCardService {
-    let dependencyContainer = DependencyContainer(storesInMemory: true)
-    return dependencyContainer.flashCardService
+private func loadDependencyContainer() -> DependencyContainer {
+    let dependencyContainer = DependencyContainer(creationMethod: PersistentContainerHelper.shared.createPersistentContainerWithInMemoryStores)
+    return dependencyContainer
 }
 
 private func deckSettingsV2TestJig() -> UIViewController {
-    let flashCardService: FlashCardService = loadFlashCardServiceInMemory()
+    let dependencyContainer = loadDependencyContainer()
+    let flashCardService = dependencyContainer.flashCardService
     
     let deck = flashCardService.newDeck(title: "TestDeck", description: "TestDeck's Description", newCardsPerDay: 10, reviewCardsPerDay: 100)
     
@@ -38,7 +39,7 @@ private func deckSettingsV2TestJig() -> UIViewController {
 }
 
 private func studySessionLauncherTestJig() -> UIViewController {
-    let dependencyContainer = DependencyContainer(storesInMemory: true)
+    let dependencyContainer = loadDependencyContainer()
     let flashCardService = dependencyContainer.flashCardService
     
     let deck = flashCardService.newDeck(title: "TestDeck", description: "TestDeck's Description", newCardsPerDay: 10, reviewCardsPerDay: 100)
@@ -58,7 +59,7 @@ private func studySessionLauncherTestJig() -> UIViewController {
 }
 
 private func studySessionTestJig() -> UIViewController {
-    let dependencyContainer = DependencyContainer(storesInMemory: true)
+    let dependencyContainer = loadDependencyContainer()
     let flashCardService = dependencyContainer.flashCardService
     
     let deck = flashCardService.newDeck(title: "TestDeck", description: "TestDeck's Description", newCardsPerDay: 10, reviewCardsPerDay: 100)

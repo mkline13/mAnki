@@ -48,7 +48,7 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             if subtitleText.count != deck.title.count {
                 subtitleText += "..."
             }
-            navigationItem.prompt = "Deck: \(deck.title)"
+//            navigationItem.prompt = "Deck: \(deck.title)"
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
         else if let contentPack = contentPack {
@@ -56,7 +56,7 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
             if subtitleText.count != contentPack.title.count {
                 subtitleText += "..."
             }
-            navigationItem.prompt = "Content Pack: \(contentPack.title)"
+//            navigationItem.prompt = "Content Pack: \(contentPack.title)"
             navigationItem.rightBarButtonItem?.isEnabled = true
         }
         else {

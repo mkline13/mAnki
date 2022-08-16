@@ -20,9 +20,6 @@
 		966B043028A4F37100DD484E /* ContentPackSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */; };
 		966B043628A5C43F00DD484E /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B043528A5C43F00DD484E /* TestData.swift */; };
 		966B043C28A5FB6700DD484E /* SRSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B043B28A5FB6700DD484E /* SRSService.swift */; };
-		966B044328A6300500DD484E /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044128A6300500DD484E /* Variable.swift */; };
-		966B044428A6300500DD484E /* Variable+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044228A6300500DD484E /* Variable+CoreDataProperties.swift */; };
-		966B044628A6348800DD484E /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044528A6348800DD484E /* SettingsService.swift */; };
 		966B044828A6443200DD484E /* ContentPackSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */; };
 		966B044A28A64F9300DD484E /* EZLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044928A64F9300DD484E /* EZLayout.swift */; };
 		96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F1289D6BD900A04D53 /* AppDelegate.swift */; };
@@ -31,7 +28,6 @@
 		96BE32FE289D6BDA00A04D53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96BE32FD289D6BDA00A04D53 /* Assets.xcassets */; };
 		96BE3301289D6BDA00A04D53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96BE32FF289D6BDA00A04D53 /* LaunchScreen.storyboard */; };
 		96BE3316289D6BDA00A04D53 /* FlashCardsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3315289D6BDA00A04D53 /* FlashCardsUITests.swift */; };
-		96BE3318289D6BDB00A04D53 /* FlashCardsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3317289D6BDB00A04D53 /* FlashCardsUITestsLaunchTests.swift */; };
 		96BE3327289D6DC100A04D53 /* DeckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3326289D6DC100A04D53 /* DeckListViewController.swift */; };
 		96BE3329289D6DE200A04D53 /* ContentPackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3328289D6DE200A04D53 /* ContentPackListViewController.swift */; };
 		96BE3364289D81B400A04D53 /* StudyResultEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE335D289D81B300A04D53 /* StudyResultEnum.swift */; };
@@ -42,8 +38,7 @@
 		96BE3369289D81B400A04D53 /* Deck+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3362289D81B300A04D53 /* Deck+CoreDataProperties.swift */; };
 		96BE336A289D81B400A04D53 /* ContentPack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3363289D81B300A04D53 /* ContentPack+CoreDataProperties.swift */; };
 		96BE3372289D81CC00A04D53 /* CoreDataFlashCardServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE336E289D81CC00A04D53 /* CoreDataFlashCardServiceTests.swift */; };
-		96BE3373289D81CC00A04D53 /* StudyStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE336F289D81CC00A04D53 /* StudyStatusTests.swift */; };
-		96BE3374289D81CC00A04D53 /* ModelConvenienceInitializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3370289D81CC00A04D53 /* ModelConvenienceInitializerTests.swift */; };
+		96BE3374289D81CC00A04D53 /* ManagedObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3370289D81CC00A04D53 /* ManagedObjectTests.swift */; };
 		96BE337A289D827200A04D53 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3376289D827200A04D53 /* DependencyContainer.swift */; };
 		96BE337B289D827200A04D53 /* FlashCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3378289D827200A04D53 /* FlashCardService.swift */; };
 		96BE337C289D827200A04D53 /* CoreDataFlashCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE3379289D827200A04D53 /* CoreDataFlashCardService.swift */; };
@@ -94,9 +89,6 @@
 		966B042F28A4F37100DD484E /* ContentPackSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPackSelectorViewController.swift; sourceTree = "<group>"; };
 		966B043528A5C43F00DD484E /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		966B043B28A5FB6700DD484E /* SRSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSService.swift; sourceTree = "<group>"; };
-		966B044128A6300500DD484E /* Variable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
-		966B044228A6300500DD484E /* Variable+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Variable+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		966B044528A6348800DD484E /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPackSettingsViewController.swift; sourceTree = "<group>"; };
 		966B044928A64F9300DD484E /* EZLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EZLayout.swift; sourceTree = "<group>"; };
 		96BE32EE289D6BD900A04D53 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,7 +101,6 @@
 		96BE3307289D6BDA00A04D53 /* FlashCardsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlashCardsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BE3311289D6BDA00A04D53 /* FlashCardsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlashCardsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BE3315289D6BDA00A04D53 /* FlashCardsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsUITests.swift; sourceTree = "<group>"; };
-		96BE3317289D6BDB00A04D53 /* FlashCardsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		96BE3326289D6DC100A04D53 /* DeckListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckListViewController.swift; sourceTree = "<group>"; };
 		96BE3328289D6DE200A04D53 /* ContentPackListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPackListViewController.swift; sourceTree = "<group>"; };
 		96BE335D289D81B300A04D53 /* StudyResultEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyResultEnum.swift; sourceTree = "<group>"; };
@@ -121,8 +112,7 @@
 		96BE3363289D81B300A04D53 /* ContentPack+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentPack+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		96BE336C289D81CC00A04D53 /* PersistentContainerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentContainerHelper.swift; sourceTree = "<group>"; };
 		96BE336E289D81CC00A04D53 /* CoreDataFlashCardServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataFlashCardServiceTests.swift; sourceTree = "<group>"; };
-		96BE336F289D81CC00A04D53 /* StudyStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyStatusTests.swift; sourceTree = "<group>"; };
-		96BE3370289D81CC00A04D53 /* ModelConvenienceInitializerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelConvenienceInitializerTests.swift; sourceTree = "<group>"; };
+		96BE3370289D81CC00A04D53 /* ManagedObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectTests.swift; sourceTree = "<group>"; };
 		96BE3376289D827200A04D53 /* DependencyContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		96BE3378289D827200A04D53 /* FlashCardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashCardService.swift; sourceTree = "<group>"; };
 		96BE3379289D827200A04D53 /* CoreDataFlashCardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataFlashCardService.swift; sourceTree = "<group>"; };
@@ -204,6 +194,7 @@
 		96BE330A289D6BDA00A04D53 /* FlashCardsTests */ = {
 			isa = PBXGroup;
 			children = (
+				96E011EB28AB4AA2009FA4C4 /* Helper */,
 				96BE336D289D81CC00A04D53 /* Model */,
 			);
 			path = FlashCardsTests;
@@ -213,7 +204,6 @@
 			isa = PBXGroup;
 			children = (
 				96BE3315289D6BDA00A04D53 /* FlashCardsUITests.swift */,
-				96BE3317289D6BDB00A04D53 /* FlashCardsUITestsLaunchTests.swift */,
 			);
 			path = FlashCardsUITests;
 			sourceTree = "<group>";
@@ -243,8 +233,6 @@
 		96BE332A289D7EF000A04D53 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				966B044128A6300500DD484E /* Variable.swift */,
-				966B044228A6300500DD484E /* Variable+CoreDataProperties.swift */,
 				96BE337D289D82C300A04D53 /* StudyRecord.swift */,
 				96BE337E289D82C300A04D53 /* StudyRecord+CoreDataProperties.swift */,
 				96BE3361289D81B300A04D53 /* Card.swift */,
@@ -272,8 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				96BE336E289D81CC00A04D53 /* CoreDataFlashCardServiceTests.swift */,
-				96BE336F289D81CC00A04D53 /* StudyStatusTests.swift */,
-				96BE3370289D81CC00A04D53 /* ModelConvenienceInitializerTests.swift */,
+				96BE3370289D81CC00A04D53 /* ManagedObjectTests.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -292,7 +279,6 @@
 				96BE3378289D827200A04D53 /* FlashCardService.swift */,
 				96BE3379289D827200A04D53 /* CoreDataFlashCardService.swift */,
 				966B043B28A5FB6700DD484E /* SRSService.swift */,
-				966B044528A6348800DD484E /* SettingsService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -306,6 +292,13 @@
 				96E85B2028A86D4B0047C132 /* View+addSubviewAndFit.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		96E011EB28AB4AA2009FA4C4 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		96E85B0928A81E600047C132 /* Study */ = {
@@ -508,9 +501,7 @@
 				966B042028A20C3900DD484E /* CardEditorViewController.swift in Sources */,
 				96E85B1D28A8437F0047C132 /* StudySessionView.swift in Sources */,
 				96BE337C289D827200A04D53 /* CoreDataFlashCardService.swift in Sources */,
-				966B044428A6300500DD484E /* Variable+CoreDataProperties.swift in Sources */,
 				966B042228A22E8000DD484E /* StudySessionViewController.swift in Sources */,
-				966B044328A6300500DD484E /* Variable.swift in Sources */,
 				966B044828A6443200DD484E /* ContentPackSettingsViewController.swift in Sources */,
 				96139A9F28A8BB2100913214 /* DataLabel.swift in Sources */,
 				96BE337F289D82C300A04D53 /* StudyRecord.swift in Sources */,
@@ -523,7 +514,6 @@
 				96BE337A289D827200A04D53 /* DependencyContainer.swift in Sources */,
 				966B042A28A4B25F00DD484E /* MiscElements.swift in Sources */,
 				96BE3364289D81B400A04D53 /* StudyResultEnum.swift in Sources */,
-				966B044628A6348800DD484E /* SettingsService.swift in Sources */,
 				96E85B1528A821C40047C132 /* TextFieldWithLabel.swift in Sources */,
 				966B043028A4F37100DD484E /* ContentPackSelectorViewController.swift in Sources */,
 				966B041A28A07A4200DD484E /* StudySessionLauncherViewController.swift in Sources */,
@@ -551,8 +541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96BE3372289D81CC00A04D53 /* CoreDataFlashCardServiceTests.swift in Sources */,
-				96BE3374289D81CC00A04D53 /* ModelConvenienceInitializerTests.swift in Sources */,
-				96BE3373289D81CC00A04D53 /* StudyStatusTests.swift in Sources */,
+				96BE3374289D81CC00A04D53 /* ManagedObjectTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,7 +550,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				96BE3316289D6BDA00A04D53 /* FlashCardsUITests.swift in Sources */,
-				96BE3318289D6BDB00A04D53 /* FlashCardsUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,7 +635,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG LOAD_TEST_DATA IN_MEMORY_STORES";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG DESTROY_PERSISTENT_STORES";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;

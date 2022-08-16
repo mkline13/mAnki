@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // MARK: - TEST STORES
         #if IN_MEMORY_STORES
-        dependencyContainer = DependencyContainer(storesInMemory: true)
+        dependencyContainer = DependencyContainer(PersistentContainerHelper.shared.createPersistentContainerWithInMemoryStores)
         
             #if LOAD_TEST_DATA
             // If needed, loads some test entities into CoreData
@@ -45,10 +45,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             #endif
         
         #else
-        dependencyContainer = DependencyContainer(storesInMemory: false)
+        dependencyContainer = DependencyContainer(creationMethod: PersistentContainerHelper.shared.createPersistentContainerWithOnDiskStores)
         
             #if DESTROY_PERSISTENT_STORES
-            PersistentContainerHelper.shared.destroyPersistentStoresOnDisk(persistentContainer: persistentContainer)
+            PersistentContainerHelper.shared.destroyPersistentStoresOnDisk(persistentContainer: dependencyContainer.persistentContainer)
             #endif
         
         #endif

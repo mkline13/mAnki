@@ -29,7 +29,7 @@ class PersistentContainerHelper {
     }
     
     // MARK: - Destroy Stores
-    private func destroyPersistentStoresOnDisk(persistentContainer: NSPersistentContainer) {
+    func destroyPersistentStoresOnDisk(persistentContainer: NSPersistentContainer) {
         for storeDescription in persistentContainer.persistentStoreDescriptions {
             guard let url = storeDescription.url else{
                 continue

@@ -47,7 +47,7 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         // Nav bar
         title = "Decks"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDeck(_:)))
-        navigationItem.prompt = "Pick a deck to begin studying"
+//        navigationItem.prompt = "Pick a deck to begin studying"
     }
     
     override func viewDidLoad() {
