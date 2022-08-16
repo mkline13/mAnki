@@ -9,19 +9,16 @@ import UIKit
 
 
 class StudySessionViewController: UIViewController {
-    init (for studyDeck: Deck, dependencyContainer dc: DependencyContainer) {
+    init (for studyDeck: Deck, cardsToStudy cards: [Card], dependencyContainer dc: DependencyContainer) {
         // Initialize dependencies
         dependencyContainer = dc
         flashCardService = dependencyContainer.flashCardService
         srsService = dependencyContainer.srsService
         
         deck = studyDeck
+        cardsToStudy = cards
         
         studySessionView = StudySessionView()
-        
-        cardsToStudy += flashCardService.getCards(in: deck, with: .new, limit: deck.newCardsPerDay - deck.newCardsStudiedRecently)
-        cardsToStudy += flashCardService.getCards(in: deck, with: .learning, limit: nil)
-        cardsToStudy += flashCardService.getCards(in: deck, with: .review, limit: deck.reviewCardsPerDay - deck.reviewCardsStudiedRecently)
         
         super.init(nibName: nil, bundle: nil)
         

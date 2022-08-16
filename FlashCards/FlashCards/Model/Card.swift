@@ -41,7 +41,7 @@ public class Card: NSManagedObject {
         }
     }
     
-    enum Status: Int64 {
+    enum Status: Int64, CaseIterable {
         case new = 0
         case learning
         case review

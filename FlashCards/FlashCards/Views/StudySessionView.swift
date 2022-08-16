@@ -141,14 +141,14 @@ class StudySessionView: UIView {
     
     
     private func handleButtonPress(for result: StudyResult) {
-        UIView.animate(withDuration: TimeInterval(0.2), animations: { self.alpha = 0.0 }) { _ in
+        UIView.animate(withDuration: TimeInterval(0.1), animations: { self.alpha = 0.0 }) { _ in
             let finished = self.delegate.didStudyCard(self.card, with: result)
             
             if finished {
                 return
             }
             else {
-                UIView.animate(withDuration: TimeInterval(0.2), animations: { self.alpha = 1.0 })
+                UIView.animate(withDuration: TimeInterval(0.1), animations: { self.alpha = 1.0 })
             }
         }
     }

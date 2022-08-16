@@ -19,12 +19,12 @@
         <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="contentPack" inverseEntity="Card"/>
     </entity>
     <entity name="Deck" representedClassName="Deck" syncable="YES">
+        <attribute name="dailyNewCardLimit" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dailyReviewCardLimit" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="deckDescription" optional="YES" attributeType="String"/>
-        <attribute name="mostRecentStudySession" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="newCardsPerDay" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="newCardsStudiedRecently" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="reviewCardsPerDay" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="reviewCardsStudiedRecently" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="newCardsStudiedToday" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="previousStudySession" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="reviewCardsStudiedToday" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="associatedContentPacks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ContentPack" inverseName="associatedDecks" inverseEntity="ContentPack"/>
         <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="deck" inverseEntity="Card"/>
@@ -40,10 +40,10 @@
         <attribute name="variableValue" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Card" positionX="-21.5869140625" positionY="-183.7192687988281" width="128" height="164"/>
-        <element name="ContentPack" positionX="-248.841064453125" positionY="-331.0128784179688" width="128" height="118"/>
-        <element name="Deck" positionX="182.07421875" positionY="-346.1746673583984" width="128" height="28"/>
-        <element name="StudyRecord" positionX="-23.038818359375" positionY="11.04470825195312" width="128" height="89"/>
-        <element name="Variable" positionX="-54" positionY="-189" width="128" height="59"/>
+        <element name="Card" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ContentPack" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Deck" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="StudyRecord" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Variable" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

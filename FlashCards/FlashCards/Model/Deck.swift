@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+
 @objc(Deck)
 public class Deck: NSManagedObject {
     convenience init (title: String, deckDescription description: String, newCardsPerDay: Int64, reviewCardsPerDay: Int64, context: NSManagedObjectContext) {
@@ -17,11 +18,19 @@ public class Deck: NSManagedObject {
         self.title = title
         self.deckDescription = description
         
-        self.newCardsPerDay = newCardsPerDay
-        self.reviewCardsPerDay = reviewCardsPerDay
+        self.dailyNewCardLimit = newCardsPerDay
+        self.dailyReviewCardLimit = reviewCardsPerDay
         
-        mostRecentStudySession = nil
-        newCardsStudiedRecently = 0
-        reviewCardsStudiedRecently = 0
+        self.previousStudySession = nil
+        self.newCardsStudiedToday = 0
+        self.reviewCardsStudiedToday = 0
+    }
+    
+    var newCardsNeeded: Int {
+        return Int(self.dailyNewCardLimit - self.newCardsStudiedToday)
+    }
+    
+    var reviewCardsNeeded: Int {
+        return Int(self.dailyReviewCardLimit - self.reviewCardsStudiedToday)
     }
 }

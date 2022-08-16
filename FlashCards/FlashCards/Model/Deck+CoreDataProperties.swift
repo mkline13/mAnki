@@ -11,25 +11,22 @@ import CoreData
 
 
 extension Deck {
-    static let entityName: String = "Deck"
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Deck> {
-        return NSFetchRequest<Deck>(entityName: entityName)
+        return NSFetchRequest<Deck>(entityName: "Deck")
     }
 
     @NSManaged public var title: String
     @NSManaged public var deckDescription: String
     
-    @NSManaged public var newCardsPerDay: Int64
-    @NSManaged public var reviewCardsPerDay: Int64
+    @NSManaged public var dailyNewCardLimit: Int64
+    @NSManaged public var dailyReviewCardLimit: Int64
     
-    @NSManaged public var mostRecentStudySession: Date?
-    @NSManaged public var newCardsStudiedRecently: Int64
-    @NSManaged public var reviewCardsStudiedRecently: Int64
+    @NSManaged public var previousStudySession: Date?
+    @NSManaged public var newCardsStudiedToday: Int64
+    @NSManaged public var reviewCardsStudiedToday: Int64
     
     @NSManaged public var cards: NSSet
     @NSManaged public var associatedContentPacks: NSSet
-
 }
 
 // MARK: Generated accessors for cards

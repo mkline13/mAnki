@@ -193,8 +193,8 @@ class DeckSettingsViewController: UIViewController {
         init (from deck: Deck) {
             title = deck.title
             deckDescription = deck.deckDescription
-            newCardsPerDay = deck.newCardsPerDay
-            reviewCardsPerDay = deck.reviewCardsPerDay
+            newCardsPerDay = deck.dailyNewCardLimit
+            reviewCardsPerDay = deck.dailyReviewCardLimit
             associatedContentPacks = deck.associatedContentPacks as! Set<ContentPack>
         }
         

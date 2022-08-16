@@ -70,6 +70,6 @@ private func studySessionTestJig() -> UIViewController {
         flashCardService.newCard(in: pack!, frontContent: "FRONT CONTENT 2", backContent: "BACK CONTENT 2", deck: deck)!,
     ]
     
-    let testJigViewController = StudySessionViewController(for: deck!, dependencyContainer: dependencyContainer)
+    let testJigViewController = StudySessionViewController(for: deck!, cardsToStudy: cards, dependencyContainer: dependencyContainer)
     return testJigViewController
 }

@@ -152,22 +152,22 @@ class CoreDataFlashCardService: FlashCardService {
         }
     }
     
-    func getCards(in deck: Deck, with status: Card.Status, limit: Int64?) -> [Card] {
+    
+    func getCards(in deck: Deck, withStatus status: Card.Status, withLimit limit: Int? = nil) -> [Card] {
         let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        
+        if let limit = limit {
+            guard limit > 0 else {
+                return []
+            }
+            fetchRequest.fetchLimit = limit
+        }
+        
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(keyPath: \Card.frontContent, ascending: true)
         ]
-        
-        if let limit = limit {
-            fetchRequest.fetchLimit = Int(limit)
-        }
-        
-        switch status {
-        case .review:
-            fetchRequest.predicate = NSPredicate(format: "(studyStatus == %ld) AND (deck == %@) AND (srsDueDate < %@)", status.rawValue, deck, Date.now as CVarArg)
-        default:
-            fetchRequest.predicate = NSPredicate(format: "(studyStatus == %ld) AND (deck == %@)", status.rawValue, deck)
-        }
+
+        fetchRequest.predicate = NSPredicate(format: "(deck == %@) AND (studyStatus == %ld)", deck, status.rawValue)
         
         do {
             let cards = try persistentContainer.viewContext.fetch(fetchRequest)
@@ -178,28 +178,50 @@ class CoreDataFlashCardService: FlashCardService {
         }
     }
     
-    func countCards(in deck: Deck, with status: Card.Status) -> Int {
+    func getCards(in deck: Deck, withStatus status: Card.Status, withDueDate date: Date, withLimit limit: Int? = nil) -> [Card] {
         let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        
+        if let limit = limit {
+            guard limit > 0 else {
+                return []
+            }
+            fetchRequest.fetchLimit = limit
+        }
+        
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(keyPath: \Card.frontContent, ascending: true)
         ]
-        
-        switch status {
-        case .review:
-            fetchRequest.predicate = NSPredicate(format: "(studyStatus == %ld) AND (deck == %@) AND (srsDueDate < %@)", status.rawValue, deck, Date.now as CVarArg)
-        default:
-            fetchRequest.predicate = NSPredicate(format: "(studyStatus == %ld) AND (deck == %@)", status.rawValue, deck)
-        }
+
+        fetchRequest.predicate = NSPredicate(format: "(deck == %@) AND (studyStatus == %ld) AND (srsDueDate < %@)", deck, status.rawValue, date as CVarArg)
         
         do {
-            let count = try persistentContainer.viewContext.count(for: fetchRequest)
-            return count
+            let cards = try persistentContainer.viewContext.fetch(fetchRequest)
+            return cards
         }
         catch {
             fatalError("Could not fetch cards.")
         }
     }
+    
+    func getAvailableCardsFromContentPacks(for deck: Deck) -> [Card] {
+        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(keyPath: \Card.frontContent, ascending: true)
+        ]
+        fetchRequest.predicate = NSPredicate(format: "(deck = nil)")
         
+        let availableCards: [Card]
+        do {
+            let fetchedCards = try persistentContainer.viewContext.fetch(fetchRequest)
+            availableCards = fetchedCards.filter({ deck.associatedContentPacks.contains($0.contentPack) })
+        }
+        catch {
+            fatalError("Could not fetch cards.")
+        }
+        
+        return availableCards
+    }
+    
         
     // MARK: - UPDATE
     func updateContentPack(_ pack: ContentPack, title: String, description pdesc: String, author: String) {
@@ -212,8 +234,8 @@ class CoreDataFlashCardService: FlashCardService {
     func updateDeck(_ deck: Deck, title: String, description ddesc: String, newCardsPerDay ncpd: Int64, reviewCardsPerDay rcpd: Int64) {
         deck.title = title
         deck.deckDescription = ddesc
-        deck.newCardsPerDay = ncpd
-        deck.reviewCardsPerDay = rcpd
+        deck.dailyNewCardLimit = ncpd
+        deck.dailyReviewCardLimit = rcpd
         saveViewContext()
     }
     
@@ -242,40 +264,19 @@ class CoreDataFlashCardService: FlashCardService {
     }
     
     func incrementNewCardsStudiedRecently(for deck: Deck) {
-        deck.newCardsStudiedRecently += 1
+        deck.newCardsStudiedToday += 1
         saveViewContext()
     }
     
     func incrementReviewCardsStudiedRecently(for deck: Deck) {
-        deck.reviewCardsStudiedRecently += 1
+        deck.reviewCardsStudiedToday += 1
         saveViewContext()
     }
     
     func resetStudyCounters(for deck: Deck) {
-        deck.newCardsStudiedRecently = 0
-        deck.reviewCardsStudiedRecently = 0
+        deck.newCardsStudiedToday = 0
+        deck.reviewCardsStudiedToday = 0
         saveViewContext()
-    }
-    
-    func getAvailableCards(for deck: Deck) -> [Card] {
-
-        
-        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
-        fetchRequest.sortDescriptors = [
-            NSSortDescriptor(keyPath: \Card.frontContent, ascending: true)
-        ]
-        fetchRequest.predicate = NSPredicate(format: "(deck = nil)")
-        
-        let availableCards: [Card]
-        do {
-            let fetchedCards = try persistentContainer.viewContext.fetch(fetchRequest)
-            availableCards = fetchedCards.filter({ deck.associatedContentPacks.contains($0.contentPack) })
-        }
-        catch {
-            fatalError("Could not fetch cards.")
-        }
-        
-        return availableCards
     }
     
     func add(randomCards cards: [Card], to deck: Deck, quantity: Int) {
@@ -294,6 +295,11 @@ class CoreDataFlashCardService: FlashCardService {
             deck.addToCards(card)
         }
         
+        saveViewContext()
+    }
+    
+    func performUpdate(handler: @escaping () -> Void) {
+        handler()
         saveViewContext()
     }
     

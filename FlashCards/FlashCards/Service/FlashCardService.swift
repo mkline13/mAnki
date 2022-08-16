@@ -24,15 +24,12 @@ protocol FlashCardService {
     func cardResultsController(with delegate: NSFetchedResultsControllerDelegate) -> NSFetchedResultsController<Card>?
     func cardResultsController(with delegate: NSFetchedResultsControllerDelegate, for deck: Deck) -> NSFetchedResultsController<Card>?
     func cardResultsController(with delegate: NSFetchedResultsControllerDelegate, for pack: ContentPack) -> NSFetchedResultsController<Card>?
-    
     func getDecks() -> [Deck]
-    
     func getCards() -> [Card]
-    func getCards(in deck: Deck, with status: Card.Status, limit: Int64?) -> [Card]
     
-    func countCards(in deck: Deck, with status: Card.Status) -> Int
-
-        
+    func getCards(in deck: Deck, withStatus status: Card.Status, withLimit limit: Int?) -> [Card]
+    func getCards(in deck: Deck, withStatus status: Card.Status, withDueDate date: Date, withLimit limit: Int?) -> [Card]
+    
     // MARK: UPDATE
     func updateContentPack(_ pack: ContentPack, title: String, description pdesc: String, author: String)
     func updateDeck(_ deck: Deck, title: String, description ddesc: String, newCardsPerDay ncpd: Int64, reviewCardsPerDay rcpd: Int64)
@@ -46,8 +43,10 @@ protocol FlashCardService {
     func incrementReviewCardsStudiedRecently(for deck: Deck)
     func resetStudyCounters(for deck: Deck)
     
-    func getAvailableCards(for deck: Deck) -> [Card]
+    func getAvailableCardsFromContentPacks(for deck: Deck) -> [Card]
     func add(randomCards cards: [Card], to deck: Deck, quantity: Int)
+    
+    func performUpdate(handler: @escaping () -> Void)
     
     // MARK: DELETE
     func delete(_ contentPack: ContentPack)
