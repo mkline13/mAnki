@@ -192,7 +192,7 @@ class CoreDataFlashCardService: FlashCardService {
             NSSortDescriptor(keyPath: \Card.frontContent, ascending: true)
         ]
 
-        fetchRequest.predicate = NSPredicate(format: "(deck == %@) AND (studyStatus == %ld) AND (srsDueDate < %@)", deck, status.rawValue, date as CVarArg)
+        fetchRequest.predicate = NSPredicate(format: "(deck == %@) AND (studyStatus == %ld) AND (srsDueDate <= %@)", deck, status.rawValue, date as CVarArg)
         
         do {
             let cards = try persistentContainer.viewContext.fetch(fetchRequest)
