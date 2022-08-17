@@ -44,7 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let value = ProcessInfo.processInfo.environment["loadTestData"] {
             guard let loader = testDataLoaders[value] else {
-                fatalError("could not load test data, no known function by that name")
+                fatalError("could not load test data, no known function by name: '\(value)'")
             }
             
             loader(dependencyContainer.flashCardService)

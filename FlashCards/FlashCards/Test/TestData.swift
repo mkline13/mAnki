@@ -55,12 +55,30 @@ private func loadGeneralTestData(flashCardService: FlashCardService) {
 private func loadDataForDeletionTests(flashCardService: FlashCardService) {
     let deck = flashCardService.newDeck(title: "TeskDeck", description: "Delete Me Deck", newCardsPerDay: 20, reviewCardsPerDay: 30)
     let pack = flashCardService.newContentPack(title: "TestContentPack", description: "Delete Me Pack", author: "Me")
-//    let _ = flashCardService.newCard(in: pack!, frontContent: "Front of the card to be deleted", backContent: "Back of that same card", deck: deck)
+    let _ = flashCardService.newCard(in: pack!, frontContent: "Front of the card to be deleted", backContent: "Back of that same card", deck: deck)
 }
+
+
+private func loadDataForDeckAddTests(flashCardService: FlashCardService) {
+    _ = flashCardService.newContentPack(title: "TestContentPack", description: "Add to deck", author: "Me")
+}
+
+private func loadDataForStudyTest(flashCardService: FlashCardService) {
+    let pack = flashCardService.newContentPack(title: "TestContentPack", description: "Add to deck", author: "Me")
+    let deck = flashCardService.newDeck(title: "TestDeck", description: "Delete Me Deck", newCardsPerDay: 20, reviewCardsPerDay: 30)
+    _ = flashCardService.newCard(in: pack!, frontContent: "TestCard", backContent: "It's a test", deck: nil)
+    
+    flashCardService.performUpdate {
+        deck!.addToAssociatedContentPacks(pack!)
+    }
+}
+
+// MARK: - Public
 
 typealias TestDataLoader = (FlashCardService) -> Void
 
 let testDataLoaders: [String: TestDataLoader] = [
     "loadGeneralTestData": loadGeneralTestData,
-    "loadDataForDeletionTests": loadDataForDeletionTests
+    "loadDataForDeletionTests": loadDataForDeletionTests,
+    "loadDataForStudyTest": loadDataForStudyTest,
 ]
