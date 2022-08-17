@@ -852,7 +852,31 @@ class FlashCardServiceTests: XCTestCase {
     }
     
     func testPerformUpdate() {
+        // set up
+        let pack = ContentPack(title: "Sup", packDescription: "Supsup", author: "Peter Supman", context: persistentContainer.viewContext)
+        let c0 = Card(creationDate: Date.now, frontContent: "Front0", backContent: "Back0", interval: 1, dueDate: nil, contentPack: pack, deck: nil, context: persistentContainer.viewContext)
         
+        try! persistentContainer.viewContext.save()
+        
+        // test
+        flashCardService.performUpdate {
+            c0.frontContent = "Some Stuff"
+        }
+        
+        // Check storage
+        let fetchRequest: NSFetchRequest<Card> = Card.fetchRequest()
+        fetchRequest.sortDescriptors = [ NSSortDescriptor(keyPath: \Card.frontContent, ascending: true) ]
+        fetchRequest.predicate = NSPredicate(format: "backContent == %@", "Back0")
+        
+        let context = persistentContainer.newBackgroundContext()
+        context.performAndWait {
+            guard let fetchedCard = try? context.fetch(fetchRequest).first else {
+                XCTFail("Could not fetch stored cards")
+                return
+            }
+            
+            XCTAssertEqual(fetchedCard.frontContent, "Some Stuff")
+        }
     }
     
     // MARK: - DELETE
