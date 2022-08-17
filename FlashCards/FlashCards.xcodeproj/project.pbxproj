@@ -209,7 +209,6 @@
 			children = (
 				968AAB5828AC7FD2008DA56E /* Service */,
 				96E011EE28AB6028009FA4C4 /* Mock */,
-				96E011EB28AB4AA2009FA4C4 /* Helper */,
 				96BE336D289D81CC00A04D53 /* Model */,
 			);
 			path = FlashCardsTests;
@@ -306,13 +305,6 @@
 				96E85B2028A86D4B0047C132 /* View+addSubviewAndFit.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		96E011EB28AB4AA2009FA4C4 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helper;
 			sourceTree = "<group>";
 		};
 		96E011EE28AB6028009FA4C4 /* Mock */ = {

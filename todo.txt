@@ -1,7 +1,7 @@
 REQUIRED:
 
 - make local backup and merge with main branch
-- add all the Tests + UI Tests
+- UITests
 
 
 OH wait, why is it running the scene delegate during tests? This probably explains the weird CoreData errors and the problem below.
