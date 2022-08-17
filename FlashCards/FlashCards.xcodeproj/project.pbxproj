@@ -22,6 +22,7 @@
 		966B043C28A5FB6700DD484E /* SRSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B043B28A5FB6700DD484E /* SRSService.swift */; };
 		966B044828A6443200DD484E /* ContentPackSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */; };
 		966B044A28A64F9300DD484E /* EZLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B044928A64F9300DD484E /* EZLayout.swift */; };
+		968AAB5A28AC7FE5008DA56E /* SRSServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968AAB5928AC7FE5008DA56E /* SRSServiceTests.swift */; };
 		96BE32F2289D6BD900A04D53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F1289D6BD900A04D53 /* AppDelegate.swift */; };
 		96BE32F4289D6BD900A04D53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */; };
 		96BE32FC289D6BD900A04D53 /* FlashCards.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96BE32FA289D6BD900A04D53 /* FlashCards.xcdatamodeld */; };
@@ -92,6 +93,7 @@
 		966B043B28A5FB6700DD484E /* SRSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSService.swift; sourceTree = "<group>"; };
 		966B044728A6443200DD484E /* ContentPackSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPackSettingsViewController.swift; sourceTree = "<group>"; };
 		966B044928A64F9300DD484E /* EZLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EZLayout.swift; sourceTree = "<group>"; };
+		968AAB5928AC7FE5008DA56E /* SRSServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRSServiceTests.swift; sourceTree = "<group>"; };
 		96BE32EE289D6BD900A04D53 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BE32F1289D6BD900A04D53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96BE32F3289D6BD900A04D53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		968AAB5828AC7FD2008DA56E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				96BE336E289D81CC00A04D53 /* FlashCardServiceTests.swift */,
+				968AAB5928AC7FE5008DA56E /* SRSServiceTests.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		96BE32E5289D6BD900A04D53 = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +207,7 @@
 		96BE330A289D6BDA00A04D53 /* FlashCardsTests */ = {
 			isa = PBXGroup;
 			children = (
+				968AAB5828AC7FD2008DA56E /* Service */,
 				96E011EE28AB6028009FA4C4 /* Mock */,
 				96E011EB28AB4AA2009FA4C4 /* Helper */,
 				96BE336D289D81CC00A04D53 /* Model */,
@@ -262,7 +274,6 @@
 		96BE336D289D81CC00A04D53 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				96BE336E289D81CC00A04D53 /* FlashCardServiceTests.swift */,
 				96BE3370289D81CC00A04D53 /* ManagedObjectTests.swift */,
 			);
 			path = Model;
@@ -551,6 +562,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968AAB5A28AC7FE5008DA56E /* SRSServiceTests.swift in Sources */,
 				96BE3372289D81CC00A04D53 /* FlashCardServiceTests.swift in Sources */,
 				96BE3374289D81CC00A04D53 /* ManagedObjectTests.swift in Sources */,
 				96E011F028AB603B009FA4C4 /* MockNSResultsControllerDelegate.swift in Sources */,

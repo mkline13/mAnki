@@ -4,7 +4,7 @@ REQUIRED:
 - add all the Tests + UI Tests
 
 
-OH wait, why is it running the scene delegate during tests?
+OH wait, why is it running the scene delegate during tests? This probably explains the weird CoreData errors and the problem below.
 
 
 IF POSSIBLE:

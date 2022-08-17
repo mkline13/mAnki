@@ -28,12 +28,13 @@ class SRSService {
                 fatalError("Interval cannot be less than 0")
             }
             
-            switch previousInterval {
-            case 0:
+            if previousInterval < firstInterval {
                 return firstInterval
-            case firstInterval:
+            }
+            else if previousInterval < secondInterval {
                 return secondInterval
-            default:
+            }
+            else {
                 return Int64(Float(previousInterval) * multiplier)
             }
         }
