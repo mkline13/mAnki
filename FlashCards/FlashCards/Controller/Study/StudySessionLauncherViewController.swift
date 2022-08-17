@@ -33,7 +33,11 @@ class StudySessionLauncherViewController: UIViewController {
         
         // Nav Bar
         title = "Study"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(editButton(_:)))
+        
+        let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(editButton(_:)))
+        settingsButton.accessibilityIdentifier = "SettingsButton"
+        settingsButton.accessibilityLabel = "Deck Settings"
+        navigationItem.rightBarButtonItem = settingsButton
     }
     
     required init?(coder: NSCoder) {
@@ -72,6 +76,8 @@ class StudySessionLauncherViewController: UIViewController {
         addCardsButton.setTitle("Auto-Add Cards", for: .normal)
         addCardsButton.setTitle("No Available Cards to Add", for: .disabled)
         addCardsButton.addAction(UIAction(handler: handleAddCardsButton), for: .touchUpInside)
+        addCardsButton.accessibilityLabel = "Auto-add cards to deck"
+        addCardsButton.accessibilityIdentifier = "AutoAddButton"
         layout.addArrangedSubview(addCardsButton)
         
         // Button Panel
@@ -87,6 +93,9 @@ class StudySessionLauncherViewController: UIViewController {
         goButton.layer.cornerRadius = 8
         goButton.setTitle("Begin Studying", for: .normal)
         goButton.setTitle("No Cards Remaining", for: .disabled)
+        
+        goButton.accessibilityLabel = "Begin Studying"
+        goButton.accessibilityIdentifier = "BeginStudyingButton"
 
         buttonPanel.addSubview(goButton)
         buttonPanel.addConstraints([

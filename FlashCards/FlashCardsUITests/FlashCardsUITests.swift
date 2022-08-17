@@ -193,6 +193,7 @@ class FlashCardsUITests: XCTestCase {
             
             let saveButton = selectContentPackNavBar.buttons["SaveButton"]
             XCTAssertTrue(saveButton.exists)
+            XCTAssertTrue(saveButton.isEnabled)
             saveButton.tap()
         }
         
@@ -203,6 +204,57 @@ class FlashCardsUITests: XCTestCase {
     }
     
     func testStudy() {
+        let decksTable = app.tables["DecksTable"]
+        XCTAssertTrue(decksTable.exists)
         
+        let cell = decksTable.cells[testDeckName].firstMatch
+        XCTAssertTrue(cell.exists)
+        cell.tap()
+        
+        let studyNavBar = app.navigationBars["Study"]
+        XCTAssertTrue(studyNavBar.exists)
+        
+        let settingsButton = studyNavBar.buttons["SettingsButton"]
+        XCTAssertTrue(settingsButton.exists)
+        settingsButton.tap()
+        
+        // Deck settings
+        let deckSettingsNavBar = app.navigationBars["Edit Deck"]
+        XCTAssertTrue(deckSettingsNavBar.exists)
+        
+        let backButton = deckSettingsNavBar.buttons["Study"]
+        XCTAssertTrue(backButton.exists)
+        backButton.tap()
+        
+        // Auto add cards and begin studying
+        let addCardsButton = app.buttons["AutoAddButton"]
+        XCTAssertTrue(addCardsButton.exists)
+        XCTAssertTrue(addCardsButton.isEnabled)
+        addCardsButton.tap()
+        
+        let goButton = app.buttons["BeginStudyingButton"]
+        XCTAssertTrue(goButton.exists)
+        XCTAssertTrue(goButton.isEnabled)
+        goButton.tap()
+        
+        // Studying
+        let page = app.scrollViews.containing(.other, identifier:"Vertical scroll bar, 1 page").element
+        XCTAssertTrue(page.exists)
+        page.tap()
+        page.tap()
+        page.tap()
+        
+        let successButton = app.buttons["SuccessButton"]
+        XCTAssertTrue(successButton.exists)
+        
+        let failButton = app.buttons["FailButton"]
+        XCTAssertTrue(failButton.exists)
+        
+        failButton.tap()
+        
+        page.tap()
+        
+        successButton.tap()
+                
     }
 }

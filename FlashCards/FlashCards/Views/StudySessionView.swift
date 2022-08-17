@@ -48,12 +48,16 @@ class StudySessionView: UIView {
         failButton.setImage(failButtonImage, for: .normal)
         failButton.tintColor = .systemRed
         failButton.isEnabled = false
+        failButton.accessibilityIdentifier = "FailButton"
+        failButton.accessibilityLabel = "Failure"
         
         successButton = UIButton(configuration: .plain())
         successButton.translatesAutoresizingMaskIntoConstraints = false
         successButton.setImage(successButtonImage, for: .normal)
         successButton.tintColor = .systemGreen
         successButton.isEnabled = false
+        successButton.accessibilityIdentifier = "SuccessButton"
+        successButton.accessibilityLabel = "Success"
         
         buttonPanel = UIStackView(arrangedSubviews: [failButton, successButton])
         buttonPanel.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +70,10 @@ class StudySessionView: UIView {
         currentSide = .front
         
         super.init(frame: .zero)
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        tapGesture.accessibilityLabel = "Flip Card"
+        addGestureRecognizer(tapGesture)
         
         failButton.addAction(UIAction(handler: { _ in self.handleButtonPress(for: .failure) }), for: .touchUpInside)
         successButton.addAction(UIAction(handler: { _ in self.handleButtonPress(for: .success) }), for: .touchUpInside)
