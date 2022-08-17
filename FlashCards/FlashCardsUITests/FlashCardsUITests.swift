@@ -9,6 +9,8 @@ import XCTest
 
 class FlashCardsUITests: XCTestCase {
     var app: XCUIApplication!
+    let testContentPackName = "Test Content Pack A"
+    let testDeckName = "Test Deck X"
 
     override func setUpWithError() throws {
         continueAfterFailure = false
@@ -33,7 +35,7 @@ class FlashCardsUITests: XCTestCase {
         XCTAssertTrue(contentPackListNavBar.buttons["Add Content Pack"].exists)
         app.navigationBars["Content Packs"].buttons["Add Content Pack"].tap()
         
-        let testContentPackName = "Test Content Pack A"
+        
         do {
             // Editing new content pack settings
             let newContentPackNavBar = app.navigationBars["New Content Pack"]
@@ -139,7 +141,7 @@ class FlashCardsUITests: XCTestCase {
         XCTAssertTrue(titleField.exists)
         
         titleField.tap()
-        titleField.typeText("New Deck Title Oh Boy")
+        titleField.typeText(testDeckName)
         
         let aboutField = newDeckForm.textViews["DeckAboutField"]
         XCTAssertTrue(aboutField.exists)
@@ -183,47 +185,24 @@ class FlashCardsUITests: XCTestCase {
         do {
             let selectContentPackNavBar = app.navigationBars["Select Content Packs"]
             XCTAssertTrue(selectContentPackNavBar.exists)
+            
+            let contentPacksTable = app.tables["SelectContentPacksTable"]
+            XCTAssertTrue(contentPacksTable.exists)
+            
+            contentPacksTable.cells[testContentPackName].firstMatch.tap()
+            
+            let saveButton = selectContentPackNavBar.buttons["SaveButton"]
+            XCTAssertTrue(saveButton.exists)
+            saveButton.tap()
         }
         
         // Save
         let saveButton = newDeckNavBar.buttons["SaveButton"]
         XCTAssertTrue(saveButton.exists)
         saveButton.tap()
-        
-        
-        
-        ///
-        ///
-//
-//        let app = XCUIApplication()
-//        app.navigationBars["Decks"]/*@START_MENU_TOKEN@*/.buttons["AddDeckButton"]/*[[".buttons[\"Add Deck\"]",".buttons[\"AddDeckButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-//
-//        let scrollViewsQuery = app.scrollViews
-//        let element = scrollViewsQuery.children(matching: .other).element(boundBy: 0)
-//        let steppersQuery = element.children(matching: .other).element(boundBy: 7).steppers
-//        let incrementButton = steppersQuery.buttons["Increment"]
-//        incrementButton.tap()
-//        incrementButton.tap()
-//        incrementButton.tap()
-//
-//        let decrementButton = steppersQuery.buttons["Decrement"]
-//        decrementButton.tap()
-//        decrementButton.tap()
-//        decrementButton.tap()
-//        decrementButton.tap()
-//
-//        let steppersQuery2 = element.children(matching: .other).element(boundBy: 9).steppers
-//        let decrementButton2 = steppersQuery2.buttons["Decrement"]
-//        decrementButton2.tap()
-//        decrementButton2.tap()
-//        decrementButton2.tap()
-//
-//        let incrementButton2 = steppersQuery2.buttons["Increment"]
-//        incrementButton2.tap()
-//        incrementButton2.tap()
-//        incrementButton2.tap()
-//        incrementButton2.tap()
-//        scrollViewsQuery.otherElements.buttons["add"].tap()
+    }
+    
+    func testStudy() {
         
     }
 }
