@@ -278,17 +278,22 @@ class FlashCardsUITests: XCTestCase {
         // Set up app
         let app = XCUIApplication()
         app.launchEnvironment = [
-            "inMemory": "true",
+            "inMemoryStores": "true",
             "loadTestData": "loadDataForDeletionTests"
         ]
         app.launch()
+        
+        let contentPackName = "TestContentPack"
         
         // first delete content pack to test that cascade rules work
         let tabBar = app.tabBars["Tab Bar"]
         XCTAssertTrue(tabBar.exists)
         
         XCTAssertTrue(tabBar.buttons["Content Packs"].exists)
-        tabBar.buttons["Content Packs"].tap()
+        
+        let contentPacksTabButton = tabBar.buttons["Content Packs"]
+        XCTAssertTrue(contentPacksTabButton.exists)
+        contentPacksTabButton.tap()
         
         let contentPackListNavBar = app.navigationBars["Content Packs"]
         XCTAssertTrue(contentPackListNavBar.exists)
@@ -296,9 +301,8 @@ class FlashCardsUITests: XCTestCase {
         let contentPacksTable = app.tables["ContentPacksTable"]
         XCTAssertTrue(contentPacksTable.exists)
         
-        let testPackCell = contentPacksTable.cells[testContentPackName].firstMatch
-        XCTAssertTrue(testPackCell.exists, "Test ContentPack was not created.")
-        
+        let testPackCell = contentPacksTable.cells[contentPackName].firstMatch
+        XCTAssertTrue(testPackCell.exists, "Test ContentPack was not created. Check that test data is being loaded properly.")
         testPackCell.swipeLeft()
         
         let deleteButton = testPackCell.buttons["Delete"]
@@ -315,6 +319,7 @@ class FlashCardsUITests: XCTestCase {
             "inMemoryStores": "true",
             "loadTestData": "loadGeneralTestData"
         ]
+        
         app.launch()
     }
 }

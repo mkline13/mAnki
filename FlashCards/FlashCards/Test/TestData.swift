@@ -53,9 +53,9 @@ private func loadGeneralTestData(flashCardService: FlashCardService) {
 
 
 private func loadDataForDeletionTests(flashCardService: FlashCardService) {
-    let deck = flashCardService.newDeck(title: "Test Deck (for deletion)", description: "Delete Me Deck", newCardsPerDay: 20, reviewCardsPerDay: 30)
-    let pack = flashCardService.newContentPack(title: "Test Pack (for deletion)", description: "Delete Me Pack", author: "Me")
-    let _ = flashCardService.newCard(in: pack!, frontContent: "Front of the card to be deleted", backContent: "Back of that same card", deck: deck)
+    let deck = flashCardService.newDeck(title: "TeskDeck", description: "Delete Me Deck", newCardsPerDay: 20, reviewCardsPerDay: 30)
+    let pack = flashCardService.newContentPack(title: "TestContentPack", description: "Delete Me Pack", author: "Me")
+//    let _ = flashCardService.newCard(in: pack!, frontContent: "Front of the card to be deleted", backContent: "Back of that same card", deck: deck)
 }
 
 typealias TestDataLoader = (FlashCardService) -> Void
