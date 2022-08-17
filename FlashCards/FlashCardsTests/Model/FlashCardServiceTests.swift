@@ -786,8 +786,69 @@ class FlashCardServiceTests: XCTestCase {
     
     func testAddRandomCardsToDeck() {
         // setup
+        let pack = ContentPack(title: "Sup", packDescription: "Supsup", author: "Peter Supman", context: persistentContainer.viewContext)
+        let deck = Deck(title: "Test Deck", deckDescription: "It's a test", newCardsPerDay: 22, reviewCardsPerDay: 33, context: persistentContainer.viewContext)
+
+        let cards = [
+            Card(creationDate: Date.now, frontContent: "Front0", backContent: "Back0", interval: 1, dueDate: nil, contentPack: pack, deck: nil, context: persistentContainer.viewContext),
+            Card(creationDate: Date.now, frontContent: "Front1", backContent: "Back1", interval: 1, dueDate: nil, contentPack: pack, deck: nil, context: persistentContainer.viewContext),
+            Card(creationDate: Date.now, frontContent: "Front2", backContent: "Back2", interval: 1, dueDate: nil, contentPack: pack, deck: nil, context: persistentContainer.viewContext),
+            Card(creationDate: Date.now, frontContent: "Front3", backContent: "Back3", interval: 1, dueDate: nil, contentPack: pack, deck: nil, context: persistentContainer.viewContext),
+        ]
+        
+        try! persistentContainer.viewContext.save()
+        
+        let fetchRequest: NSFetchRequest<Deck> = Deck.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        fetchRequest.sortDescriptors = [ NSSortDescriptor(keyPath: \Deck.title, ascending: true) ]
+        fetchRequest.predicate = NSPredicate(format: "SELF == %@", deck)
+        
         // test quantity 0
+        flashCardService.add(randomCards: cards, to: deck, quantity: 0)
+        
+        let context = persistentContainer.newBackgroundContext()
+        context.performAndWait {
+            guard let fetchedDeck: Deck = (try? context.fetch(fetchRequest))?.first else {
+                XCTFail("Could not fetch stored deck")
+                return
+            }
+            
+            XCTAssertEqual(fetchedDeck.cards.count, 0)
+        }
+        
         // test that the appropriate amount were added to the deck
+        flashCardService.add(randomCards: cards, to: deck, quantity: 2)
+        
+        context.performAndWait {
+            guard let fetchedDeck: Deck = (try? context.fetch(fetchRequest))?.first else {
+                XCTFail("Could not fetch stored deck")
+                return
+            }
+            
+            XCTAssertEqual(fetchedDeck.cards.count, 2)
+            for element in fetchedDeck.cards {
+                let card = element as! Card
+                let result = cards.contains { $0.objectID == card.objectID }
+                XCTAssert(result, "Unexpected card in deck")
+            }
+        }
+        
+        // test that no cards were double-added
+        flashCardService.add(randomCards: cards, to: deck, quantity: 4)
+        
+        context.performAndWait {
+            guard let fetchedDeck: Deck = (try? context.fetch(fetchRequest))?.first else {
+                XCTFail("Could not fetch stored deck")
+                return
+            }
+            
+            XCTAssertEqual(fetchedDeck.cards.count, 4)
+            for element in fetchedDeck.cards {
+                let card = element as! Card
+                let result = cards.contains { $0.objectID == card.objectID }
+                XCTAssert(result, "Unexpected card in deck")
+            }
+        }
     }
     
     func testPerformUpdate() {
