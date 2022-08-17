@@ -7,22 +7,24 @@
 
 import XCTest
 
+
+// PLEASE NOTE: Tests are written with the assumption that they will be run in a particular order.
 class FlashCardsUITests: XCTestCase {
-    var app: XCUIApplication!
     let testContentPackName = "Test Content Pack A"
     let testDeckName = "Test Deck X"
 
     override func setUpWithError() throws {
         continueAfterFailure = false
-        app = XCUIApplication()
-        app.launch()
     }
 
     override func tearDownWithError() throws {
-        app = nil
+        // blank
     }
 
     func testAddContentPackAndCard() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
         // Add a new content pack
         let tabBar = app.tabBars["Tab Bar"]
         XCTAssertTrue(tabBar.exists)
@@ -70,7 +72,9 @@ class FlashCardsUITests: XCTestCase {
         XCTAssertTrue(contentPacksTable.exists)
         
         do {
-            contentPacksTable.cells[testContentPackName].firstMatch.tap()
+            let testPackCell = contentPacksTable.cells[testContentPackName].firstMatch
+            XCTAssertTrue(testPackCell.exists, "Test ContentPack was not created.")
+            testPackCell.tap()
             
             // Test Settings Button
             let cardBrowserNavBar = app.navigationBars["Cards"]
@@ -119,6 +123,11 @@ class FlashCardsUITests: XCTestCase {
     }
     
     func testAddDeck() throws {
+        // Set up app
+        let app = XCUIApplication()
+        app.launch()
+        
+        // Note: Test expects a ContentPack with the name contained in 'testContentPackName' to exist
         let tabBar = app.tabBars["Tab Bar"]
         XCTAssertTrue(tabBar.exists)
         
@@ -189,7 +198,9 @@ class FlashCardsUITests: XCTestCase {
             let contentPacksTable = app.tables["SelectContentPacksTable"]
             XCTAssertTrue(contentPacksTable.exists)
             
-            contentPacksTable.cells[testContentPackName].firstMatch.tap()
+            let testPackCell = contentPacksTable.cells[testContentPackName].firstMatch
+            XCTAssertTrue(testPackCell.exists, "Content Pack with name '\(testContentPackName)' does not exist. Run previous tests to ensure it has been created.")
+            testPackCell.tap()
             
             let saveButton = selectContentPackNavBar.buttons["SaveButton"]
             XCTAssertTrue(saveButton.exists)
@@ -204,6 +215,11 @@ class FlashCardsUITests: XCTestCase {
     }
     
     func testStudy() {
+        // Set up app
+        let app = XCUIApplication()
+        app.launch()
+        
+        // Test
         let decksTable = app.tables["DecksTable"]
         XCTAssertTrue(decksTable.exists)
         
@@ -256,5 +272,49 @@ class FlashCardsUITests: XCTestCase {
         
         successButton.tap()
         
+    }
+    
+    func testCascadeDelete() {
+        // Set up app
+        let app = XCUIApplication()
+        app.launchEnvironment = [
+            "inMemory": "true",
+            "loadTestData": "loadDataForDeletionTests"
+        ]
+        app.launch()
+        
+        // first delete content pack to test that cascade rules work
+        let tabBar = app.tabBars["Tab Bar"]
+        XCTAssertTrue(tabBar.exists)
+        
+        XCTAssertTrue(tabBar.buttons["Content Packs"].exists)
+        tabBar.buttons["Content Packs"].tap()
+        
+        let contentPackListNavBar = app.navigationBars["Content Packs"]
+        XCTAssertTrue(contentPackListNavBar.exists)
+        
+        let contentPacksTable = app.tables["ContentPacksTable"]
+        XCTAssertTrue(contentPacksTable.exists)
+        
+        let testPackCell = contentPacksTable.cells[testContentPackName].firstMatch
+        XCTAssertTrue(testPackCell.exists, "Test ContentPack was not created.")
+        
+        testPackCell.swipeLeft()
+        
+        let deleteButton = testPackCell.buttons["Delete"]
+        XCTAssertTrue(deleteButton.exists)
+        deleteButton.tap()
+        
+        XCTAssertFalse(testPackCell.exists)
+    }
+    
+    func testData() {
+        // Set up app
+        let app = XCUIApplication()
+        app.launchEnvironment = [
+            "inMemoryStores": "true",
+            "loadTestData": "loadGeneralTestData"
+        ]
+        app.launch()
     }
 }

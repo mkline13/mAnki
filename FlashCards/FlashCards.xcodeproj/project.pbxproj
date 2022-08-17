@@ -160,6 +160,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9666C57328AD3F5E004F77ED /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				966B042328A3223A00DD484E /* TestJig.swift */,
+				966B043528A5C43F00DD484E /* TestData.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		968AAB5828AC7FD2008DA56E /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +209,7 @@
 				96BE3324289D6C1900A04D53 /* Controller */,
 				96BE338A289DADDD00A04D53 /* Views */,
 				96BE336B289D81CC00A04D53 /* Helper */,
+				9666C57328AD3F5E004F77ED /* Test */,
 			);
 			path = FlashCards;
 			sourceTree = "<group>";
@@ -264,8 +274,6 @@
 			isa = PBXGroup;
 			children = (
 				96BE336C289D81CC00A04D53 /* PersistentContainerHelper.swift */,
-				966B042328A3223A00DD484E /* TestJig.swift */,
-				966B043528A5C43F00DD484E /* TestData.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";

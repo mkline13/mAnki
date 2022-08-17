@@ -6,11 +6,9 @@
 //
 
 
-func loadTestData(flashCardService: FlashCardService) {
-    loadGeneralTestData(flashCardService: flashCardService)
-}
-
 private func loadGeneralTestData(flashCardService: FlashCardService) {
+    print("Loading general testing data...")
+    
     // Packs
     let japaneseVerbsPack = flashCardService.newContentPack(title: "Japanese Verbs", description: "日本語の動詞", author: "メイセン")!
     let japanesePhrasesPack = flashCardService.newContentPack(title: "Japanese Phrases", description: "日本語のフレーズ", author: "メイセン")!
@@ -52,3 +50,17 @@ private func loadGeneralTestData(flashCardService: FlashCardService) {
     _ = flashCardService.newCard(in: organsPack, frontContent: "Colon", backContent: "colon powell", deck: medDeck)
     _ = flashCardService.newCard(in: organsPack, frontContent: "Lung", backContent: "hhhhhhhhh", deck: medDeck)
 }
+
+
+private func loadDataForDeletionTests(flashCardService: FlashCardService) {
+    let deck = flashCardService.newDeck(title: "Test Deck (for deletion)", description: "Delete Me Deck", newCardsPerDay: 20, reviewCardsPerDay: 30)
+    let pack = flashCardService.newContentPack(title: "Test Pack (for deletion)", description: "Delete Me Pack", author: "Me")
+    let _ = flashCardService.newCard(in: pack!, frontContent: "Front of the card to be deleted", backContent: "Back of that same card", deck: deck)
+}
+
+typealias TestDataLoader = (FlashCardService) -> Void
+
+let testDataLoaders: [String: TestDataLoader] = [
+    "loadGeneralTestData": loadGeneralTestData,
+    "loadDataForDeletionTests": loadDataForDeletionTests
+]

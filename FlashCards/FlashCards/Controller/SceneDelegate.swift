@@ -33,28 +33,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         #endif
         
         
-        // MARK: - TEST STORES
-        #if IN_MEMORY_STORES
-        dependencyContainer = DependencyContainer(PersistentContainerHelper.shared.createPersistentContainerWithInMemoryStores)
-        
-            #if LOAD_TEST_DATA
-            // If needed, loads some test entities into CoreData
-            print("LOAD_TEST_DATA enabled")
-            print("Loading test data if needed...")
-            loadTestData(flashCardService: dependencyContainer.flashCardService)
-            #endif
-        
-        #else
-        dependencyContainer = DependencyContainer(creationMethod: PersistentContainerHelper.shared.createPersistentContainerWithOnDiskStores)
-        
-            #if DESTROY_PERSISTENT_STORES
-            PersistentContainerHelper.shared.destroyPersistentStoresOnDisk(persistentContainer: dependencyContainer.persistentContainer)
-            return
-            #endif
-        
-        #endif
-        
         // MARK: - RUN APP
+        // Handle environmental vars
+        if let value = ProcessInfo.processInfo.environment["inMemoryStores"], value == "true" {
+            dependencyContainer = DependencyContainer(creationMethod: PersistentContainerHelper.shared.createPersistentContainerWithInMemoryStores)
+        }
+        else {
+            dependencyContainer = DependencyContainer(creationMethod: PersistentContainerHelper.shared.createPersistentContainerWithOnDiskStores)
+        }
+        
+        if let value = ProcessInfo.processInfo.environment["loadTestData"] {
+            guard let loader = testDataLoaders[value] else {
+                fatalError("could not load test data, no known function by that name")
+            }
+            
+            loader(dependencyContainer.flashCardService)
+        }
         
         // Configure Navigation
         let tabBarController = UITabBarController()
