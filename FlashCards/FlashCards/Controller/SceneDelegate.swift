@@ -49,6 +49,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
             #if DESTROY_PERSISTENT_STORES
             PersistentContainerHelper.shared.destroyPersistentStoresOnDisk(persistentContainer: dependencyContainer.persistentContainer)
+            return
             #endif
         
         #endif

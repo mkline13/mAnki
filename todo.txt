@@ -1,24 +1,11 @@
 REQUIRED:
 
-- Implement adding cards to decks manually + automatically
-- Refactor the StudySession logic so that it is more obviously correct
-- Fix the weird layout errors apparently caused by the Nav Bar Prompt
-- Delete unused code
 - make local backup and merge with main branch
 - add all the Tests + UI Tests
 
 
-IDEAS (EASY):
-- Open card editor from study screen
-- make the StudySessionLauncher look better
-- show a label that indicates there are no cards in a selected deck
-- browse cards associated with deck in "Deck Settings screen"
+OH wait, why is it running the scene delegate during tests?
 
-- add info field to cards: 
-  - show num times the card has been passed / failed
-  - show how long the card has been studied for
 
-- update some other labels to be DataLabels
-
-IDEAS (HARD):
-- 
+IF POSSIBLE:
+troubleshoot flashCardService.delete tests
