@@ -255,6 +255,6 @@ class FlashCardsUITests: XCTestCase {
         page.tap()
         
         successButton.tap()
-                
+        
     }
 }

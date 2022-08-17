@@ -1,26 +1,5 @@
 REQUIRED:
 
-- make local backup and merge with main branch
-- UITests
-
-
-OH wait, why is it running the scene delegate during tests? This probably explains the weird CoreData errors and the problem below.
-
-
-IF POSSIBLE:
-troubleshoot flashCardService.delete tests
-why can I not delete first Content Pack?
-
-
-UI TESTS:
-
-FIRST: rewatch the UITest video
-
-- Make a content pack and assert all views + controls are there
-- Open card browser + edit pack settings
-- Add cards to the content packTest
-- Create a deck + add the content pack
-- auto add cards and begin studying
-- study and hit failure through all cards
-- then hit success
-- then verify the buttons are disabled
+BUGS:
+- deleting items in tableViews sometimes fails
+- troubleshoot flashCardService.delete tests
