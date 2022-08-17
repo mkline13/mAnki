@@ -64,6 +64,9 @@ class ContentPackSettingsViewController: UIViewController {
         }
         let titleField = TitleField(labelText: "Title:", placeholder: "Title", initial: self.fields.title, onUpdate: updateTitleField)
         titleField.translatesAutoresizingMaskIntoConstraints = false
+        titleField.textField.accessibilityLabel = "Content Pack Title"
+        titleField.textField.accessibilityIdentifier = "ContentPackTitleField"
+        
         layout.addArrangedSubview(titleField)
         layout.addSeparator()
         
@@ -74,6 +77,9 @@ class ContentPackSettingsViewController: UIViewController {
         }
         let descriptionView = MultilineTextFieldWithLabel(labelText: "About:", initial: self.fields.packDescription, onUpdate: updateDescriptionField)
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionView.textView.accessibilityLabel = "About this content pack"
+        descriptionView.textView.accessibilityIdentifier = "ContentPackAboutField"
+        
         layout.addArrangedSubview(descriptionView)
         layout.addSeparator()
         
@@ -83,8 +89,10 @@ class ContentPackSettingsViewController: UIViewController {
             self.updateSaveButton()
         }
         let authorField = TextFieldWithLabel(labelText: "Author:", initial: self.fields.author, onUpdate: updateAuthorField)
-        layout.addArrangedSubview(authorField)
+        authorField.textField.accessibilityLabel = "Content Pack Author"
+        authorField.textField.accessibilityIdentifier = "ContentPackAuthorField"
         
+        layout.addArrangedSubview(authorField)
         layout.addSeparator()
         
         // USEFUL FOR DEBUGGING
@@ -95,6 +103,8 @@ class ContentPackSettingsViewController: UIViewController {
         // NavBar
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(save(_:)))
         saveButton.isEnabled = false
+        saveButton.accessibilityLabel = "Save Content Pack Settings"
+        saveButton.accessibilityIdentifier = "ContentPackSaveButton"
         navigationItem.rightBarButtonItem = saveButton
     }
     

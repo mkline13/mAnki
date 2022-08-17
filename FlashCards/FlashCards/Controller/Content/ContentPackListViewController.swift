@@ -15,6 +15,8 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
         flashCardService = dc.flashCardService
         
         tableView = UITableView(frame: .zero, style: .plain)
+        tableView.accessibilityLabel = "Content Packs"
+        tableView.accessibilityIdentifier = "ContentPacksTable"
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -88,7 +90,11 @@ class ContentPackListViewController: UIViewController, UITableViewDelegate, NSFe
         
         // Nav bar
         title = "Content Packs"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addContentPack(_:)))
+        
+        let addContentPackButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addContentPack(_:)))
+        addContentPackButton.accessibilityLabel = "Add Content Pack"
+        
+        navigationItem.rightBarButtonItem = addContentPackButton
 //        navigationItem.prompt = "Pick a pack to edit contents"  // causes some weird layout errors
     }
     

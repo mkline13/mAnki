@@ -60,7 +60,7 @@ class StepperField: UIView {
     }
     
     private var valueLabel: UILabel!
-    private var stepper: UIStepper!
+    var stepper: UIStepper!
     private var updateHandler: UpdateHandler
     
     typealias UpdateHandler = (Int64) -> Void

@@ -62,6 +62,8 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
             self.updateSaveButton()
         }
         let frontContentField = MultilineTextFieldWithLabel(labelText: "Front:", initial: card?.frontContent ?? "", onUpdate: frontContentUpdateHandler)
+        frontContentField.textView.accessibilityLabel = "Text on the front of the card"
+        frontContentField.textView.accessibilityIdentifier = "FrontContentField"
         layout.addArrangedSubview(frontContentField)
         layout.addSeparator()
         
@@ -71,6 +73,9 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
             self.updateSaveButton()
         }
         let backContentField = MultilineTextFieldWithLabel(labelText: "Back:", initial: card?.backContent ?? "", onUpdate: backContentUpdateHandler)
+        backContentField.textView.accessibilityLabel = "Text on the back of the card"
+        backContentField.textView.accessibilityIdentifier = "BackContentField"
+        
         layout.addArrangedSubview(backContentField)
         layout.addSeparator()
         
@@ -99,7 +104,11 @@ class CardEditorViewController: UIViewController, UITextViewDelegate {
         }
         
         // Nav Bar
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveButton(_:)))
+        let saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveButton(_:)))
+        saveButton.accessibilityLabel = "Save Card"
+        saveButton.accessibilityIdentifier = "SaveCardButton"
+        
+        navigationItem.rightBarButtonItem = saveButton
         navigationItem.rightBarButtonItem?.isEnabled = false
         
         let navAppearance = UINavigationBarAppearance()

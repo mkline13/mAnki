@@ -16,6 +16,8 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         srsService = dependencyContainer.srsService
         
         tableView = UITableView(frame: .zero, style: .plain)
+        tableView.accessibilityLabel = "Decks"
+        tableView.accessibilityIdentifier = "DecksTable"
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -46,7 +48,12 @@ class DeckListViewController: UIViewController, UITableViewDelegate, NSFetchedRe
         
         // Nav bar
         title = "Decks"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDeck(_:)))
+        
+        let addDeckButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDeck(_:)))
+        addDeckButton.accessibilityLabel = "Add Deck"
+        addDeckButton.accessibilityIdentifier = "AddDeckButton"
+        
+        navigationItem.rightBarButtonItem = addDeckButton
 //        navigationItem.prompt = "Pick a deck to begin studying"
     }
     

@@ -24,7 +24,7 @@ class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, 
     
     // MARK: - View
     override func loadView() {
-        title = "Select Collections"
+        title = "Select Content Packs"
         
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
@@ -32,6 +32,8 @@ class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, 
         // TableView
         tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.accessibilityIdentifier = "SelectContentPacksTable"
+        tableView.accessibilityLabel = "Select Content Packs"
         
         view.addSubview(tableView)
         view.addConstraints([
@@ -44,6 +46,9 @@ class ContentPackSelectorViewController: UIViewController, UITableViewDelegate, 
         // NavBar
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(save(_:)))
         saveButton.isEnabled = false
+        saveButton.accessibilityIdentifier = "SaveButton"
+        saveButton.accessibilityLabel = "Save Content Pack Selection"
+        
         navigationItem.rightBarButtonItem = saveButton
     }
     

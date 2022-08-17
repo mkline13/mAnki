@@ -64,6 +64,8 @@ class DeckSettingsViewController: UIViewController {
         }
         let titleField = TitleField(labelText: "Title:", placeholder: "Title", initial: self.fields.title, onUpdate: updateTitleField)
         titleField.translatesAutoresizingMaskIntoConstraints = false
+        titleField.textField.accessibilityIdentifier = "DeckTitleField"
+        titleField.textField.accessibilityLabel = "Deck Title"
         layout.addArrangedSubview(titleField, spacing: 24)
         
         
@@ -74,6 +76,8 @@ class DeckSettingsViewController: UIViewController {
         }
         let descriptionView = MultilineTextFieldWithLabel(labelText: "About:", initial: self.fields.deckDescription, onUpdate: updateDescriptionField)
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionView.textView.accessibilityIdentifier = "DeckAboutField"
+        descriptionView.textView.accessibilityLabel = "About this Deck"
         layout.addArrangedSubview(descriptionView)
         layout.addSeparator()
         
@@ -85,6 +89,8 @@ class DeckSettingsViewController: UIViewController {
         }
         let newCardsPerDayView = StepperField(labelText: "New Cards / Day:", initial: self.fields.newCardsPerDay, onUpdate: newCardsPerDayAction)
         newCardsPerDayView.translatesAutoresizingMaskIntoConstraints = false
+        newCardsPerDayView.stepper.accessibilityLabel = "Number of new cards per day"
+        newCardsPerDayView.stepper.accessibilityIdentifier = "NewCardsPerDayStepper"
         layout.addArrangedSubview(newCardsPerDayView)
         
         
@@ -95,6 +101,8 @@ class DeckSettingsViewController: UIViewController {
         }
         let reviewCardsPerDayView = StepperField(labelText: "Review Cards / Day:", initial: self.fields.reviewCardsPerDay, onUpdate: reviewCardsPerDayAction)
         reviewCardsPerDayView.translatesAutoresizingMaskIntoConstraints = false
+        reviewCardsPerDayView.stepper.accessibilityLabel = "Number of review cards per day"
+        reviewCardsPerDayView.stepper.accessibilityIdentifier = "ReviewCardsPerDayStepper"
         layout.addArrangedSubview(reviewCardsPerDayView)
         
         layout.addSeparator()
@@ -112,21 +120,21 @@ class DeckSettingsViewController: UIViewController {
         
         let addButton = UIButton(primaryAction: addButtonAction)
         addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.accessibilityIdentifier = "AddAssociatedContentPacksButton"
+        addButton.accessibilityLabel = "Add Associated Content Packs"
+        
         let addButtonImage = UIImage(systemName: "plus.circle")
         addButton.setImage(addButtonImage, for: .normal)
         
         contentPackListView = CollectionViewer(labelText: "Associated Content Packs:", button: addButton)
         layout.addArrangedSubview(contentPackListView)
         
-        
-        // USEFUL FOR DEBUGGING
-//        for subview in stack.arrangedSubviews {
-//            subview.backgroundColor = .systemPink
-//        }
-        
         // NavBar
         saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(save(_:)))
         saveButton.isEnabled = false
+        saveButton.accessibilityLabel = "Save Deck Settings"
+        saveButton.accessibilityIdentifier = "SaveButton"
+        
         navigationItem.rightBarButtonItem = saveButton
     }
     

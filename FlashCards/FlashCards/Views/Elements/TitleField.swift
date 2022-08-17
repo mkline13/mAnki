@@ -54,7 +54,7 @@ class TitleField: UIView {
     
     // MARK: Properties
     private var label: UILabel
-    private var textField: UITextField
+    var textField: UITextField
     
     private var updateHandler: UpdateHandler
     typealias UpdateHandler = (String) -> Void

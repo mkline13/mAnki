@@ -15,6 +15,8 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
         flashCardService = dc.flashCardService
         
         tableView = UITableView(frame: .zero)
+        tableView.accessibilityLabel = "Cards"
+        tableView.accessibilityIdentifier = "CardsTable"
         
         super.init(nibName: nil, bundle: nil)
         hidesBottomBarWhenPushed = true
@@ -41,7 +43,17 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
         view = UIView(frame: .zero)
         view.backgroundColor = UIColor.systemBackground
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsButton(_:)))
+        // Nav Bar
+        let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsButton(_:)))
+        settingsButton.accessibilityIdentifier = "SettingsButton"
+        
+        if deck != nil {
+            settingsButton.accessibilityLabel = "Deck Settings"
+        }
+        else if contentPack != nil {
+            settingsButton.accessibilityLabel = "Content Pack Settings"
+        }
+        navigationItem.rightBarButtonItem = settingsButton
                 
         if let deck = deck {
             var subtitleText = deck.title.prefix(20)
@@ -67,10 +79,14 @@ class CardBrowserViewController: UIViewController, UITableViewDelegate, NSFetche
         
         let toolbar = UIToolbar(frame: CGRect.infinite)  // CGRect.infinite fixes a weird autoresizing constraint bug
         toolbar.translatesAutoresizingMaskIntoConstraints = false
+        toolbar.accessibilityIdentifier = "CardsToolbar"
         
         if deck == nil {
             let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
             let newCardButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(newCardButton(_:)))
+            newCardButton.accessibilityIdentifier = "NewCardButton"
+            newCardButton.accessibilityLabel = "Create New Card"
+            
             toolbar.items = [flexibleSpace, newCardButton]
         }
         

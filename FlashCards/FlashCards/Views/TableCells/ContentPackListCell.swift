@@ -36,6 +36,8 @@ class ContentPackListCell: UITableViewCell {
     // MARK: View
     func configure(for contentPack: ContentPack) {
         label.text = contentPack.title
+        
+        accessibilityLabel = contentPack.title
     }
     
     // MARK: Properties

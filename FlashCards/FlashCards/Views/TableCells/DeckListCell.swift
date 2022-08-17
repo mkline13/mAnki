@@ -36,6 +36,8 @@ class DeckListCell: UITableViewCell {
     // MARK: View
     func configure(for deck: Deck) {
         label.text = deck.title
+        
+        accessibilityLabel = deck.title
     }
     
     // MARK: Properties
