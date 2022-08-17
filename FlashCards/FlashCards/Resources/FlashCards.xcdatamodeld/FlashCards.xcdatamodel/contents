@@ -9,14 +9,14 @@
         <attribute name="studyStatus" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="contentPack" maxCount="1" deletionRule="Nullify" destinationEntity="ContentPack" inverseName="cards" inverseEntity="ContentPack"/>
         <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Deck" inverseName="cards" inverseEntity="Deck"/>
-        <relationship name="studyRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StudyRecord" inverseName="card" inverseEntity="StudyRecord"/>
+        <relationship name="studyRecords" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="StudyRecord" inverseName="card" inverseEntity="StudyRecord"/>
     </entity>
     <entity name="ContentPack" representedClassName="ContentPack" syncable="YES">
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="packDescription" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="associatedDecks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Deck" inverseName="associatedContentPacks" inverseEntity="Deck"/>
-        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="contentPack" inverseEntity="Card"/>
+        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Card" inverseName="contentPack" inverseEntity="Card"/>
     </entity>
     <entity name="Deck" representedClassName="Deck" syncable="YES">
         <attribute name="dailyNewCardLimit" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
@@ -40,10 +40,10 @@
         <attribute name="variableValue" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Card" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ContentPack" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Deck" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="StudyRecord" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Variable" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Card" positionX="0" positionY="0" width="128" height="164"/>
+        <element name="ContentPack" positionX="0" positionY="0" width="128" height="104"/>
+        <element name="Deck" positionX="0" positionY="0" width="128" height="164"/>
+        <element name="StudyRecord" positionX="0" positionY="0" width="128" height="89"/>
+        <element name="Variable" positionX="0" positionY="0" width="128" height="59"/>
     </elements>
 </model>

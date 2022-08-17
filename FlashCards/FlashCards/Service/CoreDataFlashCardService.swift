@@ -323,6 +323,7 @@ class CoreDataFlashCardService: FlashCardService {
     private func saveViewContext() {
         do {
             try persistentContainer.viewContext.save()
+            
         }
         catch {
             print("Failed to save viewContext, rolling back")
