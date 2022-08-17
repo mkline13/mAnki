@@ -263,12 +263,12 @@ class CoreDataFlashCardService: FlashCardService {
         saveViewContext()
     }
     
-    func incrementNewCardsStudiedRecently(for deck: Deck) {
+    func incrementNewCardsStudiedToday(for deck: Deck) {
         deck.newCardsStudiedToday += 1
         saveViewContext()
     }
     
-    func incrementReviewCardsStudiedRecently(for deck: Deck) {
+    func incrementReviewCardsStudiedToday(for deck: Deck) {
         deck.reviewCardsStudiedToday += 1
         saveViewContext()
     }

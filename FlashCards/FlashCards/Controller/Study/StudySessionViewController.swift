@@ -98,10 +98,10 @@ class StudySessionViewController: UIViewController {
         
         // increment daily study counter
         if previousStatus == .new {
-            flashCardService.incrementNewCardsStudiedRecently(for: deck)
+            flashCardService.incrementNewCardsStudiedToday(for: deck)
         }
         else if previousStatus == .review {
-            flashCardService.incrementReviewCardsStudiedRecently(for: deck)
+            flashCardService.incrementReviewCardsStudiedToday(for: deck)
         }
         
         // update card with new study data
