@@ -5,6 +5,7 @@ SRS flashcard app for iOS inspired by [Anki](https://apps.ankiweb.net)
 
 Created as a final project for CS399 iOS Development at the University of Oregon.
 
+[Watch the UI Tests run](https://youtu.be/c_O-WqymPIk)
 
 ## Instructions
 
