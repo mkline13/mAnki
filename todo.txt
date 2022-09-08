@@ -1,5 +1,0 @@
-REQUIRED:
-
-BUGS:
-- deleting items in tableViews sometimes fails
-- troubleshoot flashCardService.delete tests
