@@ -1,8 +1,7 @@
 # mAnki
 
-SRS flashcard app for iOS inspired by Anki
+SRS flashcard app for iOS inspired by [Anki](https://apps.ankiweb.net)
 
-https://apps.ankiweb.net
 
 Created as a final project for CS399 iOS Development at the University of Oregon.
 
